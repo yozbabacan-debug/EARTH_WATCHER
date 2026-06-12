@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="tr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Earth Watcher</title>
+
+        <!-- Leaflet CSS -->
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        />
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="css/main.css" />
+        <link rel="stylesheet" href="css/sliders.css" />
+    </head>
+    <body>
+        <!-- Harita Alanı -->
+        <div id="map"></div>
+
+        <!-- UI Katmanı (Haritanın üstüne bindirme) -->
+        <div id="ui-layer">
+            <!-- Üst Sol Slider (Katmanlar) -->
+            <div
+                class="slider-arrow arrow-top-left"
+                data-target="slider-top-left"
+            >
+                ▼
+            </div>
+            <div class="slider slider-top-left" id="slider-top-left">
+                <div class="slider-content">
+                    <h3>Katmanlar</h3>
+                    <div class="slider-body"></div>
+                </div>
+            </div>
+
+            <!-- Üst Orta Slider (Geniş) -->
+            <div
+                class="slider-arrow arrow-top-center"
+                data-target="slider-top-center"
+            >
+                ▼
+            </div>
+            <div class="slider slider-top-center" id="slider-top-center">
+                <div class="slider-content">
+                    <h3>Genel Kontroller</h3>
+                    <div class="slider-body"></div>
+                </div>
+            </div>
+
+            <!-- Üst Sağ Slider (İçerik seçici / Doğal Olaylar) -->
+            <div
+                class="slider-arrow arrow-top-right"
+                data-target="slider-top-right"
+            >
+                ▼
+            </div>
+            <div class="slider slider-top-right" id="slider-top-right">
+                <div class="slider-content">
+                    <h3>Ayarlar</h3>
+                    <div class="slider-body"></div>
+                </div>
+            </div>
+
+            <!-- Sol Slider (Katmanlar) -->
+            <div
+                class="slider-arrow arrow-left-top"
+                data-target="slider-left-top"
+            >
+                ▶
+            </div>
+            <div class="slider slider-left-top" id="slider-left-top">
+                <div class="slider-content">
+                    <h3>Katmanlar</h3>
+                    <div class="slider-body"></div>
+                </div>
+            </div>
+
+            <!-- Sağ Slider (Detaylar / Doğal Olaylar) -->
+            <div class="slider-arrow arrow-right" data-target="slider-right">
+                ◀
+            </div>
+            <div class="slider slider-right" id="slider-right">
+                <div class="slider-content">
+                    <h3>Detaylar</h3>
+                    <div class="slider-body"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Olay Ticker'ı -->
+        <div id="event-ticker" class="event-ticker" style="display: none">
+            <div class="ticker-track" id="ticker-track">
+                🌍 Olaylar bekleniyor...
+            </div>
+        </div>
+
+        <!-- Leaflet JS -->
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+        <!-- Leaflet MarkerCluster -->
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
+        />
+        <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+        <!-- TopoJSON Client (ülke sınır verileri için) -->
+        <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+
+        <!-- Satellite.js (TLE propagasyonu için) -->
+        <script src="https://cdn.jsdelivr.net/npm/satellite.js@4.1.4/dist/satellite.min.js"></script>
+
+        <!-- Custom JS (sıralama önemli: önce bağımlılıklar, sonra main) -->
+        <script src="icons/icons.js"></script>
+        <script src="js/data-manager.js"></script>
+        <script src="js/data/countries.js"></script>
+        <script src="js/ui/sliders.js"></script>
+        <script src="js/layers/temel.js"></script>
+        <script src="js/layers/cografi.js"></script>
+        <script src="js/layers/dogal-olaylar.js"></script>
+        <script src="js/layers/doga-disi-olaylar.js"></script>
+        <script src="js/layers/siyasi-olaylar.js"></script>
+        <script src="js/layers/uydular.js"></script>
+        <script src="js/layers/ucus.js"></script>
+        <script src="js/layers/gemi.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

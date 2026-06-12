@@ -1,0 +1,22 @@
+# Node.js
+node_modules/
+npm-debug.log*
+package-lock.json
+
+# Python
+__pycache__/
+*.pyc
+flight_server.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Proje dosyaları
+*.rtf
+*.txt
+flight_server.py
+flight_server.js
+flight_server.log
+requirements.txt
+package.json

@@ -1,0 +1,266 @@
+:root {
+    --slider-bg: rgba(15, 23, 42, 0.75);
+    --accent-color: #22c55e;
+    --text-color: #f8fafc;
+    --blur-amount: 20px;
+    --transition-speed: 0.35s;
+}
+
+/* --- UI Katmanı (Harita üstü bindirme) --- */
+#ui-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    pointer-events: none;
+    background: transparent !important;
+}
+
+/* --- Ok İşaretleri (Her zaman görünür) --- */
+.slider-arrow {
+    position: absolute;
+    pointer-events: auto;
+    z-index: 1100;
+    cursor: pointer;
+    background: linear-gradient(135deg, #22c55e, #059669);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all var(--transition-speed);
+    user-select: none;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+.slider-arrow:hover {
+    background: linear-gradient(135deg, #16a34a, #047857);
+    transform: scale(1.1);
+}
+
+/* --- Slider Panelleri (Başlangıçta gizli) --- */
+.slider {
+    position: absolute;
+    pointer-events: auto;
+    z-index: 1050;
+    background: var(--slider-bg);
+    backdrop-filter: blur(var(--blur-amount));
+    -webkit-backdrop-filter: blur(var(--blur-amount));
+    color: var(--text-color);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    transition: all var(--transition-speed) ease-in-out;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+}
+
+.slider-content {
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.slider-content h3 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+    border-bottom: 1px solid rgba(34, 197, 94, 0.3);
+    padding-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* =================================================
+   KONUMLANDIRMALAR
+   ================================================= */
+
+/* --- 1. SAĞ SLIDER (Katman Yönetimi) --- */
+/* Ok: ekranın sağ kenarında */
+.arrow-right {
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 60px;
+    border-radius: 6px 0 0 6px;
+}
+.arrow-right:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+/* Panel: ekranın sağında gizli */
+.slider-right {
+    top: 60px;
+    right: -320px;
+    width: 300px;
+    height: calc(100vh - 70px);
+    border-radius: 10px 0 0 10px;
+}
+.slider-right.active {
+    right: 0;
+}
+
+/* --- 2. SOL SLIDER (Multi-Layer) --- */
+/* Ok: ekranın sol kenarında */
+.arrow-left-top {
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 60px;
+    border-radius: 0 6px 6px 0;
+}
+.arrow-left-top:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+/* Panel: ekranın solunda gizli */
+.slider-left-top {
+    top: 60px;
+    left: -320px;
+    width: 300px;
+    height: calc(100vh - 70px);
+    border-radius: 0 10px 10px 0;
+}
+.slider-left-top.active {
+    left: 0;
+}
+
+/* --- 3. ÜST SOL SLIDER (Dar) --- */
+/* Ok: üst kenarda, sol tarafta */
+.arrow-top-left {
+    top: 0;
+    left: 80px;
+    width: 220px;
+    height: 28px;
+    border-radius: 0 0 6px 6px;
+}
+/* Panel: üstte gizli */
+.slider-top-left {
+    top: -420px;
+    left: 80px;
+    width: 220px;
+    height: 420px;
+    border-radius: 0 0 10px 10px;
+}
+.slider-top-left.active {
+    top: 28px;
+}
+
+/* --- 4. ÜST ORTA SLIDER (Geniş) --- */
+/* Ok: üst kenarda, ortada */
+.arrow-top-center {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    max-width: 70vw;
+    height: 28px;
+    border-radius: 0 0 6px 6px;
+}
+.arrow-top-center:hover {
+    transform: translateX(-50%) scale(1.05);
+}
+/* Panel: üstte gizli */
+.slider-top-center {
+    top: -400px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    max-width: 70vw;
+    height: 380px;
+    border-radius: 0 0 10px 10px;
+}
+.slider-top-center.active {
+    top: 28px;
+}
+
+/* --- 5. ÜST SAĞ SLIDER (İçerik seçici) --- */
+/* Ok: üst kenarda, sağ tarafta */
+.arrow-top-right {
+    top: 0;
+    right: 80px;
+    width: 240px;
+    height: 28px;
+    border-radius: 0 0 6px 6px;
+}
+/* Panel: üstte gizli */
+.slider-top-right {
+    top: -500px;
+    right: 80px;
+    width: 240px;
+    height: 500px;
+    border-radius: 0 0 10px 10px;
+}
+.slider-top-right.active {
+    top: 28px;
+}
+
+/* =================================================
+   KATMAN LİSTESİ (Sol Üst Slider)
+   ================================================= */
+
+.layer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.layer-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+    user-select: none;
+}
+
+.layer-item:hover {
+    background: rgba(34, 197, 94, 0.15);
+}
+
+.layer-checkbox {
+    width: 16px;
+    height: 16px;
+    accent-color: #22c55e;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.layer-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.layer-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.layer-name {
+    font-size: 0.85rem;
+    color: var(--text-color);
+    line-height: 1.2;
+}
+
+/* =================================================
+   RESPONSIVE
+   ================================================= */
+@media (max-width: 1200px) {
+    .arrow-top-left,
+    .slider-top-left,
+    .arrow-top-right,
+    .slider-top-right {
+        display: none;
+    }
+    .arrow-top-center {
+        width: 80%;
+    }
+    .slider-top-center {
+        width: 80%;
+    }
+}

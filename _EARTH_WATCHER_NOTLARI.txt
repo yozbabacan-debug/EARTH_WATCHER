@@ -1,0 +1,221 @@
+Earth watcher kodlama planlaması 
+
+Kod yazılmadan önce alt yapı sağlanmalı. Uygulamada kullanılacak tüm ikonlar fontlar vb kaynaklar ayrı dosyalarda oluşturulmalıdır. 
+
+Örnek İkonlar. Bir dosyada ikon ismi ve ikon şeklinde hazilarlanmalidir. Eksik olanlar daha sonra tamamlanır. 
+
+Her katmanda sag, sol ve üstten üç tane olmak üzere beş slider kullanilicak. Sliderlar solid background olacak ve üstten aşağıya inmesi için ekranda beş tane ok gibi işaret olacak. Planlamada sliderlar detayli tanimlanacak. 
+
+Kodun katmanlari.
+
+Koda aşağıdaki katmanlar olacak. Her katman ayrı bir kod olacak. 
+
+1- Temel
+2- cografi
+2.a Street view
+3- Dogal olaylar
+4- doğa dışı olaylar 
+5- siyasi olaylar 
+6- uydular
+7- uçuş bilgileri
+8- gemi bilgileri
+
+For Layer Control (checkbox labels): You can use the SVGs directly in the overlayMaps object names or create a custom layer control with icons.
+Would you like me to:
+•  Generate more icons (e.g., Earthquake, Flood, Wildfire, Protest, etc.)?
+•  Provide a full set as a single JavaScript object you can import?
+•  Show how to create colored category icons for Leaflet?
+•  Make them with different styles (filled vs outline, dark mode friendly)?
+Just tell me which categories you need most for Phase 1, and I’ll prepare them exactly as you want.
+
+2. İkonlar (icons/icons.js)
+Tüm ikonlar tek bir dosyada, obje olarak hazırlanacak:
+
+// icons/icons.js
+export const Icons = {
+  globe: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="10"/>
+    <path d="M2 12h20"/>
+    <path d="M12 2a15 15 0 0 1 0 20"/>
+  </svg>`,
+
+  natural: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
+    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+  </svg>`,
+
+  political: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+    <path d="M14.5 2L3 13.5 7 18l11.5-11.5L14.5 2z"/>
+  </svg>`,
+
+  election: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+    <rect x="4" y="6" width="16" height="14" rx="2"/>
+    <path d="M8 10h8"/>
+    <path d="M8 14h6"/>
+  </svg>`,
+
+  satellite: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2">
+    <path d="M12 2L2 12h20L12 2z"/>
+    <circle cx="12" cy="12" r="3"/>
+  </svg>`,
+
+  flight: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2">
+    <path d="M17 19l-4-7-7-2 2-4 7 2 4 7z"/>
+  </svg>`,
+
+  ship: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2">
+    <path d="M2 21h20"/>
+    <path d="M3 18h18"/>
+    <path d="M8 3v15"/>
+    <path d="M12 3v15"/>
+    <path d="M16 3v15"/>
+  </svg>`,
+
+  // Daha sonra eklenecekler: earthquake, flood, protest, weather vb.
+};
+
+Yeni Slider Yerleşim Planı (Her Katmanda)
+Toplam 5 Slider olacak:
+•  Sağ Taraf: 1 slider → Katmanlar için (Layers control - aktif katmanları yönetme, görünürlük, yoğunluk vb.)
+•  Sol Taraf (Üst): 1 slider → Multi Layer için (Birden fazla katmanı aynı anda kontrol etme, karşılaştırma, birleştirme)
+•  Üst Taraf: 3 slider
+	•  Ortada Geniş Slider → Çeşitli amaçlar için (Zaman aralığı, Genel Filtre, Yoğunluk, Opaklık vb.)
+	•  Üst Sol → Multi layer ile ilişkili veya ekstra filtre
+	•  Üst Sağ → Katmanlarla ilişkili veya spesifik ayar
+
+Güncellenmiş UI Layout Taslağı
+
+                  [Üst Sol Slider]     [Orta Geniş Slider]     [Üst Sağ Slider]
+                               ▲                     ▲                     ▲
+                               │                     │                     │
+   [Sol Üst Multi-Layer Slider]                               [Sağ Katman Slider]
+                               │
+
+•  Tüm sliderlar solid background + blur efekti olacak.
+•  Her sliderın üstünde aşağı bakan ok (▼) işareti bulunacak.
+•  Sliderlar katman değiştiğinde içeriği dinamik olarak güncellenebilecek (farklı katmanlarda farklı işlevler).
+
+Yeni Veri ve Mimari Yaklaşım
+Temel Fikir:
+•  Tüm olaylar tarih ve saat sırasına göre bir veritabanına (DB) kaydedilecek.
+•  Şu anda Phase 1’de basit tutacağız.
+•  1 ay sonra ekranın altına Timeline eklenecek.
+
+Güncellenmiş Mimari Plan
+Phase 1 (Şimdi – Statik / Basit)
+•  Veriler data/events.json dosyasında tutulacak (kolay düzenlenebilir).
+•  Olaylar tarih-saat sırasına göre sıralı olacak.
+•  Timeline henüz yok.
+•  GitHub Pages ile çalışacak.
+Phase 2 (1 Ay Sonra)
+•  Veritabanı entegrasyonu
+•  Ekranın altına Timeline çubuğu
+•  Olaylar DB’den dinamik olarak çekilecek
+
+Önerilen Dosya Yapısı (Senin Yeni Düşüncene Göre)
+
+earth-watcher/
+├── index.html
+├── css/
+│   ├── main.css
+│   └── sliders.css
+├── js/
+│   ├── main.js
+│   ├── ui/
+│   │   └── sliders.js
+│   ├── layers/               ← Her katman ayrı dosya
+│   │   ├── temel.js
+│   │   ├── cografi.js
+│   │   ├── dogal-olaylar.js
+│   │   ├── doga-disi-olaylar.js
+│   │   ├── siyasi-olaylar.js
+│   │   ├── uydular.js
+│   │   ├── ucus.js
+│   │   └── gemi.js
+│   └── data-manager.js       ← Yeni: Veri yükleme ve zaman yönetimi
+├── icons/
+│   └── icons.js
+├── data/
+│   └── events.json           ← Tüm olaylar burada (tarih-saat sıralı)
+├── db/                       ← İleride kullanılacak (Phase 2)
+│   └── schema.sql            ← Veritabanı şeması
+└── timeline/                 ← 1 ay sonra eklenecek
+
+data/events.json Örnek Yapısı (Tüm Olaylar İçin)
+
+{
+  "events": [
+    {
+      "id": 1,
+      "timestamp": "2026-05-31T14:30:00Z",
+      "category": "dogal-olaylar",
+      "subcategory": "deprem",
+      "title": "7.2 Mw Deprem - Japonya",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "severity": "high",
+      "description": "...",
+      "source": "USGS"
+    },
+    {
+      "id": 2,
+      "timestamp": "2026-05-31T15:45:00Z",
+      "category": "siyasi-olaylar",
+      "subcategory": "secim",
+      "title": "Türkiye Yerel Seçim Sonuçları",
+      "lat": 39.9334,
+      "lng": 32.8597,
+      "severity": "medium"
+    }
+    // ... tüm olaylar tarih sırasıyla
+  ]
+}
+
+Phase 2 İçin Veritabanı Önerileri (Kolay ve Ücretsiz)
+1.  Supabase (En çok öneririm) — PostgreSQL + ücretsiz katman, çok kolay.
+2.  Firebase (Firestore) — Gerçek zamanlı güncelleme çok iyi.
+3.  SQLite (Eğer Node.js backend eklersen).
+
+Şimdi Ne Yapalım?
+Slider yerleşimi ve katman yapısını önceki mesajdaki gibi tutuyorum.
+Hazırsan Phase 1 için şu dosyaları hazırlayayım:
+•  index.html (5 slider + harita)
+•  css/sliders.css
+•  js/ui/sliders.js
+•  icons/icons.js
+•  js/data-manager.js
+•  data/events.json (örnek birkaç olay)
+Cevabın:
+“Phase 1 kodlarını hazırla” yazarsan hemen tüm dosyaları tek tek vereyim, kopyala-yapıştır yaparsın.
+Bu yeni yapı ve timeline planı sana uyuyor mu? Başka bir değişiklik var mı?
+
+GitHub Pages ile Earth Watcher’ı Çalıştırma (En Kolay Yöntem)
+Avantajları:
+•  Ücretsiz
+•  Statik dosyalar yeterli (HTML, CSS, JS)
+•  Hiç sunucu kurmana gerek yok
+•  Direkt tarayıcıdan çalışır
+
+Adım Adım Yapılacaklar
+1.  Yeni Repository Oluştur
+	•  GitHub’a gir → New repository
+	•  Repository name: earth-watcher (veya istediğin isim)
+	•  Public yap
+	•  “Add a README file” işaretle
+	•  Create repository
+2.  GitHub Pages’i Aktif Et
+	•  Repo sayfanda → Settings (Ayarlar)
+	•  Sol menüden Pages’e tıkla
+	•  Source bölümünde:
+		•  Deploy from a branch seç
+		•  Branch olarak main seç
+		•  Folder olarak /(root) seç
+	•  Save butonuna bas
+3.  Dosyaları Yükle
+	•  Repo’na şu klasör ve dosyaları yükleyeceksin (daha sonra Phase 1 kodlarını verdiğimde):
+		•  index.html
+		•  css/ klasörü
+		•  js/ klasörü
+		•  icons/ klasörü
+		•  data/ klasörü
+4.  Site Linkin
+	•  Aktif olduktan sonra siten şu adreste olacak:

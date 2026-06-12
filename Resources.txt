@@ -1,0 +1,656 @@
+Perfect! Here's a **completely free** tech stack for your Earth watcher app:
+
+---
+
+## **Free Satellite Imagery Data Sources**
+
+- **Sentinel Hub (Free Tier)**
+  - Access to Sentinel-1, Sentinel-2, Landsat imagery
+  - [Sentinel Hub](https://www.sentinel-hub.com/)
+
+- **NASA Earthdata (Completely Free)**
+  - MODIS, Landsat, VIIRS - all free public data
+  - [NASA Earthdata](https://earthdata.nasa.gov/)
+
+- **USGS Earth Explorer (Free)**
+  - Landsat and other USGS datasets
+  - [USGS Earth Explorer](https://earthexplorer.usgs.gov/)
+
+- **Google Earth Engine (Free for Research/Education)**
+  - Planetary-scale data analysis
+  - [Google Earth Engine](https://earthengine.google.com/)
+
+---
+
+## **Free Backend & Processing**
+
+- **Python (Free & Open Source)**
+  - **Rasterio**: Read/process geospatial data
+  - **GDAL**: Geospatial data processing
+  - **Satpy**: Satellite data processing
+  - **GeoPandas**: Vector data manipulation
+  - **scikit-image, OpenCV**: Image processing
+  - **NumPy, SciPy**: Scientific computing
+
+- **Free Workflow Automation**
+  - **Apache Airflow**: Data pipeline orchestration
+  - **Cron jobs**: Simple scheduling (Linux/Mac)
+
+- **Free Web Frameworks**
+  - **Flask/FastAPI**: Lightweight Python web server
+  - **Django**: Full-featured Python framework
+
+- **Free Databases**
+  - **PostGIS**: Free geospatial database (PostgreSQL extension)
+  - **SQLite**: Lightweight file-based database
+
+---
+
+## **Free Frontend Visualization**
+
+- **Leaflet** (Open Source, MIT License)
+  - Lightweight 2D interactive maps
+  - [Leaflet](https://leafletjs.com/)
+
+- **OpenLayers** (Open Source)
+  - Advanced 2D mapping
+  - [OpenLayers](https://openlayers.org/)
+
+- **CesiumJS** (Apache 2.0 License - Free)
+  - 3D globe visualization
+  - [CesiumJS](https://cesium.com/platform/cesiumjs/)
+
+- **React** (Free & Open Source)
+  - Component library for interactive UIs
+  - Pair with `react-leaflet` or `deck.gl`
+
+- **Deck.gl** (Free & Open Source by Uber)
+  - High-performance geospatial visualization
+  - [Deck.gl](https://deck.gl/)
+
+---
+
+## **Free Cloud Hosting Options**
+
+- **AWS Free Tier**
+  - S3 for data storage, EC2 for compute (limited)
+  - [AWS Free Tier](https://aws.amazon.com/free/)
+
+- **Google Cloud Free Tier**
+  - Cloud Storage, Compute Engine (limited)
+  - [Google Cloud Free Tier](https://cloud.google.com/free)
+
+- **Heroku Eco Dynos** (Limited free tier)
+  - Simple app deployment
+
+- **Render** or **Railway** (Free tier with limits)
+  - Deploy Flask/FastAPI apps for free
+
+- **GitHub Pages** (Completely Free)
+  - Host static frontend
+
+---
+
+## **Recommended Free Stack**
+
+| Component        | Tool                              |
+|------------------|-----------------------------------|
+| Data Source      | Sentinel Hub (Free) + NASA        |
+| Backend          | Python + Flask/FastAPI            |
+| Processing       | Rasterio, GDAL, Satpy            |
+| Database         | PostGIS + PostgreSQL              |
+| Visualization    | React + Leaflet or CesiumJS       |
+| Scheduling       | Apache Airflow or Cron            |
+| Hosting          | AWS Free Tier / Railway / Render  |
+| Version Control  | GitHub (Free)                     |
+
+---
+
+## **Quick Start Path**
+
+1. **Get satellite data**: Use Sentinel Hub API or download from USGS
+2. **Process images**: Python script with Rasterio/Satpy
+3. **Store data**: PostGIS database on free cloud instance
+4. **Build API**: Flask or FastAPI
+5. **Frontend**: React + Leaflet
+6. **Deploy**: GitHub Pages (frontend) + free cloud (backend)
+
+---
+
+**Would you like me to:**
+- Help you set up a GitHub repository with starter code?
+- Guide you through setting up a specific tool (e.g., Sentinel Hub API access)?
+- Create a sample Python script for downloading/processing satellite imagery?
+
+Got it! You want an Earth watcher app that monitors natural disasters, flight traffic, ship traffic, and social events. Here are the free resources and APIs for each:
+
+1. Natural Disaster Resources (FREE)
+Earthquake Data
+* USGS Earthquake Hazards Program
+    * Real-time earthquake data via API
+    * USGS Earthquakes
+    * API: https://earthquake.usgs.gov/fdsnws/event/1/query
+* OpenStreetMap (OSM) - Community disaster reports
+    * OpenStreetMap
+Flood & Weather
+* NOAA (National Oceanic and Atmospheric Administration)
+    * Weather alerts, flood forecasts, hurricanes
+    * NOAA APIs
+* Open-Meteo (Free Weather API)
+    * Open-Meteo
+Wildfires & Forest Fires
+* NASA FIRMS (Fire Information and Management System)
+    * Real-time fire detection
+    * NASA FIRMS
+* MODIS/Landsat imagery (via Sentinel Hub or Google Earth Engine)
+Volcano Data
+* USGS Volcano Disaster Assistance Program
+    * USGS Volcanoes
+
+2. Flight Traffic (FREE)
+Real-Time Flight Data
+* OpenSky Network (Free API for non-commercial use)
+    * Real-time ADS-B flight data
+    * OpenSky Network
+    * API: https://opensky-api.org/api/
+* ADS-B Exchange (Community-driven, Free)
+    * Real-time aircraft positions
+    * ADS-B Exchange
+* FlightRadar24 API (Limited free tier)
+    * Requires registration but has free access
+    * FlightRadar24
+Setup Tools
+* Dump1090: Receive and decode ADS-B signals locally
+* Virtual Radar Server: Display aircraft on a map
+
+3. Ship Traffic (FREE)
+Maritime Data
+* MarineTraffic API (Free tier available)
+    * Real-time vessel positions, AIS data
+    * MarineTraffic
+* AIS Hub (Community AIS data - Free)
+    * AIS Hub
+* OpenSeaMap
+    * Community-driven maritime data
+    * OpenSeaMap
+* Vessel Finder (Free API available)
+    * Vessel Finder
+
+4. Social Events (FREE)
+Event Data Sources
+* Eventbrite API (Free tier)
+    * Search for public events
+    * Eventbrite
+* OpenWeather Events
+    * Integrates weather with events
+    * OpenWeather
+* Twitter/X API (Free tier - Academic/Standard)
+    * Real-time event mentions, disaster reports
+    * Twitter API
+* Meetup API (Free tier available)
+    * Local event data
+    * Meetup API
+* Google Maps API (Free tier)
+    * Event locations and places
+    * Google Maps API
+* Reddit API (Free, via PRAW library)
+    * Real-time event discussions
+    * Reddit API
+
+Recommended Free Stack for Your Multi-Source App
+Component	Tools
+Natural Disasters	USGS, NOAA, NASA FIRMS, Google EE
+Flight Traffic	OpenSky Network, ADS-B Exchange
+Ship Traffic	MarineTraffic (free tier), AIS Hub
+Social Events	Twitter API, Eventbrite, Meetup
+Mapping	Leaflet + OpenStreetMap
+3D Visualization	CesiumJS
+Backend	Python + FastAPI
+Database	PostGIS + PostgreSQL
+Real-time Updates	WebSockets or Server-Sent Events
+Frontend	React + react-leaflet
+Sample Architecture Flow
+
+Code
+
+1. Data Ingestion (Python + APScheduler):
+   - Fetch earthquake data from USGS API
+   - Pull flight data from OpenSky Network
+   - Get ship positions from MarineTraffic
+   - Monitor social media for event mentions
+
+2. Data Processing:
+   - Normalize data formats
+   - Geolocate events
+   - Filter by severity/relevance
+
+3. Storage:
+   - PostgreSQL + PostGIS for geospatial data
+   - Time-series storage for historical data
+
+4. Real-time API:
+   - FastAPI backend with WebSockets
+   - Serve data to frontend
+
+5. Frontend:
+   - React + Leaflet map
+   - Real-time markers for incidents/events
+   - Side panel with event details
+
+Quick Integration Example
+Would you like me to:
+1. Create a GitHub repository with starter code?
+2. Show code samples for integrating specific APIs (e.g., USGS, OpenSky)?
+3. Help set up a data pipeline to fetch and process this data?
+4. Create the frontend map component with all these layers?
+
+Political Events & Geopolitical Data (FREE)
+News & Media Aggregation
+* NewsAPI (Free tier available)
+    * Aggregate news from thousands of sources
+    * Filter by keywords: "election", "coup", "devaluation"
+    * NewsAPI
+* Guardian API (Free)
+    * Access to The Guardian's news archive
+    * Filter by section: politics, world, business
+    * Guardian API
+* New York Times API (Free tier)
+    * Search articles by topic
+    * NYT API
+* MediaStack API (Free tier)
+    * Real-time news data from 50+ countries
+    * MediaStack
+Election Data
+* Democracy Earth Foundation
+    * Global election information and datasets
+    * Democracy Earth
+* International IDEA (International Institute for Democracy and Electoral Assistance)
+    * Election calendars, results, resources
+    * International IDEA
+* Ballotpedia (Free data on US elections)
+    * Election results, candidate info
+    * Ballotpedia
+* Wikipedia Elections Data (Scrape-able)
+    * Current and historical election data
+Coups & Political Unrest
+* Armed Conflict Location & Event Data Project (ACLED)
+    * Real-time data on riots, protests, coups, violence
+    * Free access to historical data
+    * ACLED
+* Uppsala Conflict Data Program (UCDP)
+    * Armed conflict and state failure data
+    * UCDP
+Economic Data & Devaluations
+* World Bank API (Free)
+    * Economic indicators, currency data
+    * World Bank API
+* IMF Data Portal (Free)
+    * International Monetary Fund economic data
+    * Exchange rates, inflation, GDP
+    * IMF Data
+* FRED (Federal Reserve Economic Data - Free)
+    * US economic data, historical rates
+    * FRED API
+* Fixer.io (Free tier - Currency Exchange Rates)
+    * Real-time exchange rates
+    * Fixer.io
+* Open Exchange Rates (Free tier)
+    * Currency conversion and devaluation tracking
+    * Open Exchange Rates
+Protests & Social Unrest
+* Twitter/X API (Free tier)
+    * Real-time mentions of protests, political movements
+    * Track hashtags: #protest, #election, #coup
+* Reddit API (Free via PRAW)
+    * Monitor r/worldnews, r/politics, country-specific subreddits
+    * Detect trending political discussions
+* Google Trends API (Unofficial but free)
+    * Track search interest in political events
+    * Google Trends
+Government & Official Sources
+* UN Data (Free)
+    * UN resolutions, voting records
+    * UN Data
+* OSCE (Organization for Security and Co-operation in Europe)
+    * Election monitoring reports
+    * OSCE
+Sanctions & International Relations
+* OFAC Sanctions List (US Treasury - Free)
+    * Official sanctions and restricted parties
+    * OFAC
+* EU Sanctions Database (Free)
+    * European Union sanctions list
+    * EU Sanctions
+
+Updated Free Stack for COMPLETE Earth Watcher
+Component	Tools
+Natural Disasters	USGS, NOAA, NASA FIRMS, Google EE
+Flight Traffic	OpenSky Network, ADS-B Exchange
+Ship Traffic	MarineTraffic, AIS Hub
+Social Events	Twitter API, Eventbrite, Meetup, Reddit
+Political Events	NewsAPI, Guardian API, ACLED, IMF Data
+Elections	International IDEA, Ballotpedia
+Economic Data	World Bank, IMF, FRED, Fixer.io
+Protests/Unrest	Twitter, Reddit, ACLED, Google Trends
+Mapping	Leaflet + OpenStreetMap
+3D Visualization	CesiumJS
+Backend	Python + FastAPI + APScheduler
+Database	PostgreSQL + PostGIS
+Real-time Updates	WebSockets (Socket.io)
+Frontend	React + react-leaflet
+Data Pipeline Example
+
+Python
+
+# Pseudo-code flow
+import requests
+from datetime import datetime
+
+def fetch_political_events():
+    data = {
+        "elections": fetch_election_data(),
+        "coups": fetch_acled_coups(),
+        "protests": fetch_acled_protests(),
+        "news": fetch_news_by_keywords([
+            "coup", "election", "devaluation", 
+            "political crisis", "sanctions"
+        ]),
+        "economic": fetch_exchange_rates(),
+        "social": fetch_twitter_mentions(
+            keywords=["election", "coup", "protest"]
+        )
+    }
+    return data
+
+# Store in PostGIS with geolocation
+# Trigger alerts based on event severity
+# Update real-time dashboard via WebSockets
+
+Event Classification Taxonomy
+For your app, you could categorize political events:
+
+Code
+
+POLITICAL EVENTS
+├── Elections
+│   ├── Presidential
+│   ├── Parliamentary
+│   ├── Local
+│   └── Referendums
+├── Coups & Power Changes
+│   ├── Coup d'état
+│   ├── Constitutional Crisis
+│   └── Leadership Change
+├── Protests & Unrest
+│   ├── Demonstrations
+│   ├── Civil Unrest
+│   └── Riots
+├── Economic Events
+│   ├── Currency Devaluation
+│   ├── Inflation Spike
+│   ├── Recession/Crisis
+│   └── Sanctions
+├── International Relations
+│   ├── Sanctions Imposed
+│   ├── Trade Wars
+│   └── Diplomatic Crisis
+└── Legislative Changes
+    ├── Law Passed
+    ├── Constitutional Amendment
+    └── Policy Change
+
+For the first layer I want to toogle black map area to relevant country map with mouse movement which resource available for this
+
+Great question! Here are the free resources available for toggling between black map and country-specific maps with mouse movement:
+
+Map Tile Providers (FREE)
+Dark/Black Map Backgrounds
+* CartoDB Positron (Dark)
+    * Clean, dark, minimal style
+    * URL: https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png
+* CartoDB Voyager
+    * Detailed dark map with terrain
+    * URL: https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png
+* Stamen TonerLite (Dark)
+    * Minimalist dark map
+    * URL: https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}.png
+* Mapnik (OpenStreetMap Dark)
+    * Standard OSM dark rendering
+Country-Specific Map Resources
+* OpenStreetMap (OSM) - Community-sourced global data
+    * OpenStreetMap
+* Natural Earth Data (Free GeoJSON files)
+    * Country boundaries, administrative divisions
+    * Natural Earth
+* GeoJSON Country Borders
+    * Pre-made GeoJSON files for all countries
+    * Country Boundaries GeoJSON
+
+Implementation with Leaflet (FREE)
+Here's how to create a toggle between black map and country-focused map with mouse movement:
+Option 1: Layer Toggle with Leaflet
+
+JavaScript
+
+// Include Leaflet
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+// Create map with dark background
+const map = L.map('map').setView([20, 0], 2);
+
+// Layer 1: Black/Dark base map
+const darkLayer = L.tileLayer(
+  'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+  { attribution: '©OpenStreetMap', maxZoom: 19 }
+).addTo(map);
+
+// Layer 2: Load country GeoJSON
+let countriesLayer;
+fetch('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')
+  .then(res => res.json())
+  .then(data => {
+    countriesLayer = L.geoJSON(data, {
+      style: {
+        color: '#fff',
+        weight: 2,
+        opacity: 0.8,
+        fillColor: '#888',
+        fillOpacity: 0.3
+      }
+    }).addTo(map);
+  });
+
+// Mouse movement detection
+map.on('mousemove', function(e) {
+  const lat = e.latlng.lat;
+  const lng = e.latlng.lng;
+  
+  // Get country at mouse position
+  getCountryAtLocation(lat, lng);
+});
+
+function getCountryAtLocation(lat, lng) {
+  // Highlight country under cursor
+  if (countriesLayer) {
+    countriesLayer.eachLayer(layer => {
+      if (layer.feature.geometry.type === 'Polygon' || 
+          layer.feature.geometry.type === 'MultiPolygon') {
+        const isInside = pointInPolygon([lng, lat], layer.feature.geometry);
+        if (isInside) {
+          layer.setStyle({ fillOpacity: 0.8, weight: 3 });
+        } else {
+          layer.setStyle({ fillOpacity: 0.3, weight: 2 });
+        }
+      }
+    });
+  }
+}
+
+// Helper function to check if point is inside polygon
+function pointInPolygon(point, polygon) {
+  // Use turf.js library for this (see below)
+}
+
+Better Solution: Use Turf.js (Geospatial Library)
+For easier point-in-polygon detection:
+
+JavaScript
+
+// Add Turf.js library
+<script src='https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js'></script>
+
+map.on('mousemove', function(e) {
+  const point = turf.point([e.latlng.lng, e.latlng.lat]);
+  
+  countriesLayer.eachLayer(layer => {
+    const isInside = turf.booleanPointInPolygon(point, layer.feature);
+    if (isInside) {
+      layer.setStyle({ 
+        fillOpacity: 0.8, 
+        weight: 3,
+        color: '#FFD700' // Gold border
+      });
+    } else {
+      layer.setStyle({ 
+        fillOpacity: 0.3, 
+        weight: 2,
+        color: '#fff'
+      });
+    }
+  });
+});
+
+Option 2: Zoom into Country on Hover
+
+JavaScript
+
+map.on('mousemove', function(e) {
+  const point = turf.point([e.latlng.lng, e.latlng.lat]);
+  
+  countriesLayer.eachLayer(layer => {
+    const isInside = turf.booleanPointInPolygon(point, layer.feature);
+    if (isInside) {
+      // Zoom to country bounds
+      map.fitBounds(L.geoJSON(layer.feature).getBounds());
+      
+      // Show country name
+      document.getElementById('info').textContent = 
+        layer.feature.properties.name;
+    }
+  });
+});
+
+Option 3: Switch Layers Based on Zoom
+
+JavaScript
+
+// Show only country outlines when zoomed out
+countriesLayer.setStyle(country => {
+  if (map.getZoom() < 4) {
+    return {
+      opacity: 0.5,
+      fillOpacity: 0.1
+    };
+  } else {
+    return {
+      opacity: 0.9,
+      fillOpacity: 0.4
+    };
+  }
+});
+
+map.on('zoomend', function() {
+  countriesLayer.setStyle(updateLayerStyle);
+});
+
+Complete Example with Toggle Button
+
+HTML
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    #map { height: 100vh; }
+    #info { position: absolute; top: 10px; left: 10px; 
+            background: rgba(0,0,0,0.7); color: #fff; 
+            padding: 10px; border-radius: 5px; z-index: 999; }
+    #toggle { position: absolute; top: 50px; left: 10px; 
+              z-index: 999; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="info">Hover over map</div>
+  <button id="toggle">Toggle Map Style</button>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src='https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js'></script>
+  
+  <script>
+    const map = L.map('map').setView([20, 0], 2);
+    
+    let darkLayer = L.tileLayer(
+      'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+      { attribution: '©OpenStreetMap', maxZoom: 19 }
+    ).addTo(map);
+
+    let satelliteLayer = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      { attribution: '©Esri', maxZoom: 19 }
+    );
+
+    // Load countries
+    let countriesLayer;
+    fetch('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')
+      .then(res => res.json())
+      .then(data => {
+        countriesLayer = L.geoJSON(data, {
+          style: {
+            color: '#fff',
+            weight: 1,
+            opacity: 0.6,
+            fillOpacity: 0.2
+          }
+        }).addTo(map);
+      });
+
+    // Mouse movement
+    map.on('mousemove', function(e) {
+      const point = turf.point([e.latlng.lng, e.latlng.lat]);
+      
+      if (countriesLayer) {
+        countriesLayer.eachLayer(layer => {
+          const isInside = turf.booleanPointInPolygon(point, layer.feature);
+          if (isInside) {
+            layer.setStyle({ fillOpacity: 0.6, weight: 2, color: '#FFD700' });
+            document.getElementById('info').textContent = 
+              layer.feature.properties.name || 'Country';
+          } else {
+            layer.setStyle({ fillOpacity: 0.2, weight: 1, color: '#fff' });
+          }
+        });
+      }
+    });
+
+    // Toggle map style
+    document.getElementById('toggle').addEventListener('click', () => {
+      map.removeLayer(darkLayer);
+      darkLayer = L.tileLayer(
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+      ).addTo(map);
+    });
+  </script>
+</body>
+</html>
+
+Free Resources Summary
+Resource	Purpose	Link
+Leaflet	Interactive maps	leafletjs.com
+Turf.js	Geospatial calculations	turfjs.org
+CartoDB	Dark map tiles	CartoDB
+Natural Earth	Country GeoJSON	naturalearthdata.com
+OSM Boundaries	GeoJSON borders	GitHub geo-countries
+Deck.gl	Advanced visualization	deck.gl

@@ -1,0 +1,737 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#map {
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+}
+
+/* =================================================
+   KOORDİNAT GÖSTERGESİ
+   ================================================= */
+
+.coordinate-display {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 8px;
+    padding: 8px 14px;
+    margin: 0 0 0 10px;
+    font-family: "Courier New", monospace;
+    font-size: 0.8rem;
+    color: #22c55e;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+}
+
+/* Koordinat göstergesini ticker'ın üstüne çıkar */
+.leaflet-bottom.leaflet-left {
+    bottom: 36px !important;
+}
+
+.coord-inner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.coord-icon {
+    font-size: 1rem;
+}
+
+.coord-text {
+    letter-spacing: 0.5px;
+}
+
+/* =================================================
+   COĞRAFİ KATMAN — ÜLKE BİLGİSİ (Sol Slider)
+   ================================================= */
+
+.country-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.country-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.country-flag-img {
+    width: 24px;
+    height: 18px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.country-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent-color, #22c55e);
+}
+
+.country-coords {
+    font-size: 0.75rem;
+    color: rgba(248, 250, 252, 0.6);
+    font-family: "Courier New", monospace;
+}
+
+.country-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px 0;
+    border-top: 1px solid rgba(34, 197, 94, 0.15);
+    border-bottom: 1px solid rgba(34, 197, 94, 0.15);
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.detail-label {
+    color: rgba(248, 250, 252, 0.6);
+    font-size: 0.75rem;
+}
+
+.detail-value {
+    color: #f8fafc;
+    text-align: right;
+    max-width: 60%;
+}
+
+.country-thumb {
+    width: 100%;
+    max-height: 120px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.country-desc {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: rgba(248, 250, 252, 0.85);
+}
+
+.country-wiki {
+    display: inline-block;
+    color: #22c55e;
+    text-decoration: none;
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 6px;
+    text-align: center;
+    transition: background 0.2s;
+}
+
+.country-wiki:hover {
+    background: rgba(34, 197, 94, 0.15);
+}
+
+/* =================================================
+   COĞRAFİ KATMAN — ÇİFT TIK POPUP
+   ================================================= */
+
+.cografi-popup .leaflet-popup-content-wrapper {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #f8fafc;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 12px;
+}
+
+.cografi-popup .leaflet-popup-tip {
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.cografi-popup .leaflet-popup-content {
+    margin: 14px 18px;
+    width: 460px !important;
+}
+
+.dblclick-popup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.popup-coords {
+    font-size: 0.85rem;
+    font-family: "Courier New", monospace;
+    color: #22c55e;
+    text-align: center;
+}
+
+.popup-minimap {
+    position: relative;
+    margin-top: 4px;
+}
+
+.satellite-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: block;
+}
+
+.sat-zoom-controls {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 6px;
+    padding: 4px;
+}
+
+.sat-zoom-btn {
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(34, 197, 94, 0.3);
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.sat-zoom-btn:hover {
+    background: rgba(34, 197, 94, 0.6);
+}
+
+.sat-zoom-level {
+    color: #22c55e;
+    font-size: 0.75rem;
+    font-family: monospace;
+    padding: 2px 0;
+}
+
+.satellite-list {
+    padding: 4px 0;
+    font-size: 0.8rem;
+    color: rgba(248, 250, 252, 0.8);
+}
+
+.sat-label {
+    opacity: 0.9;
+}
+
+.popup-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* =================================================
+   DOĞAL OLAYLAR — FİLTRE KONTROLLERİ
+   ================================================= */
+
+.disaster-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.filter-title {
+    font-size: 0.8rem;
+    color: rgba(248, 250, 252, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(34, 197, 94, 0.15);
+}
+
+.disaster-filter {
+    padding: 5px 8px;
+}
+
+.disaster-icon {
+    font-size: 1rem;
+    width: 24px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.refresh-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 4px;
+}
+
+.refresh-slider {
+    flex: 1;
+    accent-color: #22c55e;
+    cursor: pointer;
+}
+
+.refresh-label {
+    font-size: 0.85rem;
+    color: #22c55e;
+    font-family: monospace;
+    min-width: 40px;
+    text-align: right;
+}
+
+/* =================================================
+   HAVA DURUMU OVERLAY
+   ================================================= */
+
+.weather-icon {
+    background: none !important;
+    border: none !important;
+}
+
+.weather-badge {
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    color: #f8fafc;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+.popup-btn {
+    flex: 1;
+    text-align: center;
+    padding: 8px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.popup-street {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+.popup-street:hover {
+    background: rgba(34, 197, 94, 0.35);
+}
+
+.popup-satellite {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+    border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.popup-satellite:hover {
+    background: rgba(59, 130, 246, 0.35);
+}
+
+.mini-map-img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* =================================================
+   TICKER ÇUBUĞU (Alt Bilgi Şeridi)
+   ================================================= */
+
+.event-ticker {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 32px;
+    background: rgba(220, 38, 38, 0.92);
+    border-top: 2px solid #22c55e;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.ticker-track {
+    display: inline-block;
+    padding: 0 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    position: relative;
+}
+
+/* tickerMove animasyonu kaldırıldı, JS ile yapılıyor */
+
+/* =================================================
+   OLAY BİLGİ ETİKETİ (Marker yanı)
+   ================================================= */
+
+.event-label-icon {
+    background: none !important;
+    border: none !important;
+}
+
+.event-label {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+    color: #f8fafc;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    font-family: monospace;
+    line-height: 1.4;
+}
+
+/* =================================================
+   UYDU KATMANI
+   ================================================= */
+
+.satellite-marker {
+    background: none !important;
+    border: none !important;
+}
+
+.satellite-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.6);
+}
+
+.satellite-label {
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(4px);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.65rem;
+    color: #f8fafc;
+    white-space: nowrap;
+    font-family: monospace;
+    pointer-events: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.uydu-arama {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    background: rgba(15, 23, 42, 0.6);
+    color: #f8fafc;
+    font-size: 0.85rem;
+    outline: none;
+    margin-bottom: 8px;
+}
+
+.uydu-arama:focus {
+    border-color: #22c55e;
+}
+
+.uydu-sayi-bilgisi {
+    font-size: 0.75rem;
+    color: rgba(248, 250, 252, 0.6);
+    text-align: center;
+    margin-bottom: 8px;
+    font-family: monospace;
+}
+
+.pass-prediction {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.pass-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px;
+    background: rgba(34, 197, 94, 0.1);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-family: monospace;
+}
+
+.pass-time {
+    color: #22c55e;
+}
+
+.pass-alt {
+    color: rgba(248, 250, 252, 0.7);
+}
+
+.pass-max-el {
+    color: #f59e0b;
+}
+
+.sat-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sat-detail-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #22c55e;
+}
+
+.sat-detail-group {
+    font-size: 0.75rem;
+    color: rgba(248, 250, 252, 0.6);
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(139, 92, 246, 0.2);
+    display: inline-block;
+    align-self: flex-start;
+}
+
+.sat-detail-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 6px;
+}
+
+.sat-detail-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+}
+
+.sat-detail-label {
+    color: rgba(248, 250, 252, 0.5);
+}
+
+.sat-detail-value {
+    color: #f8fafc;
+    font-family: monospace;
+}
+
+.sat-passes-title {
+    font-size: 0.85rem;
+    color: #f59e0b;
+    margin-top: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* =================================================
+   UÇUŞ KATMANI
+   ================================================= */
+
+.ucus-marker {
+    background: none !important;
+    border: none !important;
+}
+
+.ucus-label {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(4px);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.65rem;
+    color: #14b8a6;
+    white-space: nowrap;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    pointer-events: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.ucus-sayi-bilgisi {
+    font-size: 0.75rem;
+    color: rgba(248, 250, 252, 0.6);
+    text-align: center;
+    margin-bottom: 8px;
+    font-family: monospace;
+}
+
+.ucus-arama {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(20, 184, 166, 0.3);
+    background: rgba(15, 23, 42, 0.6);
+    color: #f8fafc;
+    font-size: 0.85rem;
+    outline: none;
+    margin-bottom: 8px;
+}
+
+.ucus-arama:focus {
+    border-color: #14b8a6;
+}
+
+.ucus-hizli-btn {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(20, 184, 166, 0.3);
+    background: rgba(20, 184, 166, 0.1);
+    color: #14b8a6;
+    font-size: 0.7rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.ucus-hizli-btn:hover {
+    background: rgba(20, 184, 166, 0.2);
+}
+
+.ucus-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ucus-detail-callsign {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #14b8a6;
+    letter-spacing: 1px;
+}
+
+.ucus-detail-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 6px;
+}
+
+.ucus-detail-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+}
+
+.ucus-detail-label {
+    color: rgba(248, 250, 252, 0.5);
+}
+
+.ucus-detail-value {
+    color: #f8fafc;
+    font-family: monospace;
+}
+
+/* =================================================
+   GEMİ KATMANI
+   ================================================= */
+
+.gemi-marker {
+    background: none !important;
+    border: none !important;
+}
+
+.gemi-label {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(4px);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.65rem;
+    color: #0ea5e9;
+    white-space: nowrap;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    pointer-events: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.gemi-sayi-bilgisi {
+    font-size: 0.75rem;
+    color: rgba(248, 250, 252, 0.6);
+    text-align: center;
+    margin-bottom: 8px;
+    font-family: monospace;
+}
+
+.gemi-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.gemi-detail-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #0ea5e9;
+}
+
+.gemi-detail-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 6px;
+}
+
+.gemi-detail-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+}
+
+.gemi-detail-label {
+    color: rgba(248, 250, 252, 0.5);
+}
+
+.gemi-detail-value {
+    color: #f8fafc;
+    font-family: monospace;
+}
