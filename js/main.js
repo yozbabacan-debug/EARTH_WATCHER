@@ -20,6 +20,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     initSliderUI();
   }
 
+  // 4. Kaydedilmiş dili uygula
+  if (typeof setLanguage === "function") {
+    setLanguage(window.currentLang);
+  }
+
   console.log("✅ Earth Watcher hazır");
 });
 

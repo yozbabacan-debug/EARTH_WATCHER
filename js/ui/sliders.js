@@ -4,14 +4,14 @@
  */
 
 const LAYERS = [
-  { id: "temel", name: "Temel", icon: "globe" },
-  { id: "cografi", name: "Coğrafi", icon: "mapPin" },
-  { id: "dogal-olaylar", name: "Doğal Olaylar", icon: "natural" },
-  { id: "doga-disi-olaylar", name: "Doğa Dışı Olaylar", icon: "wildfire" },
-  { id: "siyasi-olaylar", name: "Siyasi Olaylar", icon: "political" },
-  { id: "uydular", name: "Uydular", icon: "satellite" },
-  { id: "ucus", name: "Uçuş Bilgileri", icon: "flight" },
-  { id: "gemi", name: "Gemi Bilgileri", icon: "ship" },
+  { id: "temel", icon: "globe" },
+  { id: "cografi", icon: "mapPin" },
+  { id: "dogal-olaylar", icon: "natural" },
+  { id: "doga-disi-olaylar", icon: "wildfire" },
+  { id: "siyasi-olaylar", icon: "political" },
+  { id: "uydular", icon: "satellite" },
+  { id: "ucus", icon: "flight" },
+  { id: "gemi", icon: "ship" },
 ];
 
 function initSliderUI() {
@@ -37,7 +37,7 @@ function initSliderUI() {
       return;
     }
 
-    // SLD 3 (üst orta) — hiç açılmasın
+    // SLD 2 (üst orta) — hiç açılmasın
     if (arrow.classList.contains("arrow-top-center")) {
       return;
     }
@@ -74,6 +74,11 @@ function initSliderUI() {
   // Sol slider'a katman listesini doldur
   populateLayerList();
 
+  // SLD3 — dil seçimini doldur
+  if (typeof populateLangSelector === "function") {
+    populateLangSelector();
+  }
+
   console.log("✅ Slider UI hazır");
 }
 
@@ -88,13 +93,15 @@ function populateLayerList() {
   let html = '<div class="layer-list">';
 
   LAYERS.forEach((layer, index) => {
+    const layerName =
+      typeof __ === "function" ? __("layers." + layer.id) : layer.id;
     const iconSvg = window.Icons[layer.icon] || "";
     const checked = index === 0 ? "checked" : ""; // Temel varsayılan açık
     html += `
       <label class="layer-item" data-layer="${layer.id}">
         <input type="checkbox" class="layer-checkbox" data-layer="${layer.id}" ${checked} />
         <span class="layer-icon">${iconSvg}</span>
-        <span class="layer-name">${layer.name}</span>
+        <span class="layer-name">${layerName}</span>
       </label>
     `;
   });
