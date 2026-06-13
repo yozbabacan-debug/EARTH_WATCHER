@@ -47,14 +47,19 @@ const RSS_FEEDS = [
   { url: "https://feeds.npr.org/1001/rss.xml", name: "NPR", country: "US" },
   { url: "https://www.trtworld.com/rss", name: "TRT", country: "TR" },
   {
-    url: "https://www.abc.net.au/news/feed/46156/rss.xml",
+    url: "https://www.abc.net.au/news/feed/51120/rss.xml",
     name: "ABC Au",
     country: "AU",
   },
   {
-    url: "https://www.independent.co.uk/news/world/rss.xml",
-    name: "Independent",
-    country: "GB",
+    url: "https://www.sbs.com.au/news/feed",
+    name: "SBS Au",
+    country: "AU",
+  },
+  {
+    url: "https://www.channelnewsasia.com/api/v1/rss-outbound-feed?_format=xml&category=10416",
+    name: "CNA",
+    country: "SG",
   },
   {
     url: "https://www.trthaber.com/sondakika_articles.rss",
@@ -172,6 +177,8 @@ const COUNTRY_COORDS = {
   TRT: [39.9, 32.9],
   "ABC Au": [-33.9, 151.2],
   Independent: [51.5, -0.1],
+  "SBS Au": [-33.9, 151.2],
+  CNA: [1.3, 103.8],
   "France 24": [48.9, 2.3],
   MercoPress: [-34.9, -56.2],
   "Japan Times": [35.7, 139.7],
