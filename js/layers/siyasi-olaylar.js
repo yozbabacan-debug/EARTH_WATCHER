@@ -131,13 +131,83 @@ function restorePoliticalSlider() {
 // ============================================================
 
 function fetchPoliticalEvents(map) {
-  // API'lerden canlı haberleri çek (GNews + RSS)
+  // 1. Önce data/news.json'dan dene (RSS aggregator ciktisi)
+  fetch("data/news.json")
+    .then((r) => r.json())
+    .then((data) => {
+      if (data.articles && data.articles.length > 0) {
+        console.log(`📰 news.json: ${data.articles.length} siyasi haber`);
+        processPoliticalArticles(data.articles, map);
+        return;
+      }
+      // 2. news.json yoksa canli API'lerden cek
+      fetchLiveNews(map);
+    })
+    .catch(() => {
+      fetchLiveNews(map);
+    });
+}
+
+function fetchLiveNews(map) {
   const apiKey = window._newsApiKey || "7dfdd71112a44d58a3923c5357f4d814";
   fetchNewsAPIEvents(map, apiKey);
 }
 
-// RSS kaynakları artık kullanılmıyor — sadece GNews + NewsAPI kullanılır
-// Not: loadLocalPoliticalEvents kaldırıldı, tüm veriler canlı API'lerden gelir
+// Ortak fonksiyon — haber listesini markera çevir (news.json için)
+function processPoliticalArticles(articles, map) {
+  const selected = window._selectedPoliticalTypes || [
+    "protest",
+    "coup",
+    "election",
+    "war",
+    "attack",
+    "sanction",
+    "diplomacy",
+  ];
+  let count = 0;
+
+  articles.forEach((article) => {
+    if (!selected.includes(article.type || "protest")) return;
+    const typeInfo = POLITICAL_TYPES.find(
+      (t) => t.id === (article.type || "protest"),
+    );
+    const color = typeInfo?.color || "#888";
+    const icon = typeInfo?.icon || "🏛️";
+    const coords = [article.lat, article.lng];
+
+    if (!coords || !coords[0]) return;
+
+    const marker = L.circleMarker(coords, {
+      radius: 8,
+      color,
+      fillColor: color,
+      fillOpacity: 0.5,
+      weight: 2,
+    });
+    marker.bindTooltip(
+      `${icon} <b>${article.source || "?"}</b><br/>${article.title.substring(0, 80)}`,
+      { direction: "top" },
+    );
+    marker.on("click", () => marker.openTooltip());
+    marker.addTo(map);
+    politicalMarkers.push(marker);
+
+    setTimeout(() => {
+      try {
+        map.removeLayer(marker);
+      } catch (e) {}
+      politicalMarkers = politicalMarkers.filter((m) => m !== marker);
+    }, 300000);
+
+    addPoliticalToTicker(
+      `${icon} ${article.source}: ${article.title.substring(0, 60)}`,
+    );
+    count++;
+  });
+
+  console.log(`📰 ${count} siyasi haber haritaya islendi`);
+  addEventToTicker(`📰 ${count} siyasi olay`);
+}
 
 function fetchNewsAPIEvents(map, apiKey) {
   const selected = window._selectedPoliticalTypes || [
