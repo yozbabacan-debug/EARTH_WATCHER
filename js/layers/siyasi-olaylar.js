@@ -147,8 +147,8 @@ function fetchNewsAPIEvents(map, apiKey) {
   ];
 
   const gnewsKey = "a1af788dfad51b4fecf479c6b44a5323";
-  const gnewsUrl = `https://gnews.io/api/v4/search?q=politics+OR+election+OR+protest+OR+war+OR+sanctions&lang=en&max=20&token=${gnewsKey}`;
-  const newsUrl = `https://newsapi.org/v2/everything?q=politics+OR+protest+OR+war+OR+election&pageSize=15&language=en&sortBy=publishedAt&apiKey=${apiKey}`;
+  const gnewsUrl = `https://gnews.io/api/v4/search?q=politics+OR+election+OR+protest+OR+war+OR+sanctions+OR+government+OR+diplomacy&lang=en&max=20&token=${gnewsKey}`;
+  const newsUrl = `https://newsapi.org/v2/everything?q=politics+OR+protest+OR+war+OR+election+OR+diplomacy+OR+government&pageSize=15&language=en&sortBy=publishedAt&apiKey=${apiKey}`;
 
   // RSS feed'leri (CORS dostu rss2json üzerinden)
   const rssFeeds = [
@@ -350,9 +350,18 @@ function extractCountryCoords(text) {
     [-20.0, 47.0],
 
     // --- Asya ---
-    ["china", "çin", "chinese"],
+    [
+      "china",
+      "çin",
+      "chinese",
+      "beijing",
+      "xi jinping",
+      "taiwan",
+      "tayvan",
+      "shanghai",
+    ],
     [35.0, 105.0],
-    ["india", "hindistan", "indian"],
+    ["india", "hindistan", "indian", "delhi", "modi", "mumbai"],
     [20.0, 78.0],
     ["indonesia", "endonezya", "indonesian"],
     [-5.0, 120.0],
@@ -360,7 +369,7 @@ function extractCountryCoords(text) {
     [30.0, 70.0],
     ["bangladesh", "bangladeş", "bangladeshi"],
     [24.0, 90.0],
-    ["japan", "japonya", "japanese"],
+    ["japan", "japonya", "japanese", "tokyo"],
     [36.0, 138.0],
     ["philippines", "filipinler", "filipino"],
     [13.0, 122.0],
@@ -394,7 +403,7 @@ function extractCountryCoords(text) {
     // --- Orta Doğu ---
     ["iran", "irank", "iranian", "persian"],
     [32.0, 53.0],
-    ["turkey", "türkiye", "turkish", "türk"],
+    ["turkey", "türkiye", "turkish", "türk", "ankara", "istanbul", "erdogan"],
     [39.0, 35.0],
     ["iraq", "ırak", "iraqi"],
     [33.0, 43.0],
@@ -430,9 +439,9 @@ function extractCountryCoords(text) {
     [42.0, 43.0],
 
     // --- Avrupa ---
-    ["germany", "almanya", "german"],
+    ["germany", "almanya", "german", "berlin", "scholz"],
     [51.0, 10.0],
-    ["france", "fransa", "french"],
+    ["france", "fransa", "french", "paris", "macron"],
     [46.0, 2.0],
     [
       "united kingdom",
@@ -442,6 +451,8 @@ function extractCountryCoords(text) {
       "british",
       "england",
       "ingiltere",
+      "london",
+      "westminster",
       "scotland",
       "i̇skoçya",
       "wales",
@@ -452,7 +463,7 @@ function extractCountryCoords(text) {
     [42.0, 12.0],
     ["spain", "i̇spanya", "spanish"],
     [40.0, -4.0],
-    ["ukraine", "ukrayna", "ukrainian"],
+    ["ukraine", "ukrayna", "ukrainian", "kyiv", "kiev"],
     [49.0, 31.0],
     ["poland", "polonya", "polish"],
     [52.0, 19.0],
@@ -526,7 +537,16 @@ function extractCountryCoords(text) {
     [43.7, 7.4],
     ["vatican"],
     [41.9, 12.5],
-    ["russia", "rusya", "russian"],
+    [
+      "europe",
+      "eu",
+      "european union",
+      "avrupa birliği",
+      "brussels",
+      "strasbourg",
+    ],
+    [50.0, 10.0],
+    ["russia", "rusya", "russian", "moscow", "kremlin", "putin"],
     [61.0, 40.0],
 
     // --- Kuzey Amerika ---
@@ -640,9 +660,10 @@ function extractCountryCoords(text) {
     [52.5, 13.4],
     ["moscow"],
     [55.8, 37.6],
+    // Büyük şehir merkezleri + başkentler
     ["beijing"],
     [39.9, 116.4],
-    ["washington, d.c.", "washington dc"],
+    ["washington", "white house", "capitol hill", "pentagon"],
     [38.9, -77.0],
     ["new york", "new york city", "nyc", "manhattan"],
     [40.7, -74.0],
