@@ -154,7 +154,7 @@ function fetchNewsAPIEvents(map, apiKey) {
   const gnewsUrl = `https://gnews.io/api/v4/search?q=politics+OR+election+OR+protest+OR+war+OR+sanctions+OR+government+OR+diplomacy&lang=en&max=20&token=${gnewsKey}`;
   const newsUrl = `https://newsapi.org/v2/everything?q=politics+OR+protest+OR+war+OR+election+OR+diplomacy+OR+government&pageSize=15&language=en&sortBy=publishedAt&apiKey=${apiKey}`;
 
-  // RSS feed'leri (CORS dostu rss2json üzerinden)
+  // RSS feed'leri — önce rss2json dene, olmazsa CORS proxy ile XML parse et
   const rssFeeds = [
     { url: "https://feeds.bbci.co.uk/news/world/rss.xml", name: "BBC" },
     { url: "https://www.aljazeera.com/xml/rss/all.xml", name: "Al Jazeera" },
@@ -169,14 +169,43 @@ function fetchNewsAPIEvents(map, apiKey) {
     { url: "https://www.trtworld.com/rss", name: "TRT" },
     { url: "https://www.scmp.com/rss/4/feed", name: "SCMP" },
   ];
-  const rssPromises = rssFeeds.map((f) =>
-    fetch(
-      `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(f.url)}`,
-    )
-      .then((r) => r.json())
-      .then((d) => ({ items: d.items || [], name: f.name }))
-      .catch(() => ({ items: [], name: f.name })),
-  );
+
+  // RSS'yi XML olarak çekip parse et (rss2json bazi kaynaklari bloklar)
+  async function fetchRSS(url, name) {
+    try {
+      // Önce rss2json dene
+      const r2j = await fetch(
+        `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`,
+      ).then((r) => r.json());
+      if (r2j.status === "ok" && r2j.items?.length) {
+        console.log(`📰 RSS ${name}: ${r2j.items.length} haber (rss2json)`);
+        return { items: r2j.items, name };
+      }
+    } catch (_) {}
+
+    // rss2json calismazsa CORS proxy ile XML cek
+    try {
+      const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+      const xmlText = await fetch(proxyUrl).then((r) => r.text());
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(xmlText, "text/xml");
+      const items = Array.from(xml.querySelectorAll("item")).map((item) => ({
+        title: item.querySelector("title")?.textContent || "",
+        description: item.querySelector("description")?.textContent || "",
+        link: item.querySelector("link")?.textContent || "",
+      }));
+      if (items.length) {
+        console.log(`📰 RSS ${name}: ${items.length} haber (proxy)`);
+        return { items, name };
+      }
+    } catch (e) {
+      console.warn(`⚠️ RSS ${name} basarisiz:`, e.message);
+    }
+
+    return { items: [], name };
+  }
+
+  const rssPromises = rssFeeds.map((f) => fetchRSS(f.url, f.name));
 
   // GNews + NewsAPI + RSS paralel
   Promise.allSettled([fetch(gnewsUrl), fetch(newsUrl), ...rssPromises])
