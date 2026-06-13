@@ -121,106 +121,13 @@ function restorePoliticalSlider() {
 // ============================================================
 
 function fetchPoliticalEvents(map) {
-  // 1. Önce yerel events.json'daki siyasi olayları göster
-  loadLocalPoliticalEvents(map);
-
-  // 2. API'lerden canlı haberleri çek (NewsAPI + GNews)
+  // API'lerden canlı haberleri çek (GNews + RSS)
   const apiKey = window._newsApiKey || "7dfdd71112a44d58a3923c5357f4d814";
   fetchNewsAPIEvents(map, apiKey);
 }
 
-function loadLocalPoliticalEvents(map) {
-  // DataManager üzerinden events.json'daki siyasi olayları yükle
-  if (!window.dataManager || !window.dataManager.loaded) return;
-
-  const politicalEvents = (window.dataManager.events || []).filter(
-    (e) => e.category === "siyasi-olaylar",
-  );
-  if (!politicalEvents.length) return;
-
-  const selected = window._selectedPoliticalTypes || [
-    "protest",
-    "coup",
-    "election",
-    "war",
-    "attack",
-  ];
-
-  console.log(
-    `📋 Yerel veriden ${politicalEvents.length} siyasi olay yükleniyor...`,
-  );
-
-  // Kategorilendirme haritası
-  const categoryMap = {
-    secim: "election",
-    "secim-sonrasi": "election",
-    protesto: "protest",
-    diplomasi: "diplomacy",
-    siber: "attack",
-    ekonomi: "sanction",
-    savunma: "war",
-  };
-
-  politicalEvents.forEach((event) => {
-    const mappedType = categoryMap[event.subcategory] || "protest";
-    if (!selected.includes(mappedType)) return;
-
-    const typeInfo = POLITICAL_TYPES.find((t) => t.id === mappedType);
-    const color = typeInfo?.color || "#888";
-    const icon = typeInfo?.icon || "🏛️";
-
-    const marker = L.circleMarker([event.lat, event.lng], {
-      radius: 10,
-      color: color,
-      fillColor: color,
-      fillOpacity: 0.6,
-      weight: 2,
-    });
-
-    const dateStr = new Date(event.timestamp).toLocaleString("tr-TR", {
-      day: "numeric",
-      month: "long",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-
-    marker.bindTooltip(
-      `${icon} <b>${event.title}</b><br/><small>${dateStr} • ${event.source}</small>`,
-      { direction: "top" },
-    );
-    marker.bindPopup(
-      `<div style="font-size:14px;line-height:1.6">
-        <b>${event.title}</b><br/>
-        <span style="color:#888">${dateStr} • ${event.source}</span><br/><br/>
-        ${event.description || ""}
-        <br/><br/><span style="color:#999;font-size:12px">Severity: ${event.severity}</span>
-      </div>`,
-    );
-    marker.on("click", () => marker.openPopup());
-
-    marker.addTo(map);
-    politicalMarkers.push(marker);
-
-    // Kaybolma süresi: 30 saniye
-    setTimeout(() => {
-      try {
-        map.removeLayer(marker);
-      } catch (e) {}
-      politicalMarkers = politicalMarkers.filter((m) => m !== marker);
-    }, 30000);
-
-    addPoliticalToTicker(`${icon} ${event.title.substring(0, 60)}`);
-  });
-}
-
-// RSS kaynakları (rss2json üzerinden — CORS dostu)
-const RSS_FEEDS = [
-  { url: "https://feeds.bbci.co.uk/news/world/rss.xml", name: "BBC News" },
-  { url: "https://www.aljazeera.com/xml/rss/all.xml", name: "Al Jazeera" },
-  { url: "https://www.theguardian.com/world/rss", name: "The Guardian" },
-];
-
-const RSS2JSON_URL = "https://api.rss2json.com/v1/api.json?rss_url=";
+// RSS kaynakları artık kullanılmıyor — sadece GNews + NewsAPI kullanılır
+// Not: loadLocalPoliticalEvents kaldırıldı, tüm veriler canlı API'lerden gelir
 
 function fetchNewsAPIEvents(map, apiKey) {
   const selected = window._selectedPoliticalTypes || [
@@ -231,89 +138,59 @@ function fetchNewsAPIEvents(map, apiKey) {
     "attack",
   ];
 
-  // RSS feed'lerini paralel çek (CORS sorunsuz çalışır)
-  const feedPromises = RSS_FEEDS.map((feed) =>
-    fetch(`${RSS2JSON_URL}${encodeURIComponent(feed.url)}`).then((r) =>
-      r.json(),
-    ),
-  );
-
-  // Ayrıca NewsAPI/GNews'i de dene (çalışırsa ek kaynak)
-  const newsUrl = `https://newsapi.org/v2/everything?q=politics+OR+election+OR+protest+OR+war+OR+sanctions&pageSize=20&language=en&sortBy=publishedAt&apiKey=${apiKey}`;
   const gnewsKey = "a1af788dfad51b4fecf479c6b44a5323";
-  const gnewsUrl = `https://gnews.io/api/v4/search?q=politics+OR+election+OR+protest+OR+war+OR+sanctions&lang=en&max=15&token=${gnewsKey}`;
+  const gnewsUrl = `https://gnews.io/api/v4/search?q=politics+OR+election+OR+protest+OR+war+OR+sanctions&lang=en&max=20&token=${gnewsKey}`;
+  const newsUrl = `https://newsapi.org/v2/everything?q=politics+OR+protest+OR+war+OR+election&pageSize=15&language=en&sortBy=publishedAt&apiKey=${apiKey}`;
 
-  Promise.allSettled([...feedPromises, fetch(newsUrl), fetch(gnewsUrl)])
+  // GNews + NewsAPI'yi paralel dene
+  Promise.allSettled([fetch(gnewsUrl), fetch(newsUrl)])
     .then(async (results) => {
       let articles = [];
 
-      // RSS feed'lerini işle (ilk 3 sonuç)
-      for (let i = 0; i < RSS_FEEDS.length; i++) {
-        const result = results[i];
-        if (result.status === "fulfilled") {
-          try {
-            const data = result.value;
-            if (data.status === "ok" && data.items) {
-              data.items.forEach((item) => {
-                if (
-                  item.title &&
-                  item.description &&
-                  item.description !== item.title
-                ) {
-                  articles.push({
-                    title: item.title,
-                    desc: item.description.replace(/<[^>]*>/g, "").trim(),
-                    source: RSS_FEEDS[i].name,
-                  });
-                }
-              });
-              console.log(
-                `📰 ${RSS_FEEDS[i].name}: ${data.items.length} haber`,
-              );
-            }
-          } catch (e) {
-            console.error(`❌ ${RSS_FEEDS[i].name} hatası:`, e);
-          }
-        }
-      }
-
-      // NewsAPI'yi dene (3. index)
-      const newsRes = results[RSS_FEEDS.length];
-      if (newsRes.status === "fulfilled") {
+      // 1. GNews (en güvenilir)
+      const gRes = results[0];
+      if (gRes.status === "fulfilled") {
         try {
-          const data = await newsRes.value.json();
-          if (data.articles) {
-            articles = articles.concat(
-              data.articles.map((a) => ({
-                title: a.title,
-                desc: a.description,
-                source: a.source?.name || "NewsAPI",
-              })),
-            );
-            console.log(`📰 NewsAPI: ${data.articles.length} haber`);
-          }
-        } catch (e) {
-          console.error("❌ NewsAPI hatası:", e);
-        }
-      }
-
-      // GNews'i dene (4. index)
-      const gnewsRes = results[RSS_FEEDS.length + 1];
-      if (gnewsRes.status === "fulfilled") {
-        try {
-          const data = await gnewsRes.value.json();
-          if (data.articles) {
-            articles = articles.concat(
-              data.articles.map((a) => ({
-                title: a.title,
-                desc: a.description,
-                source: a.source?.name || a.source?.title || "GNews",
-              })),
-            );
+          const data = await gRes.value.json();
+          if (data.articles && data.articles.length) {
+            data.articles.forEach((a) => {
+              if (a.title) {
+                articles.push({
+                  title: a.title,
+                  desc: (a.description || "").replace(/<[^>]*>/g, "").trim(),
+                  source: a.source?.name || a.source?.title || "GNews",
+                });
+              }
+            });
             console.log(`📰 GNews: ${data.articles.length} haber`);
           }
         } catch (e) {
           console.error("❌ GNews hatası:", e);
+        }
+      }
+
+      // 2. NewsAPI (yedek)
+      const nRes = results[1];
+      if (nRes.status === "fulfilled") {
+        try {
+          const data = await nRes.value.json();
+          if (data.articles && data.articles.length) {
+            const existing = new Set(articles.map((a) => a.title));
+            data.articles.forEach((a) => {
+              // Tekrarı önle
+              if (a.title && !existing.has(a.title)) {
+                articles.push({
+                  title: a.title,
+                  desc: (a.description || "").replace(/<[^>]*>/g, "").trim(),
+                  source: a.source?.name || "NewsAPI",
+                });
+                existing.add(a.title);
+              }
+            });
+            console.log(`📰 NewsAPI: ${data.articles.length} haber`);
+          }
+        } catch (e) {
+          console.error("❌ NewsAPI hatası:", e);
         }
       }
 
@@ -324,11 +201,11 @@ function fetchNewsAPIEvents(map, apiKey) {
         return;
       }
 
-      // Karma ve sınırla (fazla marker olmasın)
-      articles = articles.slice(0, 30);
+      // Sınırla (fazla marker olmasın)
+      articles = articles.slice(0, 25);
 
-      console.log(`📰 Toplam ${articles.length} haber işleniyor...`);
-      addEventToTicker(`📰 ${articles.length} siyasi haber yüklendi`);
+      console.log(`📰 Toplam ${articles.length} canlı haber işleniyor...`);
+      addEventToTicker(`📰 ${articles.length} canlı haber`);
 
       articles.forEach((article) => {
         const fullText = article.title + " " + (article.desc || "");
@@ -362,14 +239,14 @@ function fetchNewsAPIEvents(map, apiKey) {
             map.removeLayer(marker);
           } catch (e) {}
           politicalMarkers = politicalMarkers.filter((m) => m !== marker);
-        }, 20000);
+        }, 30000);
 
         addPoliticalToTicker(
           `${icon} ${article.source}: ${article.title.substring(0, 60)}`,
         );
       });
     })
-    .catch((err) => console.error("❌ Siyasi haber RSS/API hatası:", err));
+    .catch((err) => console.error("❌ Siyasi haber API hatası:", err));
 }
 
 // Ülke/bölge adı + demonym'den koordinat bul (kapsamlı dünya haritası)
