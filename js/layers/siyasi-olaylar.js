@@ -150,12 +150,27 @@ function fetchNewsAPIEvents(map, apiKey) {
   const gnewsUrl = `https://gnews.io/api/v4/search?q=politics+OR+election+OR+protest+OR+war+OR+sanctions&lang=en&max=20&token=${gnewsKey}`;
   const newsUrl = `https://newsapi.org/v2/everything?q=politics+OR+protest+OR+war+OR+election&pageSize=15&language=en&sortBy=publishedAt&apiKey=${apiKey}`;
 
-  // GNews + NewsAPI'yi paralel dene
-  Promise.allSettled([fetch(gnewsUrl), fetch(newsUrl)])
+  // RSS feed'leri (CORS dostu rss2json üzerinden)
+  const rssFeeds = [
+    { url: "https://feeds.bbci.co.uk/news/world/rss.xml", name: "BBC" },
+    { url: "https://www.aljazeera.com/xml/rss/all.xml", name: "Al Jazeera" },
+    { url: "https://www.theguardian.com/world/rss", name: "Guardian" },
+  ];
+  const rssPromises = rssFeeds.map((f) =>
+    fetch(
+      `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(f.url)}`,
+    )
+      .then((r) => r.json())
+      .then((d) => ({ items: d.items || [], name: f.name }))
+      .catch(() => ({ items: [], name: f.name })),
+  );
+
+  // GNews + NewsAPI + RSS paralel
+  Promise.allSettled([fetch(gnewsUrl), fetch(newsUrl), ...rssPromises])
     .then(async (results) => {
       let articles = [];
 
-      // 1. GNews (en güvenilir)
+      // 1. GNews
       const gRes = results[0];
       if (gRes.status === "fulfilled") {
         try {
@@ -177,7 +192,7 @@ function fetchNewsAPIEvents(map, apiKey) {
         }
       }
 
-      // 2. NewsAPI (yedek)
+      // 2. NewsAPI (tarayıcıdan çalışmazsa sessizce geç)
       const nRes = results[1];
       if (nRes.status === "fulfilled") {
         try {
@@ -185,7 +200,6 @@ function fetchNewsAPIEvents(map, apiKey) {
           if (data.articles && data.articles.length) {
             const existing = new Set(articles.map((a) => a.title));
             data.articles.forEach((a) => {
-              // Tekrarı önle
               if (a.title && !existing.has(a.title)) {
                 articles.push({
                   title: a.title,
@@ -198,7 +212,29 @@ function fetchNewsAPIEvents(map, apiKey) {
             console.log(`📰 NewsAPI: ${data.articles.length} haber`);
           }
         } catch (e) {
-          console.error("❌ NewsAPI hatası:", e);
+          // NewsAPI browser'dan CORS hatası verir, sessizce geç
+        }
+      }
+
+      // 3. RSS feed'leri (index 2, 3, 4)
+      for (let i = 0; i < rssFeeds.length; i++) {
+        const rRes = results[2 + i];
+        if (rRes.status === "fulfilled") {
+          const data = rRes.value;
+          if (data.items && data.items.length) {
+            const existing = new Set(articles.map((a) => a.title));
+            data.items.forEach((item) => {
+              if (item.title && !existing.has(item.title) && item.description) {
+                articles.push({
+                  title: item.title,
+                  desc: (item.description || "").replace(/<[^>]*>/g, "").trim(),
+                  source: data.name,
+                });
+                existing.add(item.title);
+              }
+            });
+            console.log(`📰 RSS ${data.name}: ${data.items.length} haber`);
+          }
         }
       }
 
