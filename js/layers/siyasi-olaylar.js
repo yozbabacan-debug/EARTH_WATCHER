@@ -165,9 +165,13 @@ function processPoliticalArticles(articles, map) {
     "diplomacy",
   ];
   let count = 0;
+  let skipped = 0;
 
   articles.forEach((article) => {
-    if (!selected.includes(article.type || "protest")) return;
+    if (!selected.includes(article.type || "protest")) {
+      skipped++;
+      return;
+    }
     const typeInfo = POLITICAL_TYPES.find(
       (t) => t.id === (article.type || "protest"),
     );
@@ -175,7 +179,10 @@ function processPoliticalArticles(articles, map) {
     const icon = typeInfo?.icon || "🏛️";
     const coords = [article.lat, article.lng];
 
-    if (!coords || !coords[0]) return;
+    if (!coords || !coords[0]) {
+      skipped++;
+      return;
+    }
 
     const marker = L.circleMarker(coords, {
       radius: 8,
@@ -205,7 +212,9 @@ function processPoliticalArticles(articles, map) {
     count++;
   });
 
-  console.log(`📰 ${count} siyasi haber haritaya islendi`);
+  console.log(
+    `📰 ${count}/${articles.length} siyasi haber haritaya islendi (${skipped} atlandi)`,
+  );
   addEventToTicker(`📰 ${count} siyasi olay`);
 }
 
