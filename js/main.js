@@ -239,6 +239,18 @@ function initMap() {
         }
       }
 
+      if (layerId === "kameralar") {
+        if (isChecked) {
+          if (typeof initKameraLayer === "function") {
+            initKameraLayer(map);
+          }
+        } else {
+          if (typeof destroyKameraLayer === "function") {
+            destroyKameraLayer(map);
+          }
+        }
+      }
+
       // Hava durumu overlay'ini kontrol et (Doğal Olaylar / Doğa Dışı / Siyasi)
       window.earthWatcher.showWeatherIfNeeded();
     },

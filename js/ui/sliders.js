@@ -12,6 +12,7 @@ const LAYERS = [
   { id: "uydular", icon: "satellite" },
   { id: "ucus", icon: "flight" },
   { id: "gemi", icon: "ship" },
+  { id: "kameralar", icon: "camera" },
 ];
 
 function initSliderUI() {

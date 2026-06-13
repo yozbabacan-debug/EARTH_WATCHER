@@ -37,6 +37,7 @@ const LANGS = {
       uydular: "Uydular",
       ucus: "Uçuş Bilgileri",
       gemi: "Gemi Bilgileri",
+      kameralar: "Kameralar",
     },
     events: {
       earthquake: "Deprem",
@@ -87,6 +88,7 @@ const LANGS = {
       uydular: "Satellites",
       ucus: "Flight Info",
       gemi: "Ship Info",
+      kameralar: "Cameras",
     },
     events: {
       earthquake: "Earthquake",
@@ -137,6 +139,7 @@ const LANGS = {
       uydular: "Satellites",
       ucus: "Infos de vol",
       gemi: "Infos maritimes",
+      kameralar: "Caméras",
     },
     events: {
       earthquake: "Tremblement de terre",
@@ -187,6 +190,7 @@ const LANGS = {
       uydular: "Satelliten",
       ucus: "Fluginformationen",
       gemi: "Schiffsinformationen",
+      kameralar: "Kameras",
     },
     events: {
       earthquake: "Erdbeben",
@@ -237,6 +241,7 @@ const LANGS = {
       uydular: "Satelliti",
       ucus: "Informazioni volo",
       gemi: "Informazioni navi",
+      kameralar: "Telecamere",
     },
     events: {
       earthquake: "Terremoto",

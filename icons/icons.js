@@ -20,6 +20,8 @@ window.Icons = {
 
   ship: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2"><path d="M2 21h20"/><path d="M3 18h18"/><path d="M8 3v15"/><path d="M12 3v15"/><path d="M16 3v15"/></svg>`,
 
+  camera: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
+
   earthquake: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2"><path d="M2 12L12 2l10 10"/><path d="M6 15l6-6 6 6"/><path d="M9 18l3-3 3 3"/></svg>`,
 
   flood: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2"><path d="M2 16c2-2 4-1 6 0s4 2 6 0 4-2 6 0"/><path d="M2 20c2-2 4-1 6 0s4 2 6 0 4-2 6 0"/><path d="M12 12V5m-3 3l3-3 3 3"/></svg>`,

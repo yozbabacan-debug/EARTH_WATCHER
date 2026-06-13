@@ -407,6 +407,96 @@ html {
 /* tickerMove animasyonu kaldırıldı, JS ile yapılıyor */
 
 /* =================================================
+   KAMERA ICON
+   ================================================= */
+.camera-icon-div {
+    background: none !important;
+    border: none !important;
+}
+
+.camera-icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(249, 115, 22, 0.85);
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(249, 115, 22, 0.5);
+    transition: transform 0.2s;
+}
+
+.camera-icon:hover {
+    transform: scale(1.2);
+}
+
+/* Kamera Cluster */
+.cam-cluster-div {
+    background: none !important;
+    border: none !important;
+}
+
+.cam-cluster {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: #fff;
+    border: 2px solid rgba(249, 115, 22, 0.6);
+}
+
+.cam-cluster-small {
+    background: rgba(249, 115, 22, 0.7);
+    width: 35px;
+    height: 35px;
+}
+
+.cam-cluster-medium {
+    background: rgba(249, 115, 22, 0.8);
+    width: 42px;
+    height: 42px;
+}
+
+.cam-cluster-large {
+    background: rgba(220, 38, 38, 0.8);
+    width: 50px;
+    height: 50px;
+}
+
+/* Kamera Popup */
+.camera-popup-container .leaflet-popup-content-wrapper {
+    background: rgba(15, 23, 42, 0.95);
+    color: #f8fafc;
+    border: 1px solid rgba(249, 115, 22, 0.3);
+    border-radius: 10px;
+}
+
+.camera-popup-container .leaflet-popup-tip {
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.camera-popup-container .leaflet-popup-content {
+    margin: 12px;
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
+/* =================================================
    OLAY BİLGİ ETİKETİ (Marker yanı)
    ================================================= */
 

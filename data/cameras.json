@@ -1,0 +1,354 @@
+{
+  "cameras": [
+    {
+      "id": 1,
+      "name": "Times Square, New York",
+      "lat": 40.7580,
+      "lng": -73.9855,
+      "country": "US",
+      "type": "snapshot",
+      "url": "https://webcams.nyctmc.org/cameras/5.jpg",
+      "provider": "NYC DOT"
+    },
+    {
+      "id": 2,
+      "name": "Brooklyn Bridge, New York",
+      "lat": 40.7061,
+      "lng": -73.9969,
+      "country": "US",
+      "type": "snapshot",
+      "url": "https://webcams.nyctmc.org/cameras/26.jpg",
+      "provider": "NYC DOT"
+    },
+    {
+      "id": 3,
+      "name": "Empire State Building, New York",
+      "lat": 40.7484,
+      "lng": -73.9857,
+      "country": "US",
+      "type": "snapshot",
+      "url": "https://webcams.nyctmc.org/cameras/39.jpg",
+      "provider": "NYC DOT"
+    },
+    {
+      "id": 4,
+      "name": "Trafalgar Square, London",
+      "lat": 51.5074,
+      "lng": -0.1278,
+      "country": "GB",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 5,
+      "name": "Big Ben, London",
+      "lat": 51.5007,
+      "lng": -0.1246,
+      "country": "GB",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 6,
+      "name": "Eyfel Kulesi, Paris",
+      "lat": 48.8584,
+      "lng": 2.2945,
+      "country": "FR",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 7,
+      "name": "Tokyo Shibuya Crossing",
+      "lat": 35.6595,
+      "lng": 139.7004,
+      "country": "JP",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 8,
+      "name": "Sydney Opera House",
+      "lat": -33.8568,
+      "lng": 151.2153,
+      "country": "AU",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 9,
+      "name": "Dubai Marina",
+      "lat": 25.0800,
+      "lng": 55.1400,
+      "country": "AE",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 10,
+      "name": "Rio de Janeiro - Copacabana",
+      "lat": -22.9711,
+      "lng": -43.1823,
+      "country": "BR",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 11,
+      "name": "Hong Kong Victoria Harbour",
+      "lat": 22.2797,
+      "lng": 114.1660,
+      "country": "HK",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 12,
+      "name": "Moscow - Red Square",
+      "lat": 55.7539,
+      "lng": 37.6208,
+      "country": "RU",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 13,
+      "name": "İstanbul - Galata Kulesi",
+      "lat": 41.0256,
+      "lng": 28.9741,
+      "country": "TR",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 14,
+      "name": "İstanbul - Taksim Meydanı",
+      "lat": 41.0370,
+      "lng": 28.9850,
+      "country": "TR",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 15,
+      "name": "Pekin - Yasak Şehir",
+      "lat": 39.9163,
+      "lng": 116.3972,
+      "country": "CN",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 16,
+      "name": "Berlin - Brandenburg Kapısı",
+      "lat": 52.5163,
+      "lng": 13.3777,
+      "country": "DE",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 17,
+      "name": "Roma - Kolezyum",
+      "lat": 41.8902,
+      "lng": 12.4922,
+      "country": "IT",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 18,
+      "name": "Bangkok - Wat Arun",
+      "lat": 13.7437,
+      "lng": 100.4888,
+      "country": "TH",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 19,
+      "name": "Male - Maldivler",
+      "lat": 4.1755,
+      "lng": 73.5093,
+      "country": "MV",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 20,
+      "name": "Şanghay - Bund",
+      "lat": 31.2354,
+      "lng": 121.4925,
+      "country": "CN",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 21,
+      "name": "Singapur - Marina Bay",
+      "lat": 1.2831,
+      "lng": 103.8615,
+      "country": "SG",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 22,
+      "name": "Toronto - CN Kulesi",
+      "lat": 43.6426,
+      "lng": -79.3871,
+      "country": "CA",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 23,
+      "name": "San Francisco - Golden Gate",
+      "lat": 37.8199,
+      "lng": -122.4783,
+      "country": "US",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 24,
+      "name": "Seul - N Seoul Tower",
+      "lat": 37.5512,
+      "lng": 126.9882,
+      "country": "KR",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 25,
+      "name": "Kahire - Piramitler",
+      "lat": 29.9792,
+      "lng": 31.1342,
+      "country": "EG",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 26,
+      "name": "Mumbai - Marine Drive",
+      "lat": 18.9430,
+      "lng": 72.8233,
+      "country": "IN",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 27,
+      "name": "Barselona - Sagrada Familia",
+      "lat": 41.4036,
+      "lng": 2.1744,
+      "country": "ES",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 28,
+      "name": "Amsterdam - Kanallar",
+      "lat": 52.3676,
+      "lng": 4.9041,
+      "country": "NL",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 29,
+      "name": "Lagos - Victoria Island",
+      "lat": 6.4281,
+      "lng": 3.4219,
+      "country": "NG",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 30,
+      "name": "Meksiko - Zócalo",
+      "lat": 19.4326,
+      "lng": -99.1332,
+      "country": "MX",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 31,
+      "name": "Ankara - Kızılay",
+      "lat": 39.9199,
+      "lng": 32.8541,
+      "country": "TR",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 32,
+      "name": "İzmir - Saat Kulesi",
+      "lat": 38.4192,
+      "lng": 27.1287,
+      "country": "TR",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 33,
+      "name": "Las Vegas - Strip",
+      "lat": 36.1146,
+      "lng": -115.1728,
+      "country": "US",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 34,
+      "name": "Dubai - Burj Khalifa",
+      "lat": 25.1972,
+      "lng": 55.2744,
+      "country": "AE",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 35,
+      "name": "Cape Town - Table Mountain",
+      "lat": -33.9628,
+      "lng": 18.4098,
+      "country": "ZA",
+      "type": "snapshot",
+      "url": "https://www.earthcam.com/usa/newyork/timessquare/images/timessquare.jpg",
+      "provider": "EarthCam"
+    }
+  ]
+}
