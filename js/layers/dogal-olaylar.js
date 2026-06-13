@@ -301,7 +301,7 @@ function addMarkerWithTimeout(map, marker, tickerText, labelText, color) {
     label = addEventLabel(map, marker, labelText, color);
   }
 
-  // 20 saniye sonra otomatik temizle
+  // 5 dakika sonra otomatik temizle (20sn cok kısaydı)
   setTimeout(() => {
     try {
       map.removeLayer(marker);
@@ -312,7 +312,7 @@ function addMarkerWithTimeout(map, marker, tickerText, labelText, color) {
       } catch (e) {}
     }
     naturalMarkers = naturalMarkers.filter((m) => m !== marker && m !== label);
-  }, 20000);
+  }, 300000);
 }
 
 function mapEONETCategory(catId) {
@@ -338,6 +338,7 @@ function startAutoRefresh(map) {
   refreshTimer = setInterval(
     () => {
       clearMarkers(map);
+      clearTickerEvents();
       fetchAllEvents(map);
       updateWeather();
     },

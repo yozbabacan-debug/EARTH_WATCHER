@@ -879,6 +879,7 @@ function startPoliticalRefresh(map) {
   politicalTimer = setInterval(
     () => {
       clearPoliticalMarkers(map);
+      if (typeof clearTickerEvents === "function") clearTickerEvents();
       fetchPoliticalEvents(map);
     },
     politicalRefresh * 60 * 1000,
