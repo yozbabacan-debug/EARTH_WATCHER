@@ -71,6 +71,8 @@ function updatePoliticalSlider() {
     "election",
     "war",
     "attack",
+    "sanction",
+    "diplomacy",
   ];
   POLITICAL_TYPES.forEach((t) => {
     const checked = selected.includes(t.id) ? "checked" : "";
@@ -144,6 +146,8 @@ function fetchNewsAPIEvents(map, apiKey) {
     "election",
     "war",
     "attack",
+    "sanction",
+    "diplomacy",
   ];
 
   const gnewsKey = "a1af788dfad51b4fecf479c6b44a5323";
