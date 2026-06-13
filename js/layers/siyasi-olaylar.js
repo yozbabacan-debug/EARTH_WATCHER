@@ -283,7 +283,7 @@ function fetchNewsAPIEvents(map, apiKey) {
             map.removeLayer(marker);
           } catch (e) {}
           politicalMarkers = politicalMarkers.filter((m) => m !== marker);
-        }, 30000);
+        }, 300000);
 
         addPoliticalToTicker(
           `${icon} ${article.source}: ${article.title.substring(0, 60)}`,
