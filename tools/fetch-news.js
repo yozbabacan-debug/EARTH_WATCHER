@@ -61,6 +61,16 @@ const RSS_FEEDS = [
     name: "TRT Haber",
     country: "TR",
   },
+  {
+    url: "https://www.france24.com/en/rss",
+    name: "France 24",
+    country: "FR",
+  },
+  {
+    url: "https://en.mercopress.com/rss",
+    name: "MercoPress",
+    country: "UY",
+  },
 ];
 
 // Konum eşleştirme
@@ -147,6 +157,8 @@ const COUNTRY_COORDS = {
   TRT: [39.9, 32.9],
   "ABC Au": [-33.9, 151.2],
   Independent: [51.5, -0.1],
+  "France 24": [48.9, 2.3],
+  MercoPress: [-34.9, -56.2],
 };
 
 // Şehir isimleri
