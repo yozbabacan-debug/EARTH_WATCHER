@@ -171,6 +171,11 @@ function initMap() {
 
       if (layerId === "doga-disi-olaylar") {
         if (isChecked) {
+          // Ticker'ı göster
+          const ticker = document.getElementById("event-ticker");
+          if (ticker) {
+            ticker.style.display = "flex";
+          }
           if (typeof initDogaDisiOlaylarLayer === "function") {
             initDogaDisiOlaylarLayer(map);
           }
@@ -183,6 +188,11 @@ function initMap() {
 
       if (layerId === "siyasi-olaylar") {
         if (isChecked) {
+          // Ticker'ı göster
+          const ticker = document.getElementById("event-ticker");
+          if (ticker) {
+            ticker.style.display = "flex";
+          }
           if (typeof initSiyasiOlaylarLayer === "function") {
             initSiyasiOlaylarLayer(map);
           }

@@ -17,6 +17,16 @@ const LANGS = {
       details: "Detaylar",
       generalControls: "Genel Kontroller",
       coordinateLabel: "Koordinat",
+      filter: {
+        disasterType: "Afet Türü",
+        refresh: "Yenileme",
+        eventType: "Olay Türü",
+        min: "dk",
+        capital: "🏛️ Başkent",
+        population: "👥 Nüfus",
+        language: "🗣️ Dil",
+        currency: "💶 Para Birimi",
+      },
     },
     layers: {
       temel: "Temel",
@@ -57,6 +67,16 @@ const LANGS = {
       details: "Details",
       generalControls: "General Controls",
       coordinateLabel: "Coordinates",
+      filter: {
+        disasterType: "Disaster Type",
+        refresh: "Refresh",
+        eventType: "Event Type",
+        min: "min",
+        capital: "🏛️ Capital",
+        population: "👥 Population",
+        language: "🗣️ Language",
+        currency: "💶 Currency",
+      },
     },
     layers: {
       temel: "Basic",
@@ -97,6 +117,16 @@ const LANGS = {
       details: "Détails",
       generalControls: "Contrôles généraux",
       coordinateLabel: "Coordonnées",
+      filter: {
+        disasterType: "Type de catastrophe",
+        refresh: "Rafraîchir",
+        eventType: "Type d'événement",
+        min: "min",
+        capital: "🏛️ Capitale",
+        population: "👥 Population",
+        language: "🗣️ Langue",
+        currency: "💶 Monnaie",
+      },
     },
     layers: {
       temel: "Base",
@@ -137,6 +167,16 @@ const LANGS = {
       details: "Details",
       generalControls: "Allgemeine Steuerung",
       coordinateLabel: "Koordinaten",
+      filter: {
+        disasterType: "Katastrophentyp",
+        refresh: "Aktualisieren",
+        eventType: "Ereignistyp",
+        min: "Min.",
+        capital: "🏛️ Hauptstadt",
+        population: "👥 Bevölkerung",
+        language: "🗣️ Sprache",
+        currency: "💶 Währung",
+      },
     },
     layers: {
       temel: "Basis",
@@ -177,6 +217,16 @@ const LANGS = {
       details: "Dettagli",
       generalControls: "Controlli generali",
       coordinateLabel: "Coordinate",
+      filter: {
+        disasterType: "Tipo di disastro",
+        refresh: "Aggiorna",
+        eventType: "Tipo di evento",
+        min: "min",
+        capital: "🏛️ Capitale",
+        population: "👥 Popolazione",
+        language: "🗣️ Lingua",
+        currency: "💶 Valuta",
+      },
     },
     layers: {
       temel: "Base",
@@ -268,14 +318,6 @@ function setLanguage(langCode) {
     btn.style.background = isActive ? "rgba(34,197,94,0.2)" : "transparent";
   });
 
-  // Dil seçimi slider başlığını güncelle
-  const langSliderTitle = document.querySelector(
-    "#slider-top-right .slider-content h3",
-  );
-  if (langSliderTitle) {
-    langSliderTitle.textContent = __("meta.sliderTitle");
-  }
-
   // Event'i tetikle — katmanlar ve diğer bileşenler dinleyebilir
   document.dispatchEvent(
     new CustomEvent("languageChanged", { detail: langCode }),
@@ -293,7 +335,7 @@ function setLanguage(langCode) {
  * Dil seçici UI'ını SLD3'e (üst sağ slider) doldur
  */
 function populateLangSelector() {
-  const sliderBody = document.querySelector("#slider-top-right .slider-body");
+  const sliderBody = document.querySelector("#slider-top-center .slider-body");
   if (!sliderBody) return;
 
   let html =
@@ -322,7 +364,13 @@ function populateLangSelector() {
   html += "</div>";
   sliderBody.innerHTML = html;
 
-  // Butonlara tıklama dinleyicisi ekle
+  // Dil seçimi slider başlığını güncelle
+  const langSliderTitle = document.querySelector(
+    "#slider-top-center .slider-content h3",
+  );
+  if (langSliderTitle) {
+    langSliderTitle.textContent = __("meta.sliderTitle");
+  }
   sliderBody.querySelectorAll(".lang-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       setLanguage(btn.dataset.lang);

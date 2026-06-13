@@ -46,7 +46,11 @@ function updatePoliticalSlider() {
   const body = document.querySelector("#slider-top-right .slider-body");
   if (!body) return;
   const title = document.querySelector("#slider-top-right .slider-content h3");
-  if (title) title.textContent = "🏛️ Siyasi Olaylar";
+  if (title) {
+    const layerName =
+      typeof __ === "function" ? __("layers.siyasi-olaylar") : "Siyasi Olaylar";
+    title.textContent = `🏛️ ${layerName}`;
+  }
 
   const arrow = document.querySelector(".arrow-top-right");
   const slider = document.getElementById("slider-top-right");
@@ -57,7 +61,9 @@ function updatePoliticalSlider() {
 
   let html = '<div class="disaster-filters">';
   html +=
-    '<div class="filter-section"><div class="filter-title">Olay Türü</div>';
+    '<div class="filter-section"><div class="filter-title">' +
+    (typeof __ === "function" ? __("ui.filter.eventType") : "Olay Türü") +
+    "</div>";
 
   const selected = window._selectedPoliticalTypes || [
     "protest",
@@ -75,7 +81,9 @@ function updatePoliticalSlider() {
   });
 
   html +=
-    '</div><div class="filter-section"><div class="filter-title">Yenileme</div>';
+    '</div><div class="filter-section"><div class="filter-title">' +
+    (typeof __ === "function" ? __("ui.filter.refresh") : "Yenileme") +
+    "</div>";
   html += '<div class="refresh-control">';
   html += `<input type="range" class="refresh-slider" min="1" max="30" value="${politicalRefresh}" />`;
   html += `<span class="refresh-label">${politicalRefresh} dk</span>`;

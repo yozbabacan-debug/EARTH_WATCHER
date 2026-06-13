@@ -73,7 +73,11 @@ function updateSliderContent() {
     const title = document.querySelector(
       "#slider-top-right .slider-content h3",
     );
-    if (title) title.textContent = "🌊 Doğal Olaylar";
+    if (title) {
+      const layerName =
+        typeof __ === "function" ? __("layers.dogal-olaylar") : "Doğal Olaylar";
+      title.textContent = `🌊 ${layerName}`;
+    }
 
     // Üst sağ slider'ı aç
     const arrow = document.querySelector(".arrow-top-right");
@@ -86,7 +90,9 @@ function updateSliderContent() {
     // Tüm afet tiplerini içeren HTML
     let html = '<div class="disaster-filters">';
     html +=
-      '<div class="filter-section"><div class="filter-title">Afet Türü</div>';
+      '<div class="filter-section"><div class="filter-title">' +
+      (typeof __ === "function" ? __("ui.filter.disasterType") : "Afet Türü") +
+      "</div>";
 
     DISASTER_TYPES.forEach((type) => {
       const checked = selectedDisasterTypes.includes(type.id) ? "checked" : "";
@@ -100,7 +106,9 @@ function updateSliderContent() {
 
     html += "</div>";
     html +=
-      '<div class="filter-section"><div class="filter-title">Yenileme</div>';
+      '<div class="filter-section"><div class="filter-title">' +
+      (typeof __ === "function" ? __("ui.filter.refresh") : "Yenileme") +
+      "</div>";
     html += '<div class="refresh-control">';
     html += `<input type="range" class="refresh-slider" id="refresh-slider" min="1" max="30" value="${refreshInterval}">`;
     html += `<span class="refresh-label" id="refresh-label">${refreshInterval} dk</span>`;

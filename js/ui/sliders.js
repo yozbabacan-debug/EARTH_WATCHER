@@ -37,8 +37,20 @@ function initSliderUI() {
       return;
     }
 
-    // SLD 2 (üst orta) — hiç açılmasın
+    // SLD 2 (üst orta) — dil seçimi/ayarlar
     if (arrow.classList.contains("arrow-top-center")) {
+      arrow.addEventListener("click", () => {
+        const slider = document.getElementById("slider-top-center");
+        if (!slider) return;
+        const isActive = slider.classList.contains("active");
+        if (isActive) {
+          slider.classList.remove("active");
+          arrow.textContent = "▼";
+        } else {
+          slider.classList.add("active");
+          arrow.textContent = "▲";
+        }
+      });
       return;
     }
 

@@ -240,8 +240,23 @@ function renderCountryHTML(name, flagHtml, latlng, wikiUrl, data) {
   var language = data ? data.language : "—";
   var currency = data ? data.currency : "—";
   var loading = !data
-    ? '<div style="font-size:0.7rem;color:rgba(248,250,252,0.4);margin-top:8px">📡 Bilgiler yükleniyor...</div>'
+    ? '<div style="font-size:0.7rem;color:rgba(248,250,252,0.4);margin-top:8px">📡 ' +
+      (typeof __ === "function" ? __("ui.details") : "Bilgiler yükleniyor") +
+      "...</div>"
     : "";
+
+  var labelCapital =
+    typeof __ === "function" ? __("ui.filter.capital") : "🏛️ Başkent";
+  var labelPopulation =
+    typeof __ === "function" ? __("ui.filter.population") : "👥 Nüfus";
+  var labelLanguage =
+    typeof __ === "function" ? __("ui.filter.language") : "🗣️ Dil";
+  var labelCurrency =
+    typeof __ === "function" ? __("ui.filter.currency") : "💶 Para Birimi";
+  var wikiMore =
+    typeof __ === "function"
+      ? "📖 Wikipedia" + "'da daha fazla"
+      : "📖 Wikipedia'da daha fazla";
 
   return `
     <div class="country-info">
@@ -254,25 +269,25 @@ function renderCountryHTML(name, flagHtml, latlng, wikiUrl, data) {
       </div>
       <div class="country-details" style="font-size:0.9rem">
         <div class="detail-row">
-          <span class="detail-label" style="font-size:0.85rem">🏛️ Başkent</span>
+          <span class="detail-label" style="font-size:0.85rem">${labelCapital}</span>
           <span class="detail-value" style="font-size:0.85rem">${capital}</span>
         </div>
         <div class="detail-row">
-          <span class="detail-label" style="font-size:0.85rem">👥 Nüfus</span>
+          <span class="detail-label" style="font-size:0.85rem">${labelPopulation}</span>
           <span class="detail-value" style="font-size:0.85rem">${population}</span>
         </div>
         <div class="detail-row">
-          <span class="detail-label" style="font-size:0.85rem">🗣️ Dil</span>
+          <span class="detail-label" style="font-size:0.85rem">${labelLanguage}</span>
           <span class="detail-value" style="font-size:0.85rem">${language}</span>
         </div>
         <div class="detail-row">
-          <span class="detail-label" style="font-size:0.85rem">💱 Para Birimi</span>
+          <span class="detail-label" style="font-size:0.85rem">${labelCurrency}</span>
           <span class="detail-value" style="font-size:0.85rem">${currency}</span>
         </div>
       </div>
       ${loading}
       <a href="${wikiUrl}" target="_blank" class="country-wiki" style="font-size:0.85rem;margin-top:8px">
-        📖 Wikipedia'da daha fazla
+        ${wikiMore}
       </a>
     </div>
   `;
