@@ -154,31 +154,24 @@ function fetchNewsAPIEvents(map, apiKey) {
   const gnewsUrl = `https://gnews.io/api/v4/search?q=politics+OR+election+OR+protest+OR+war+OR+sanctions+OR+government+OR+diplomacy&lang=en&max=20&token=${gnewsKey}`;
   const newsUrl = `https://newsapi.org/v2/everything?q=politics+OR+protest+OR+war+OR+election+OR+diplomacy+OR+government&pageSize=15&language=en&sortBy=publishedAt&apiKey=${apiKey}`;
 
-  // RSS feed'leri — test edilmiş, çalışan kaynaklar
+  // RSS feed'leri — rate limit icin 6 kaynak (kitalara gore)
   const rssFeeds = [
-    { url: "https://feeds.bbci.co.uk/news/world/rss.xml", name: "BBC" },
-    { url: "https://www.aljazeera.com/xml/rss/all.xml", name: "Al Jazeera" },
-    { url: "https://www.theguardian.com/world/rss", name: "Guardian" },
     {
       url: "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
       name: "NYT",
     },
-    { url: "https://feeds.npr.org/1001/rss.xml", name: "NPR" },
     { url: "https://tass.com/rss/v2.xml", name: "TASS" },
     { url: "https://www.scmp.com/rss/4/feed", name: "SCMP" },
+    { url: "https://www.aljazeera.com/xml/rss/all.xml", name: "Al Jazeera" },
+    { url: "https://feeds.bbci.co.uk/news/world/rss.xml", name: "BBC" },
     { url: "https://feeds.washingtonpost.com/rss/world", name: "WaPo" },
-    {
-      url: "https://moxie.foxnews.com/google-publisher/world.xml",
-      name: "Fox",
-    },
-    { url: "https://www.telegraph.co.uk/rss.xml", name: "Telegraph" },
   ];
 
-  // RSS'yi rss2json ile çek, 8sn timeout
+  // RSS'yi rss2json ile çek, 5sn timeout
   async function fetchRSS(url, name) {
     try {
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 8000);
+      const timeout = setTimeout(() => controller.abort(), 5000);
       const r2j = await fetch(
         `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`,
         { signal: controller.signal },
@@ -293,16 +286,12 @@ function fetchNewsAPIEvents(map, apiKey) {
         if (!coords) {
           // Kaynak bazlı yedek konum
           const fallbackCoords = {
-            BBC: [51.5, -0.1],
-            "Al Jazeera": [25.3, 51.5],
-            Guardian: [51.5, -0.1],
             NYT: [40.7, -74.0],
-            NPR: [38.9, -77.0],
             TASS: [55.8, 37.6],
             SCMP: [22.3, 114.2],
+            "Al Jazeera": [25.3, 51.5],
+            BBC: [51.5, -0.1],
             WaPo: [38.9, -77.0],
-            Fox: [40.7, -74.0],
-            Telegraph: [51.5, -0.1],
             GNews: [40.7, -74.0],
             NewsAPI: [40.7, -74.0],
           };
