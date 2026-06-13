@@ -159,6 +159,12 @@ function fetchNewsAPIEvents(map, apiKey) {
     { url: "https://feeds.bbci.co.uk/news/world/rss.xml", name: "BBC" },
     { url: "https://www.aljazeera.com/xml/rss/all.xml", name: "Al Jazeera" },
     { url: "https://www.theguardian.com/world/rss", name: "Guardian" },
+    {
+      url: "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
+      name: "NYT",
+    },
+    { url: "https://feeds.npr.org/1001/rss.xml", name: "NPR" },
+    { url: "https://www.abc.net.au/news/feed/46156/rss.xml", name: "ABC Au" },
   ];
   const rssPromises = rssFeeds.map((f) =>
     fetch(
@@ -265,7 +271,47 @@ function fetchNewsAPIEvents(map, apiKey) {
         const icon = typeInfo?.icon || "🏛️";
 
         const coords = extractCountryCoords(fullText);
-        if (!coords) return;
+        if (!coords) {
+          // Kaynak bazlı yedek konum
+          const fallbackCoords = {
+            BBC: [51.5, -0.1],
+            "Al Jazeera": [25.3, 51.5],
+            Guardian: [51.5, -0.1],
+            NYT: [40.7, -74.0],
+            NPR: [38.9, -77.0],
+            "ABC Au": [-33.9, 151.2],
+            GNews: [40.7, -74.0],
+            NewsAPI: [40.7, -74.0],
+          };
+          const fallback = fallbackCoords[article.source] || [20.0, 0.0];
+          // Yine de ekle, konum tam bilinmiyor uyarısıyla
+          const marker = L.circleMarker(fallback, {
+            radius: 6,
+            color: "#888",
+            fillColor: "#888",
+            fillOpacity: 0.3,
+            weight: 1,
+          });
+          marker.bindTooltip(
+            `${icon} <b>${article.source}</b><br/>${article.title.substring(0, 80)}`,
+            { direction: "top" },
+          );
+          marker.on("click", () => marker.openTooltip());
+          marker.addTo(map);
+          politicalMarkers.push(marker);
+
+          setTimeout(() => {
+            try {
+              map.removeLayer(marker);
+            } catch (e) {}
+            politicalMarkers = politicalMarkers.filter((m) => m !== marker);
+          }, 300000);
+
+          addPoliticalToTicker(
+            `${icon} ${article.source}: ${article.title.substring(0, 60)}`,
+          );
+          return;
+        }
 
         const marker = L.circleMarker(coords, {
           radius: 8,
