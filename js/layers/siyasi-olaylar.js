@@ -154,7 +154,7 @@ function fetchNewsAPIEvents(map, apiKey) {
   const gnewsUrl = `https://gnews.io/api/v4/search?q=politics+OR+election+OR+protest+OR+war+OR+sanctions+OR+government+OR+diplomacy&lang=en&max=20&token=${gnewsKey}`;
   const newsUrl = `https://newsapi.org/v2/everything?q=politics+OR+protest+OR+war+OR+election+OR+diplomacy+OR+government&pageSize=15&language=en&sortBy=publishedAt&apiKey=${apiKey}`;
 
-  // RSS feed'leri — önce rss2json dene, olmazsa CORS proxy ile XML parse et
+  // RSS feed'leri — sadece rss2json, timeout ile
   const rssFeeds = [
     { url: "https://feeds.bbci.co.uk/news/world/rss.xml", name: "BBC" },
     { url: "https://www.aljazeera.com/xml/rss/all.xml", name: "Al Jazeera" },
@@ -164,44 +164,23 @@ function fetchNewsAPIEvents(map, apiKey) {
       name: "NYT",
     },
     { url: "https://feeds.npr.org/1001/rss.xml", name: "NPR" },
-    { url: "https://www.abc.net.au/news/feed/46156/rss.xml", name: "ABC Au" },
-    { url: "https://tass.com/rss/v2.xml", name: "TASS" },
-    { url: "https://www.trtworld.com/rss", name: "TRT" },
-    { url: "https://www.scmp.com/rss/4/feed", name: "SCMP" },
   ];
 
-  // RSS'yi XML olarak çekip parse et (rss2json bazi kaynaklari bloklar)
+  // RSS'yi rss2json ile çek, 5sn timeout
   async function fetchRSS(url, name) {
     try {
-      // Önce rss2json dene
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000);
       const r2j = await fetch(
         `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`,
+        { signal: controller.signal },
       ).then((r) => r.json());
+      clearTimeout(timeout);
       if (r2j.status === "ok" && r2j.items?.length) {
-        console.log(`📰 RSS ${name}: ${r2j.items.length} haber (rss2json)`);
+        console.log(`📰 ${name}: ${r2j.items.length} haber`);
         return { items: r2j.items, name };
       }
     } catch (_) {}
-
-    // rss2json calismazsa CORS proxy ile XML cek
-    try {
-      const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
-      const xmlText = await fetch(proxyUrl).then((r) => r.text());
-      const parser = new DOMParser();
-      const xml = parser.parseFromString(xmlText, "text/xml");
-      const items = Array.from(xml.querySelectorAll("item")).map((item) => ({
-        title: item.querySelector("title")?.textContent || "",
-        description: item.querySelector("description")?.textContent || "",
-        link: item.querySelector("link")?.textContent || "",
-      }));
-      if (items.length) {
-        console.log(`📰 RSS ${name}: ${items.length} haber (proxy)`);
-        return { items, name };
-      }
-    } catch (e) {
-      console.warn(`⚠️ RSS ${name} basarisiz:`, e.message);
-    }
-
     return { items: [], name };
   }
 
