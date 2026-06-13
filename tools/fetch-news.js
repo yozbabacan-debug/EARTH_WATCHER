@@ -71,6 +71,21 @@ const RSS_FEEDS = [
     name: "MercoPress",
     country: "UY",
   },
+  {
+    url: "https://www.japantimes.co.jp/feed/",
+    name: "Japan Times",
+    country: "JP",
+  },
+  {
+    url: "https://www.chinadaily.com.cn/rss/world_rss.xml",
+    name: "China Daily",
+    country: "CN",
+  },
+  {
+    url: "https://timesofindia.indiatimes.com/rssfeeds/296589292.cms",
+    name: "Times of India",
+    country: "IN",
+  },
 ];
 
 // Konum eşleştirme
@@ -159,6 +174,9 @@ const COUNTRY_COORDS = {
   Independent: [51.5, -0.1],
   "France 24": [48.9, 2.3],
   MercoPress: [-34.9, -56.2],
+  "Japan Times": [35.7, 139.7],
+  "China Daily": [39.9, 116.4],
+  "Times of India": [28.6, 77.2],
 };
 
 // Şehir isimleri
