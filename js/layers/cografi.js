@@ -43,27 +43,31 @@ function initCografiLayer(map) {
 }
 
 function destroyCografiLayer(map) {
-  console.log("🌍 Coğrafi katman temizleniyor...");
+  console.log("🗑️ [Coğrafi Katman] Temizleniyor...");
 
+  // Ülke sinirlarini kaldir
   if (countriesLayer) {
-    map.removeLayer(countriesLayer);
+    try {
+      map.removeLayer(countriesLayer);
+    } catch (e) {}
     countriesLayer = null;
   }
 
+  // Event listener'lari temizle
   map.off("contextmenu", onMapRightClick);
 
-  // Sağ slider'ı kapat ve içeriği temizle
+  // Sag tık engelini kaldir
+  map.getContainer().oncontextmenu = null;
+
+  // Sag slider'i kapat
   if (typeof toggleSideSlider === "function") {
     toggleSideSlider("right", false);
   }
   const sliderBody = document.querySelector("#slider-right .slider-body");
   if (sliderBody) sliderBody.innerHTML = "";
-  const sliderTitle = document.querySelector(
-    "#slider-right .slider-content h3",
-  );
-  if (sliderTitle) sliderTitle.textContent = "Detaylar";
 
   activeCountry = null;
+  console.log("✅ [Coğrafi Katman] Temizlendi");
 }
 
 function loadCountries(map) {
