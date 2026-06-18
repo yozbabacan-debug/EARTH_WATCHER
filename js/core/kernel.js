@@ -123,10 +123,7 @@ EarthWatcher.Kernel = (function () {
 
   function _resetAll() {
     Object.keys(SLD).forEach(function (key) {
-      if (key !== "sld4") {
-        // SLD 4 (katman listesi) her zaman açık kalabilir
-        _show(key, false);
-      }
+      _show(key, false);
     });
   }
 
@@ -155,7 +152,7 @@ EarthWatcher.Kernel = (function () {
         break;
 
       case "cografi":
-        _show("sld4", true);
+        // Cografi: sadece harita, slider yok
         _setTicker(false);
         break;
 
