@@ -147,42 +147,77 @@ EarthWatcher.Kernel = (function () {
 
     switch (layerKey) {
       case "temel":
-        _show("sld4", true); // Katman listesi
+        // SLD 2: Katman Secici, SLD 3: Genel Kontrol (dil secimi vs)
+        _show("sld2", true);
+        _show("sld4", true); // Katman listesi her zaman acik
         _setTicker(false);
         break;
 
       case "cografi":
-        // Cografi: sadece harita, slider yok
+        // SLD 2: Katman Secici, SLD 5: ULKE bilgileri
+        _show("sld2", true);
+        _show("sld4", true);
         _setTicker(false);
         break;
 
       case "dogal-olaylar":
+        // SLD 2: Katman Secici, SLD 4: Dogal olay secici
+        _show("sld2", true);
+        _show("sld4", true); // olay secici
+        _setTicker(true);
+        break;
+
       case "doga-disi-olaylar":
-        _show("sld3", true); // Filtre/olay turu
-        _show("sld4", true);
+        // SLD 2: Katman Secici, SLD 4: Olay secici, SLD 5: Olay detayi
+        _show("sld2", true);
+        _show("sld4", true); // olay secici
         _setTicker(true);
         break;
 
       case "siyasi-olaylar":
-        _show("sld3", true); // Filtre
-        _show("sld4", true);
+        // SLD 1: Ulke secici, SLD 2: Katman Secici,
+        // SLD 4: Olay secici, SLD 5: Olay detayi
+        _show("sld1", true); // ulke secici
+        _show("sld2", true);
+        _show("sld4", true); // olay secici
         _setTicker(true);
         break;
 
       case "uydular":
+        // SLD 1: Uydu Secici (MAX 8), SLD 2: Katman Secici,
+        // SLD 4: Uydu sayi+sure secici, SLD 5: Uydu detayi
+        _show("sld1", true);
+        _show("sld2", true);
+        _show("sld4", true);
+        _setTicker(false);
+        break;
+
       case "ucus":
+        // SLD 1: Havayolu secici (MAX 10), SLD 2: Katman Secici,
+        // SLD 4: Ucak sayi+sure, SLD 5: Ucus detayi
+        _show("sld1", true);
+        _show("sld2", true);
+        _show("sld4", true);
+        _setTicker(false);
+        break;
+
       case "gemi":
-        _show("sld3", true);
+        // SLD 1: Bayrak secici (MAX 10), SLD 2: Katman Secici,
+        // SLD 4: Gemi sayi+sure, SLD 5: Gemi detayi
+        _show("sld1", true);
+        _show("sld2", true);
         _show("sld4", true);
         _setTicker(false);
         break;
 
       case "kameralar":
+        _show("sld2", true);
         _show("sld4", true);
         _setTicker(false);
         break;
 
       default:
+        _show("sld2", true);
         _show("sld4", true);
         _setTicker(false);
     }
