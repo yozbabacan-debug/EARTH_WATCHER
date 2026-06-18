@@ -156,7 +156,7 @@ EarthWatcher.Kernel = (function () {
 
       case "cografi":
         _show("sld4", true);
-        _setTicker(true);
+        _setTicker(false);
         break;
 
       case "dogal-olaylar":
@@ -196,7 +196,10 @@ EarthWatcher.Kernel = (function () {
   // ============================================================
   function cacheAsset(payload) {
     _cachedAsset = payload;
-    console.log("💾 [Kernel] Varlik onbellege alindi:", payload.name || payload.title);
+    console.log(
+      "💾 [Kernel] Varlik onbellege alindi:",
+      payload.name || payload.title,
+    );
   }
 
   // ============================================================
