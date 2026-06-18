@@ -7,6 +7,7 @@ let nonNaturalMarkers = [];
 let nonNaturalTimer = null;
 let nonNaturalRefresh = 5;
 let selectedNonNaturalTypes = ["wildfire", "flood", "industrial", "accident"];
+let _nnTimeouts = []; // V2: timeout takibi
 
 const NON_NATURAL_TYPES = [
   { id: "wildfire", name: "Yangın", icon: "🔥", color: "#f97316" },
@@ -27,7 +28,7 @@ function initDogaDisiOlaylarLayer(map) {
 }
 
 function destroyDogaDisiOlaylarLayer(map) {
-  console.log("🔥 Doğa dışı olaylar katmanı temizleniyor...");
+  console.log("🗑️ [Doğa Dışı] Temizleniyor...");
 
   clearNonNaturalMarkers(map);
   if (nonNaturalTimer) {
@@ -36,6 +37,7 @@ function destroyDogaDisiOlaylarLayer(map) {
   }
   hideNonNaturalTicker();
   restoreNonNaturalSlider();
+  console.log("✅ [Doğa Dışı] Temizlendi");
 }
 
 // ============================================================
@@ -165,12 +167,14 @@ function fetchNonNaturalEvents(map) {
         nonNaturalMarkers.push(marker);
 
         // 20 saniye sonra kaybol
-        setTimeout(() => {
+        const tid = setTimeout(() => {
           try {
             map.removeLayer(marker);
           } catch (e) {}
           nonNaturalMarkers = nonNaturalMarkers.filter((m) => m !== marker);
+          _nnTimeouts = _nnTimeouts.filter((t) => t !== tid);
         }, 20000);
+        _nnTimeouts.push(tid);
 
         // Ticker
         addNonNaturalToTicker(`${icon} ${event.title}`);
@@ -180,6 +184,10 @@ function fetchNonNaturalEvents(map) {
 }
 
 function clearNonNaturalMarkers(map) {
+  _nnTimeouts.forEach(function (t) {
+    clearTimeout(t);
+  });
+  _nnTimeouts = [];
   nonNaturalMarkers.forEach((m) => map.removeLayer(m));
   nonNaturalMarkers = [];
 }
