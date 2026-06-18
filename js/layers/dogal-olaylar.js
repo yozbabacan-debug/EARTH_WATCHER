@@ -9,6 +9,7 @@ let weatherLayers = [];
 let refreshTimer = null;
 let refreshInterval = 5; // dakika
 let selectedDisasterTypes = ["earthquake", "flood", "volcano", "storm"];
+let _markerTimeouts = []; // V2: timeout takibi (destroy'da iptal)
 
 // Afet tipleri
 const DISASTER_TYPES = [
@@ -40,12 +41,18 @@ function initDogalOlaylarLayer(map) {
 }
 
 function destroyDogalOlaylarLayer(map) {
-  console.log("🌊 Doğal olaylar katmanı temizleniyor...");
+  console.log("🗑️ [Doğal Olaylar] Temizleniyor...");
 
-  // Marker'ları temizle
+  // Bekleyen tum timeout'lari iptal et
+  _markerTimeouts.forEach(function (t) {
+    clearTimeout(t);
+  });
+  _markerTimeouts = [];
+
+  // Marker'lari temizle
   clearMarkers(map);
 
-  // Zamanlayıcıyı durdur
+  // Zamanlayiciyi durdur
   if (refreshTimer) {
     clearInterval(refreshTimer);
     refreshTimer = null;
@@ -54,11 +61,13 @@ function destroyDogalOlaylarLayer(map) {
   // Hava durumu overlay'ini gizle
   hideWeatherOverlay(map);
 
-  // Ticker'ı gizle (başka katman açıksa gizleme)
+  // Ticker'i gizle
   updateTickerVisibility();
 
-  // Slider içeriğini eski haline döndür
+  // Slider icerigini eski haline dondur
   restoreSliderContent();
+
+  console.log("✅ [Doğal Olaylar] Temizlendi");
 }
 
 // ============================================================
@@ -310,7 +319,7 @@ function addMarkerWithTimeout(map, marker, tickerText, labelText, color) {
   }
 
   // 5 dakika sonra otomatik temizle (20sn cok kısaydı)
-  setTimeout(() => {
+  const tid = setTimeout(() => {
     try {
       map.removeLayer(marker);
     } catch (e) {}
@@ -320,7 +329,9 @@ function addMarkerWithTimeout(map, marker, tickerText, labelText, color) {
       } catch (e) {}
     }
     naturalMarkers = naturalMarkers.filter((m) => m !== marker && m !== label);
+    _markerTimeouts = _markerTimeouts.filter((t) => t !== tid);
   }, 300000);
+  _markerTimeouts.push(tid);
 }
 
 function mapEONETCategory(catId) {
@@ -361,6 +372,11 @@ function restartAutoRefresh(map) {
 function clearMarkers(map) {
   naturalMarkers.forEach((m) => map.removeLayer(m));
   naturalMarkers = [];
+  // Timeout'lari da iptal et
+  _markerTimeouts.forEach(function (t) {
+    clearTimeout(t);
+  });
+  _markerTimeouts = [];
 }
 
 // ============================================================
