@@ -146,4 +146,9 @@ function _registerLayers(map) {
   }
 
   console.log("📋 Tum katmanlar V2 formatinda kaydedildi");
+
+  // Temel katmani baslangicta aktif et
+  if (!EarthWatcher.isActive("temel")) {
+    EarthWatcher.toggleLayer("temel");
+  }
 }
