@@ -6,10 +6,12 @@
       "lat": 40.758,
       "lng": -73.9855,
       "country": "US",
-      "type": "snapshot",
-      "url": "https://webcams.nyctmc.org/cameras/5.jpg",
-      "provider": "NYC DOT"
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/5qap5aO4i9A",
+      "provider": "NYC DOT",
+      "risk_tags": ["traffic", "tourist"]
     },
+
     {
       "id": 2,
       "name": "Brooklyn Bridge, New York",

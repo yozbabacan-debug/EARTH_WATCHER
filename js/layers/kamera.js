@@ -87,27 +87,33 @@ function createCameraMarker(cam) {
   const marker = L.marker([cam.lat, cam.lng], { icon });
 
   // Popup içeriği — %50 büyütüldü
+  let mediaHtml = "";
+  if (cam.type === "youtube" && cam.stream) {
+    mediaHtml = `<iframe width="320" height="180" src="${cam.stream}?autoplay=0&mute=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+  } else if (cam.type === "hls" && cam.stream) {
+    mediaHtml = `<video width="320" height="180" controls muted autoplay src="${cam.stream}"></video>`;
+  } else {
+    mediaHtml = `<img src="${cam.url}" alt="${cam.name}" style="max-width:100%;max-height:100%;object-fit:cover;border-radius:8px;" loading="lazy" onerror="this.parentElement.innerHTML='<div style=display:flex;flex-direction:column;align-items:center;gap:8px;color:#666><div style=font-size:2.5rem>📷</div><div style=font-size:0.9rem>${cam.provider ? "Kamera su an kullanilamiyor" : "Kamera goruntusu henuz eklenmedi"}</div><div style=font-size:0.75rem>Yakinda canli yayinda</div></div>'" />`;
+  }
+
   const popupContent = `
-    <div class="camera-popup" style="width:450px;font-family:inherit;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-        <b style="font-size:1.1rem">${cam.name}</b>
-        <span style="font-size:0.8rem;color:#888">${cam.provider || ""}</span>
-      </div>
-      <div class="cam-image-container" style="position:relative;width:100%;height:270px;background:#1a1a2e;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
-        <img src="${cam.url}" alt="${cam.name}"
-             style="max-width:100%;max-height:100%;object-fit:cover;border-radius:8px;"
-             onerror="this.parentElement.innerHTML='<div style=display:flex;flex-direction:column;align-items:center;gap:8px;color:#666><div style=font-size:2.5rem>📷</div><div style=font-size:0.9rem>${cam.provider ? "Kamera su an kullanilamiyor" : "Kamera goruntusu henuz eklenmedi"}</div><div style=font-size:0.75rem>Yakinda canli yayinda</div></div>'"
-             loading="lazy" />
-        <div style="position:absolute;top:8px;left:8px;background:rgba(220,38,38,0.9);color:#fff;font-size:0.75rem;padding:3px 8px;border-radius:4px;display:flex;align-items:center;gap:4px;">
-          <span style="display:inline-block;width:7px;height:7px;background:#22c55e;border-radius:50%;animation:pulse 1.5s infinite;"></span>
-          CANLI
+      <div class="camera-popup" style="width:450px;font-family:inherit;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <b style="font-size:1.1rem">${cam.name}</b>
+          <span style="font-size:0.8rem;color:#888">${cam.provider || ""}</span>
+        </div>
+        <div class="cam-image-container" style="position:relative;width:100%;height:270px;background:#1a1a2e;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+          ${mediaHtml}
+          <div style="position:absolute;top:8px;left:8px;background:rgba(220,38,38,0.9);color:#fff;font-size:0.75rem;padding:3px 8px;border-radius:4px;display:flex;align-items:center;gap:4px;">
+            <span style="display:inline-block;width:7px;height:7px;background:#22c55e;border-radius:50%;animation:pulse 1.5s infinite;"></span>
+            CANLI
+          </div>
+        </div>
+        <div style="font-size:0.8rem;color:#888;margin-top:8px;text-align:center;">
+          📍 ${cam.lat.toFixed(4)}, ${cam.lng.toFixed(4)}
         </div>
       </div>
-      <div style="font-size:0.8rem;color:#888;margin-top:8px;text-align:center;">
-        📍 ${cam.lat.toFixed(4)}, ${cam.lng.toFixed(4)}
-      </div>
-    </div>
-  `;
+    `;
 
   marker.bindPopup(popupContent, {
     maxWidth: 500,
