@@ -1,0 +1,50 @@
+/* Earth Watcher v4 — Dark Cyber Theme */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body, #map { width: 100%; height: 100%; background: #0a0a0f; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+
+/* Master Control Panel */
+#control-panel {
+  position: absolute; top: 12px; right: 12px; z-index: 1000;
+  background: rgba(10, 10, 20, 0.92); backdrop-filter: blur(12px);
+  border: 1px solid rgba(100, 100, 255, 0.15); border-radius: 10px;
+  color: #e2e8f0; width: 260px; padding: 14px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+.panel-header { font-size: 15px; font-weight: 700; color: #818cf8; margin-bottom: 10px; letter-spacing: 0.5px; }
+.risk-summary { display: flex; gap: 10px; margin-bottom: 12px; }
+.stat { flex: 1; background: rgba(255,255,255,0.04); border-radius: 6px; padding: 8px; text-align: center; }
+.stat-val { display: block; font-size: 22px; font-weight: 800; color: #e2e8f0; }
+.stat-val.hotspot { color: #ef4444; }
+.stat-lbl { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+
+/* Master Switches */
+.master-switches { margin-bottom: 10px; }
+.switch-item {
+  display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+  background: rgba(255,255,255,0.03); border-radius: 6px; margin-bottom: 4px;
+  cursor: pointer; transition: background 0.2s; border: 1px solid transparent;
+}
+.switch-item:hover { background: rgba(255,255,255,0.06); border-color: rgba(100,100,255,0.2); }
+.switch-item input[type="checkbox"] { accent-color: #818cf8; width: 16px; height: 16px; cursor: pointer; }
+.switch-label { font-size: 12px; color: #cbd5e1; }
+
+/* Legend */
+.legend { font-size: 10px; color: #94a3b8; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); }
+.legend-row { display: flex; align-items: center; gap: 6px; margin: 3px 0; }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+.panel-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 10px; color: #64748b; }
+.refresh-btn { background: none; border: 1px solid rgba(255,255,255,0.1); color: #94a3b8; padding: 3px 8px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+.refresh-btn:hover { background: rgba(255,255,255,0.08); color: #e2e8f0; }
+
+/* Popup Override */
+.leaflet-popup-content-wrapper { background: rgba(10,10,20,0.95) !important; color: #e2e8f0 !important; border-radius: 8px !important; border: 1px solid rgba(100,100,255,0.2) !important; box-shadow: 0 0 20px rgba(0,0,0,0.8) !important; }
+.leaflet-popup-tip { background: rgba(10,10,20,0.95) !important; }
+.leaflet-popup-close-button { color: #94a3b8 !important; }
+
+/* Pulsing hotspot */
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(239,68,68,0.7); } 70% { box-shadow: 0 0 0 12px rgba(239,68,68,0); } 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); } }
+.hotspot-pulse { animation: pulse 2s infinite; }
+
+/* Responsive */
+@media (max-width: 600px) { #control-panel { width: 220px; top: 6px; right: 6px; padding: 10px; } .panel-header { font-size: 13px; } }

@@ -1,146 +1,41 @@
 <!doctype html>
 <html lang="tr">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Earth Watcher</title>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Earth Watcher v4</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="css/v4.css"/>
+</head>
+<body>
+    <div id="map"></div>
 
-        <!-- Leaflet CSS -->
-        <link
-            rel="stylesheet"
-            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        />
-
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="css/main.css" />
-        <link rel="stylesheet" href="css/sliders.css" />
-    </head>
-    <body>
-        <!-- Harita Alanı -->
-        <div id="map"></div>
-
-        <!-- UI Katmanı (Haritanın üstüne bindirme) -->
-        <div id="ui-layer">
-            <!-- Üst Sol Slider (Katmanlar) -->
-            <div
-                class="slider-arrow arrow-top-left"
-                data-target="slider-top-left"
-            >
-                ▼
-            </div>
-            <div class="slider slider-top-left" id="slider-top-left">
-                <div class="slider-content">
-                    <h3 data-i18n="ui.layers">Katmanlar</h3>
-                    <div class="slider-body"></div>
-                </div>
-            </div>
-
-            <!-- Üst Orta Slider (Geniş) -->
-            <div
-                class="slider-arrow arrow-top-center"
-                data-target="slider-top-center"
-            >
-                ▼
-            </div>
-            <div class="slider slider-top-center" id="slider-top-center">
-                <div class="slider-content">
-                    <h3 data-i18n="ui.generalControls">Genel Kontroller</h3>
-                    <div class="slider-body"></div>
-                </div>
-            </div>
-
-            <!-- Üst Sağ Slider (İçerik seçici / Doğal Olaylar) -->
-            <div
-                class="slider-arrow arrow-top-right"
-                data-target="slider-top-right"
-            >
-                ▼
-            </div>
-            <div class="slider slider-top-right" id="slider-top-right">
-                <div class="slider-content">
-                    <h3 data-i18n="meta.sliderTitle">Ayarlar</h3>
-                    <div class="slider-body"></div>
-                </div>
-            </div>
-
-            <!-- Sol Slider (Katmanlar) -->
-            <div
-                class="slider-arrow arrow-left-top"
-                data-target="slider-left-top"
-            >
-                ▶
-            </div>
-            <div class="slider slider-left-top" id="slider-left-top">
-                <div class="slider-content">
-                    <h3 data-i18n="ui.layers">Katmanlar</h3>
-                    <div class="slider-body"></div>
-                </div>
-            </div>
-
-            <!-- Sağ Slider (Detaylar / Doğal Olaylar) -->
-            <div class="slider-arrow arrow-right" data-target="slider-right">
-                ◀
-            </div>
-            <div class="slider slider-right" id="slider-right">
-                <div class="slider-content">
-                    <h3 data-i18n="ui.details">Detaylar</h3>
-                    <div class="slider-body"></div>
-                </div>
-            </div>
+    <!-- Master Kontrol Paneli -->
+    <div id="control-panel">
+        <div class="panel-header">🌍 Earth Watcher v4</div>
+        <div class="risk-summary" id="risk-summary">
+            <div class="stat"><span class="stat-val" id="stat-total">0</span><span class="stat-lbl">Event</span></div>
+            <div class="stat"><span class="stat-val hotspot" id="stat-hotspot">0</span><span class="stat-lbl">Hotspot</span></div>
         </div>
-
-        <!-- Olay Ticker'ı -->
-        <div id="event-ticker" class="event-ticker" style="display: none">
-            <div class="ticker-track" id="ticker-track">
-                🌍 Olaylar bekleniyor...
-            </div>
+        <div class="master-switches">
+            <label class="switch-item" id="sw-physical">
+                <input type="checkbox" checked onchange="toggleLayer('physical', this.checked)">
+                <span class="switch-label">🌱 Cevresel & Dogal</span>
+            </label>
+            <label class="switch-item" id="sw-socio">
+                <input type="checkbox" checked onchange="toggleLayer('socio-political', this.checked)">
+                <span class="switch-label">⚡ Sosyo-Politik & Guvenlik</span>
+            </label>
         </div>
+        <div class="legend" id="legend"></div>
+        <div class="panel-footer">
+            <span id="last-update">Bekleniyor...</span>
+            <button onclick="refreshData()" class="refresh-btn">🔄</button>
+        </div>
+    </div>
 
-        <!-- Leaflet JS -->
-        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-        <!-- Leaflet MarkerCluster -->
-        <link
-            rel="stylesheet"
-            href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
-        />
-        <link
-            rel="stylesheet"
-            href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
-        />
-        <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-
-        <!-- TopoJSON Client (ülke sınır verileri için) -->
-        <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-
-        <!-- Satellite.js (TLE propagasyonu için) -->
-        <script src="https://cdn.jsdelivr.net/npm/satellite.js@4.1.4/dist/satellite.min.js"></script>
-
-        <!-- Custom JS (sıralama önemli: önce bağımlılıklar, sonra main) -->
-        <script src="js/i18n.js"></script>
-        <script src="icons/icons.js"></script>
-        <script src="js/data-manager.js"></script>
-        <script src="js/data/countries.js"></script>
-
-        <!-- 🚀 EARTH WATCHER v2 CORE ENGINE -->
-        <script src="js/core/engine.js"></script>
-        <script src="js/core/kernel.js"></script>
-
-        <!-- Slider UI -->
-        <script src="js/ui/sliders.js"></script>
-
-        <!-- Katmanlar (Sirasi onemli) -->
-        <script src="js/layers/temel.js"></script>
-        <script src="js/layers/cografi.js"></script>
-        <script src="js/layers/dogal-olaylar.js"></script>
-        <script src="js/layers/doga-disi-olaylar.js"></script>
-        <script src="js/layers/siyasi-olaylar.js"></script>
-        <script src="js/layers/uydular.js"></script>
-        <script src="js/layers/ucus.js"></script>
-        <script src="js/layers/gemi.js"></script>
-        <script src="js/layers/kamera.js"></script>
-
-        <!-- V2 MAIN (Eski main.js yerine) -->
-        <script src="js/main.js"></script>
-    </body>
+    <!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/v4/app.js"></script>
+</body>
 </html>
