@@ -91,3 +91,50 @@ html, body, #map { width: 100%; height: 100%; background: #0a0a0f; font-family: 
   .ew-bottom-dock { width: 90%; padding: 10px 14px; gap: 6px; bottom: 8px; }
   .slider-label { font-size: 10px; min-width: 100px; }
 }
+
+/* ============================================================
+   NEWS TICKER
+   ============================================================ */
+#news-ticker {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 999;
+  background: rgba(10,10,20,0.85); backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(0,255,204,0.15); overflow: hidden;
+  height: 28px; display: flex; align-items: center;
+}
+.ticker-track {
+  white-space: nowrap; animation: ticker-scroll 120s linear infinite;
+  font-size: 11px; color: #cbd5e1; padding: 0 20px;
+}
+.ticker-track b { color: #ef4444; margin: 0 4px; }
+.ticker-track .risk-high { color: #ff0055; }
+.ticker-track .risk-mid { color: #ff9900; }
+@keyframes ticker-scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* ============================================================
+   SATELLITE RECON — Taktik Uydu Kesif
+   ============================================================ */
+.intel-spinner {
+  width: 28px; height: 28px;
+  border: 2px solid rgba(0,255,204,0.1); border-radius: 50%;
+  border-top-color: #00ffcc; margin: 8px auto;
+  animation: intelRotate 0.8s linear infinite;
+}
+@keyframes intelRotate { to { transform: rotate(360deg); } }
+
+@keyframes pulseAnim {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(5); opacity: 0; }
+}
+.satellite-scan-pulse {
+  transform-origin: center;
+  animation: pulseAnim 1.2s ease-out infinite;
+}
+
+.ew-recon-popup .leaflet-popup-content-wrapper {
+  background: rgba(8,12,24,0.96) !important;
+  border: 1px solid rgba(0,255,204,0.25) !important;
+  box-shadow: 0 0 25px rgba(0,255,204,0.08) !important;
+}
