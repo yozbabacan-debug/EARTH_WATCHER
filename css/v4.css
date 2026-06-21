@@ -48,3 +48,46 @@ html, body, #map { width: 100%; height: 100%; background: #0a0a0f; font-family: 
 
 /* Responsive */
 @media (max-width: 600px) { #control-panel { width: 220px; top: 6px; right: 6px; padding: 10px; } .panel-header { font-size: 13px; } }
+
+/* ============================================================
+   BOTTOM DOCK — Slider Paneli
+   ============================================================ */
+.ew-bottom-dock {
+  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+  width: 60%; max-width: 700px;
+  background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(14px);
+  border: 1px solid rgba(100, 100, 255, 0.12); border-radius: 10px;
+  padding: 14px 22px; z-index: 1000;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.slider-row {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.slider-label {
+  font-size: 11px; font-weight: 600; color: #cbd5e1;
+  min-width: 140px;
+}
+/* Custom Range Slider */
+.ew-slider {
+  -webkit-appearance: none; appearance: none;
+  flex: 1; height: 5px; border-radius: 3px; outline: none; cursor: pointer;
+  background: #1e293b; margin-left: 12px;
+}
+.ew-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 15px; height: 15px; border-radius: 50%;
+  cursor: pointer; box-shadow: 0 0 8px currentColor;
+  transition: transform 0.15s;
+  background: var(--thumb-color, #00ffcc);
+}
+.ew-slider::-webkit-slider-thumb:hover { transform: scale(1.25); }
+.risk-slider { --thumb-color: #ef4444; }
+.risk-slider::-webkit-slider-thumb { box-shadow: 0 0 10px #ef4444; }
+.time-slider { --thumb-color: #818cf8; }
+.time-slider::-webkit-slider-thumb { box-shadow: 0 0 10px #818cf8; }
+
+.stat-val.filtered { color: #818cf8; }
+@media (max-width: 600px) {
+  .ew-bottom-dock { width: 90%; padding: 10px 14px; gap: 6px; bottom: 8px; }
+  .slider-label { font-size: 10px; min-width: 100px; }
+}

@@ -1,827 +1,557 @@
-* {
+/* ==========================================================================
+   Earth Watcher v4 — Geopolitical Situation Room
+   Cyberpunk / Military Command Center Aesthetic
+   ========================================================================== */
+
+/* --- CSS Variables (Design Tokens) --- */
+:root {
+    --bg-primary: #0a0e17;
+    --bg-panel: rgba(12, 18, 30, 0.92);
+    --bg-popup: rgba(15, 23, 42, 0.96);
+    --border-dim: rgba(255, 255, 255, 0.08);
+    --border-glow: rgba(255, 255, 255, 0.15);
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --accent-cyan: #00e5ff;
+    --accent-green: #00e676;
+    --accent-red: #ff1744;
+    --accent-orange: #ff9100;
+    --accent-yellow: #ffea00;
+    --accent-purple: #d500f9;
+    --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+    --font-sans:
+        "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Reset & Base --- */
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body,
-html {
-    width: 100%;
+html,
+body {
     height: 100%;
-    overflow: hidden;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-#map {
-    width: 100vw;
-    height: 100vh;
-    z-index: 1;
-}
-
-/* =================================================
-   KOORDİNAT GÖSTERGESİ
-   ================================================= */
-
-.coordinate-display {
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    border-radius: 8px;
-    padding: 8px 14px;
-    margin: 0 0 0 10px;
-    font-family: "Courier New", monospace;
-    font-size: 0.8rem;
-    color: #22c55e;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
-}
-
-/* Koordinat göstergesini ticker'ın üstüne çıkar */
-.leaflet-bottom.leaflet-left {
-    bottom: 36px !important;
-}
-
-.coord-inner {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
-}
-
-.coord-icon {
-    font-size: 1rem;
-}
-
-.coord-text {
-    letter-spacing: 0.5px;
-}
-
-/* =================================================
-   COĞRAFİ KATMAN — ÜLKE BİLGİSİ (Sol Slider)
-   ================================================= */
-
-.country-info {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.country-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.country-flag-img {
-    width: 24px;
-    height: 18px;
-    border-radius: 2px;
-    flex-shrink: 0;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-}
-
-.country-name {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--accent-color, #22c55e);
-}
-
-.country-coords {
-    font-size: 0.75rem;
-    color: rgba(248, 250, 252, 0.6);
-    font-family: "Courier New", monospace;
-}
-
-.country-details {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 8px 0;
-    border-top: 1px solid rgba(34, 197, 94, 0.15);
-    border-bottom: 1px solid rgba(34, 197, 94, 0.15);
-}
-
-.detail-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.8rem;
-}
-
-.detail-label {
-    color: rgba(248, 250, 252, 0.6);
-    font-size: 0.75rem;
-}
-
-.detail-value {
-    color: #f8fafc;
-    text-align: right;
-    max-width: 60%;
-}
-
-.country-thumb {
     width: 100%;
-    max-height: 120px;
-    object-fit: cover;
-    border-radius: 6px;
-    border: 1px solid rgba(34, 197, 94, 0.2);
+    overflow: hidden;
+    background: var(--bg-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.country-desc {
-    font-size: 0.8rem;
-    line-height: 1.5;
-    color: rgba(248, 250, 252, 0.85);
+/* --- Map Container --- */
+#map {
+    height: 100%;
+    width: 100%;
+    background: var(--bg-primary);
 }
 
-.country-wiki {
-    display: inline-block;
-    color: #22c55e;
-    text-decoration: none;
-    font-size: 0.85rem;
-    padding: 6px 12px;
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    border-radius: 6px;
-    text-align: center;
-    transition: background 0.2s;
-}
+/* ==========================================================================
+   Leaflet Core Overrides — Dark Theme
+   ========================================================================== */
 
-.country-wiki:hover {
-    background: rgba(34, 197, 94, 0.15);
-}
-
-/* =================================================
-   COĞRAFİ KATMAN — ÇİFT TIK POPUP
-   ================================================= */
-
-.cografi-popup .leaflet-popup-content-wrapper {
-    background: rgba(15, 23, 42, 0.95);
+/* Attribution Bar */
+.leaflet-control-attribution {
+    background: var(--bg-panel) !important;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    color: #f8fafc;
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    border-radius: 12px;
+    color: var(--text-muted) !important;
+    font-size: 10px !important;
+    padding: 4px 10px !important;
+    border-radius: 4px !important;
+    border: 1px solid var(--border-dim) !important;
 }
 
-.cografi-popup .leaflet-popup-tip {
-    background: rgba(15, 23, 42, 0.95);
-    border: 1px solid rgba(34, 197, 94, 0.3);
+.leaflet-control-attribution a {
+    color: var(--text-secondary) !important;
 }
 
-.cografi-popup .leaflet-popup-content {
-    margin: 14px 18px;
-    width: 460px !important;
+/* Zoom Controls */
+.leaflet-control-zoom {
+    border: 1px solid var(--border-dim) !important;
+    border-radius: 6px !important;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
 }
 
-.dblclick-popup {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.leaflet-control-zoom a {
+    background: var(--bg-panel) !important;
+    color: var(--text-primary) !important;
+    border-bottom: 1px solid var(--border-dim) !important;
+    width: 32px !important;
+    height: 32px !important;
+    line-height: 32px !important;
+    font-size: 16px !important;
+    transition: background var(--transition-fast);
 }
 
-.popup-coords {
-    font-size: 0.85rem;
-    font-family: "Courier New", monospace;
-    color: #22c55e;
-    text-align: center;
+.leaflet-control-zoom a:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
 }
 
-.popup-minimap {
-    position: relative;
-    margin-top: 4px;
+.leaflet-control-zoom a:last-child {
+    border-bottom: none !important;
 }
 
-.satellite-img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    display: block;
+/* ==========================================================================
+   Layer Control Panel — Cyberpunk Slate
+   ========================================================================== */
+.leaflet-control-layers {
+    background: var(--bg-panel) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-glow) !important;
+    border-radius: 10px !important;
+    padding: 14px 18px !important;
+    font-family: var(--font-sans);
+    color: var(--text-primary);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+    min-width: 220px;
 }
 
-.sat-zoom-controls {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 6px;
-    padding: 4px;
+.leaflet-control-layers-expanded {
+    padding: 16px 20px !important;
 }
 
-.sat-zoom-btn {
-    width: 28px;
-    height: 28px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    background: rgba(34, 197, 94, 0.3);
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
+.leaflet-control-layers-separator {
+    border-top: 1px solid var(--border-dim) !important;
+    margin: 10px 0 !important;
+}
+
+.leaflet-control-layers-overlays {
+    margin: 0 !important;
+}
+
+.leaflet-control-layers-overlays label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 8px 10px !important;
+    margin-bottom: 4px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.3px !important;
+    transition: background var(--transition-fast);
+    color: var(--text-primary) !important;
+}
+
+.leaflet-control-layers-overlays label:hover {
+    background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.leaflet-control-layers-overlays input[type="checkbox"] {
+    accent-color: var(--accent-cyan);
+    width: 15px;
+    height: 15px;
     cursor: pointer;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s;
+    flex-shrink: 0;
 }
 
-.sat-zoom-btn:hover {
-    background: rgba(34, 197, 94, 0.6);
+.leaflet-control-layers-base label {
+    font-size: 12px !important;
+    color: var(--text-muted) !important;
 }
 
-.sat-zoom-level {
-    color: #22c55e;
-    font-size: 0.75rem;
-    font-family: monospace;
-    padding: 2px 0;
+/* ==========================================================================
+   Popup — Intelligence Briefing Panel
+   ========================================================================== */
+.leaflet-popup-content-wrapper {
+    background: var(--bg-popup) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-glow) !important;
+    border-radius: 10px !important;
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.6),
+        0 0 60px rgba(0, 229, 255, 0.06) !important;
+    font-family: var(--font-sans);
+    padding: 6px !important;
 }
 
-.satellite-list {
-    padding: 4px 0;
-    font-size: 0.8rem;
-    color: rgba(248, 250, 252, 0.8);
+.leaflet-popup-tip {
+    background: var(--bg-popup) !important;
+    border: 1px solid var(--border-glow) !important;
+    box-shadow: none !important;
 }
 
-.sat-label {
-    opacity: 0.9;
+.leaflet-popup-close-button {
+    color: var(--text-muted) !important;
+    font-size: 20px !important;
+    padding: 6px 10px !important;
+    transition: color var(--transition-fast);
 }
 
-.popup-actions {
-    display: flex;
-    gap: 8px;
+.leaflet-popup-close-button:hover {
+    color: var(--accent-red) !important;
+    background: none !important;
 }
 
-/* =================================================
-   DOĞAL OLAYLAR — FİLTRE KONTROLLERİ
-   ================================================= */
-
-.disaster-filters {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+/* Popup Content Styling */
+.intel-popup {
+    padding: 6px 4px 4px;
 }
 
-.filter-section {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.filter-title {
-    font-size: 0.8rem;
-    color: rgba(248, 250, 252, 0.5);
+.intel-popup .source-badge {
+    display: inline-block;
+    font-size: 9px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-right: 6px;
+}
+
+.intel-popup .category-badge {
+    display: inline-block;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 3px;
+}
+
+.intel-popup .category-badge.physical {
+    color: var(--accent-cyan);
+    background: rgba(0, 229, 255, 0.1);
+    border: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+.intel-popup .category-badge.socio-political {
+    color: var(--accent-red);
+    background: rgba(255, 23, 68, 0.1);
+    border: 1px solid rgba(255, 23, 68, 0.2);
+}
+
+.intel-popup .event-title {
+    margin: 8px 0 4px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.intel-popup .event-desc {
+    color: var(--text-secondary);
+    font-size: 11.5px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.intel-popup .risk-bar-container {
+    margin-top: 8px;
+    border-top: 1px solid var(--border-dim);
+    padding-top: 8px;
+}
+
+.intel-popup .risk-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
     margin-bottom: 4px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid rgba(34, 197, 94, 0.15);
 }
 
-.disaster-filter {
-    padding: 5px 8px;
+.intel-popup .risk-bar-track {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 2px;
+    overflow: hidden;
 }
 
-.disaster-icon {
-    font-size: 1rem;
-    width: 24px;
+.intel-popup .risk-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width var(--transition-smooth);
+}
+
+.intel-popup .risk-score-text {
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 3px;
+    font-family: var(--font-mono);
+}
+
+.intel-popup .deep-dive {
+    margin-top: 10px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.intel-popup .deep-dive-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border-dim);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+}
+
+.intel-popup .deep-dive-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+}
+
+/* ==========================================================================
+   Risk Filter Slider — Command Bar
+   ========================================================================== */
+.risk-filter-bar {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background: var(--bg-panel);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-glow);
+    border-radius: 12px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    font-family: var(--font-sans);
+    min-width: 380px;
+}
+
+.risk-filter-bar .risk-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.risk-filter-bar label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 600;
+    color: var(--text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.risk-filter-bar input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1;
+    height: 4px;
+    background: linear-gradient(
+        90deg,
+        var(--accent-green) 0%,
+        var(--accent-yellow) 50%,
+        var(--accent-red) 100%
+    );
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+
+.risk-filter-bar input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--accent-red);
+    box-shadow: 0 0 12px rgba(255, 23, 68, 0.5);
+    cursor: pointer;
+    transition: box-shadow var(--transition-fast);
+}
+
+.risk-filter-bar input[type="range"]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 20px rgba(255, 23, 68, 0.8);
+}
+
+.risk-filter-bar input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--accent-red);
+    box-shadow: 0 0 12px rgba(255, 23, 68, 0.5);
+    cursor: pointer;
+}
+
+.risk-filter-bar .risk-value {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    min-width: 32px;
     text-align: center;
     flex-shrink: 0;
 }
 
-.refresh-control {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 4px;
-}
-
-.refresh-slider {
-    flex: 1;
-    accent-color: #22c55e;
-    cursor: pointer;
-}
-
-.refresh-label {
-    font-size: 0.85rem;
-    color: #22c55e;
-    font-family: monospace;
-    min-width: 40px;
-    text-align: right;
-}
-
-/* =================================================
-   HAVA DURUMU OVERLAY
-   ================================================= */
-
-.weather-icon {
-    background: none !important;
-    border: none !important;
-}
-
-.weather-badge {
-    background: rgba(15, 23, 42, 0.8);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    border-radius: 12px;
-    padding: 2px 8px;
-    font-size: 0.75rem;
-    color: #f8fafc;
+.risk-filter-bar .event-count {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
     white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-    text-align: center;
+    flex-shrink: 0;
 }
 
-.popup-btn {
-    flex: 1;
-    text-align: center;
-    padding: 8px 10px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 500;
-    transition: all 0.2s;
-}
-
-.popup-street {
-    background: rgba(34, 197, 94, 0.2);
-    color: #22c55e;
-    border: 1px solid rgba(34, 197, 94, 0.4);
-}
-
-.popup-street:hover {
-    background: rgba(34, 197, 94, 0.35);
-}
-
-.popup-satellite {
-    background: rgba(59, 130, 246, 0.2);
-    color: #3b82f6;
-    border: 1px solid rgba(59, 130, 246, 0.4);
-}
-
-.popup-satellite:hover {
-    background: rgba(59, 130, 246, 0.35);
-}
-
-.mini-map-img {
-    width: 100%;
-    height: auto;
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* =================================================
-   TICKER ÇUBUĞU (Alt Bilgi Şeridi)
-   ================================================= */
-
+/* ==========================================================================
+   Ticker — Bottom Scrolling News Bar
+   ========================================================================== */
 .event-ticker {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0;
-    width: 100vw;
-    height: 32px;
-    background: rgba(220, 38, 38, 0.92);
-    border-top: 2px solid #22c55e;
-    z-index: 9999;
+    right: 0;
+    height: 26px;
+    z-index: 999;
+    background: rgba(10, 14, 23, 0.95);
+    border-top: 1px solid var(--border-dim);
+    overflow: hidden;
     display: flex;
     align-items: center;
-    overflow: hidden;
 }
 
 .ticker-track {
-    display: inline-block;
-    padding: 0 20px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    color: #fff;
-    font-family: Arial, Helvetica, sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    display: flex;
+    animation: ticker-scroll 120s linear infinite;
     white-space: nowrap;
-    position: relative;
 }
 
-/* tickerMove animasyonu kaldırıldı, JS ile yapılıyor */
-
-/* =================================================
-   KAMERA ICON
-   ================================================= */
-.camera-icon-div {
-    background: none !important;
-    border: none !important;
-}
-
-.camera-icon {
-    width: 28px;
-    height: 28px;
-    display: flex;
+.ticker-item {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    background: rgba(249, 115, 22, 0.85);
-    border-radius: 50%;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 0 8px rgba(249, 115, 22, 0.5);
-    transition: transform 0.2s;
+    gap: 6px;
+    padding: 0 24px;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    flex-shrink: 0;
 }
 
-.camera-icon:hover {
-    transform: scale(1.2);
+.ticker-item .ticker-source {
+    color: var(--accent-cyan);
+    font-weight: 600;
+    font-size: 10px;
 }
 
-/* Kamera Cluster */
-.cam-cluster-div {
-    background: none !important;
-    border: none !important;
+.ticker-item .ticker-separator {
+    color: var(--border-dim);
+    margin: 0 4px;
 }
 
-.cam-cluster {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 0.8rem;
-    color: #fff;
-    border: 2px solid rgba(249, 115, 22, 0.6);
+@keyframes ticker-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
-.cam-cluster-small {
-    background: rgba(249, 115, 22, 0.7);
-    width: 35px;
-    height: 35px;
-}
-
-.cam-cluster-medium {
-    background: rgba(249, 115, 22, 0.8);
-    width: 42px;
-    height: 42px;
-}
-
-.cam-cluster-large {
-    background: rgba(220, 38, 38, 0.8);
-    width: 50px;
-    height: 50px;
-}
-
-/* Kamera Popup */
-.camera-popup-container .leaflet-popup-content-wrapper {
-    background: rgba(15, 23, 42, 0.95);
-    color: #f8fafc;
-    border: 1px solid rgba(249, 115, 22, 0.3);
-    border-radius: 10px;
-}
-
-.camera-popup-container .leaflet-popup-tip {
-    background: rgba(15, 23, 42, 0.95);
-    border: 1px solid rgba(249, 115, 22, 0.3);
-}
-
-.camera-popup-container .leaflet-popup-content {
-    margin: 12px;
-}
-
-@keyframes pulse {
+/* ==========================================================================
+   Pulsing Live Indicator (for camera layer)
+   ========================================================================== */
+@keyframes pulse-live {
     0%,
     100% {
         opacity: 1;
+        transform: scale(1);
     }
     50% {
-        opacity: 0.3;
+        opacity: 0.5;
+        transform: scale(1.3);
     }
 }
 
-/* =================================================
-   OLAY BİLGİ ETİKETİ (Marker yanı)
-   ================================================= */
-
-.event-label-icon {
-    background: none !important;
-    border: none !important;
-}
-
-.event-label {
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border-radius: 4px;
-    padding: 2px 6px;
-    font-size: 0.7rem;
-    color: #f8fafc;
-    white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-    font-family: monospace;
-    line-height: 1.4;
-}
-
-/* =================================================
-   UYDU KATMANI
-   ================================================= */
-
-.satellite-marker {
-    background: none !important;
-    border: none !important;
-}
-
-.satellite-dot {
-    width: 10px;
-    height: 10px;
+.live-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background: #22c55e;
     border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 8px rgba(139, 92, 246, 0.6);
+    animation: pulse-live 1.5s ease-in-out infinite;
 }
 
-.satellite-label {
-    background: rgba(15, 23, 42, 0.8);
-    backdrop-filter: blur(4px);
-    border-radius: 4px;
-    padding: 2px 6px;
-    font-size: 0.65rem;
-    color: #f8fafc;
-    white-space: nowrap;
-    font-family: monospace;
-    pointer-events: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+/* ==========================================================================
+   Camera Popup Styles
+   ========================================================================== */
+.camera-popup-container .leaflet-popup-content {
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-.uydu-arama {
-    width: 100%;
-    padding: 8px 10px;
-    border-radius: 6px;
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    background: rgba(15, 23, 42, 0.6);
-    color: #f8fafc;
-    font-size: 0.85rem;
-    outline: none;
-    margin-bottom: 8px;
+.camera-icon-div .camera-icon {
+    font-size: 20px;
+    filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.5));
 }
 
-.uydu-arama:focus {
-    border-color: #22c55e;
+/* ==========================================================================
+   Scrollbar Styling
+   ========================================================================== */
+::-webkit-scrollbar {
+    width: 6px;
 }
 
-.uydu-sayi-bilgisi {
-    font-size: 0.75rem;
-    color: rgba(248, 250, 252, 0.6);
-    text-align: center;
-    margin-bottom: 8px;
-    font-family: monospace;
+::-webkit-scrollbar-track {
+    background: transparent;
 }
 
-.pass-prediction {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
 }
 
-.pass-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6px 8px;
-    background: rgba(34, 197, 94, 0.1);
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-family: monospace;
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 
-.pass-time {
-    color: #22c55e;
-}
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+@media (max-width: 768px) {
+    .risk-filter-bar {
+        min-width: auto;
+        left: 8px;
+        right: 8px;
+        transform: none;
+        padding: 10px 14px;
+        gap: 8px;
+        border-radius: 8px;
+    }
 
-.pass-alt {
-    color: rgba(248, 250, 252, 0.7);
-}
+    .risk-filter-bar label {
+        display: none;
+    }
 
-.pass-max-el {
-    color: #f59e0b;
-}
+    .risk-filter-bar .event-count {
+        display: none;
+    }
 
-.sat-detail {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.sat-detail-name {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #22c55e;
-}
-
-.sat-detail-group {
-    font-size: 0.75rem;
-    color: rgba(248, 250, 252, 0.6);
-    padding: 2px 8px;
-    border-radius: 4px;
-    background: rgba(139, 92, 246, 0.2);
-    display: inline-block;
-    align-self: flex-start;
-}
-
-.sat-detail-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 8px;
-    background: rgba(15, 23, 42, 0.5);
-    border-radius: 6px;
-}
-
-.sat-detail-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-}
-
-.sat-detail-label {
-    color: rgba(248, 250, 252, 0.5);
-}
-
-.sat-detail-value {
-    color: #f8fafc;
-    font-family: monospace;
-}
-
-.sat-passes-title {
-    font-size: 0.85rem;
-    color: #f59e0b;
-    margin-top: 8px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid rgba(245, 158, 11, 0.3);
-}
-
-/* =================================================
-   UÇUŞ KATMANI
-   ================================================= */
-
-.ucus-marker {
-    background: none !important;
-    border: none !important;
-}
-
-.ucus-label {
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(4px);
-    border-radius: 4px;
-    padding: 2px 6px;
-    font-size: 0.65rem;
-    color: #14b8a6;
-    white-space: nowrap;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    text-transform: uppercase;
-    pointer-events: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-.ucus-sayi-bilgisi {
-    font-size: 0.75rem;
-    color: rgba(248, 250, 252, 0.6);
-    text-align: center;
-    margin-bottom: 8px;
-    font-family: monospace;
-}
-
-.ucus-arama {
-    width: 100%;
-    padding: 8px 10px;
-    border-radius: 6px;
-    border: 1px solid rgba(20, 184, 166, 0.3);
-    background: rgba(15, 23, 42, 0.6);
-    color: #f8fafc;
-    font-size: 0.85rem;
-    outline: none;
-    margin-bottom: 8px;
-}
-
-.ucus-arama:focus {
-    border-color: #14b8a6;
-}
-
-.ucus-hizli-btn {
-    display: inline-block;
-    padding: 4px 8px;
-    border-radius: 4px;
-    border: 1px solid rgba(20, 184, 166, 0.3);
-    background: rgba(20, 184, 166, 0.1);
-    color: #14b8a6;
-    font-size: 0.7rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s;
-    user-select: none;
-}
-
-.ucus-hizli-btn:hover {
-    background: rgba(20, 184, 166, 0.2);
-}
-
-.ucus-detail {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.ucus-detail-callsign {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #14b8a6;
-    letter-spacing: 1px;
-}
-
-.ucus-detail-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 8px;
-    background: rgba(15, 23, 42, 0.5);
-    border-radius: 6px;
-}
-
-.ucus-detail-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-}
-
-.ucus-detail-label {
-    color: rgba(248, 250, 252, 0.5);
-}
-
-.ucus-detail-value {
-    color: #f8fafc;
-    font-family: monospace;
-}
-
-/* =================================================
-   GEMİ KATMANI
-   ================================================= */
-
-.gemi-marker {
-    background: none !important;
-    border: none !important;
-}
-
-.gemi-label {
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(4px);
-    border-radius: 4px;
-    padding: 2px 6px;
-    font-size: 0.65rem;
-    color: #0ea5e9;
-    white-space: nowrap;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    pointer-events: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-.gemi-sayi-bilgisi {
-    font-size: 0.75rem;
-    color: rgba(248, 250, 252, 0.6);
-    text-align: center;
-    margin-bottom: 8px;
-    font-family: monospace;
-}
-
-.gemi-detail {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.gemi-detail-name {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #0ea5e9;
-}
-
-.gemi-detail-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 8px;
-    background: rgba(15, 23, 42, 0.5);
-    border-radius: 6px;
-}
-
-.gemi-detail-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-}
-
-.gemi-detail-label {
-    color: rgba(248, 250, 252, 0.5);
-}
-
-.gemi-detail-value {
-    color: #f8fafc;
-    font-family: monospace;
+    .leaflet-control-layers {
+        max-width: 200px;
+        font-size: 12px !important;
+    }
 }
