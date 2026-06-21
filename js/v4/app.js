@@ -178,6 +178,7 @@
   // ============================================================
   // MAP RIGHT-CLICK → Satellite Recon
   // ============================================================
+  map.getContainer().addEventListener("contextmenu", function(e) { e.preventDefault(); });
   map.on("contextmenu", function(e) {
     satelliteRecon(e.latlng.lat, e.latlng.lng);
   });
