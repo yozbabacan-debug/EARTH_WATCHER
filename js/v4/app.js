@@ -147,41 +147,39 @@
   // ============================================================
   window.satelliteRecon = function(lat, lng) {
     map.closePopup();
-    const MAPBOX_TOKEN = (window._mapboxToken) || "";
+    function getEsriTile(lat, lon, zoom) {
+      var n = Math.pow(2, zoom);
+      var xtile = Math.floor((lon + 180) / 360 * n);
+      var latRad = lat * Math.PI / 180;
+      var ytile = Math.floor((1 - Math.log(Math.tan(latRad) + 1 / Math.cos(latRad)) / Math.PI) / 2 * n);
+      return "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/" + zoom + "/" + ytile + "/" + xtile;
+    }
     const pulse = L.circleMarker([lat,lng], {
       radius:8, fillColor:"#00ffcc", color:"#00ffcc",
       weight:2, opacity:0.8, fillOpacity:0.3, className:"satellite-scan-pulse"
     }).addTo(map);
 
-    const popup = L.popup({ maxWidth:500, className:"ew-recon-popup" })
+    const popup = L.popup({ maxWidth:520, className:"ew-recon-popup" })
       .setLatLng([lat,lng])
-      .setContent(`<div style="padding:12px;width:440px;text-align:center">
+      .setContent(`<div style="padding:12px;width:460px;text-align:center">
         <div class="intel-spinner"></div>
-        <p style="margin:8px 0 0;color:#00ffcc;font-size:11px;font-weight:bold">🛰️ Taktik Uydu Taramasi...</p>
+        <p style="margin:8px 0 0;color:#00ffcc;font-size:11px;font-weight:bold">🛰️ Esri Uydu Keşfi...</p>
         <span style="color:#64748b;font-size:10px">${lat.toFixed(4)}, ${lng.toFixed(4)}</span></div>`)
       .openOn(map);
 
     setTimeout(() => {
       map.removeLayer(pulse);
-      let imgHtml;
-      if (MAPBOX_TOKEN && MAPBOX_TOKEN.length > 20) {
-        const imgUrl = `https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/${lng},${lat},15,0/600x400@2x.png?access_token=${MAPBOX_TOKEN}`;
-        imgHtml = `<img src="${imgUrl}" style="width:100%;height:100%;object-fit:cover" alt="Satellite" onerror="this.parentElement.innerHTML='<div style=color:#94a3b8;text-align:center;padding-top:80px;font-size:14px>🛰️ Yuklenemedi<br><span style=font-size:10px>Token gecersiz veya kota doldu</span></div>'">`;
-      } else {
-        imgHtml = `<div style="color:#94a3b8;text-align:center;padding:60px 20px;font-size:13px;line-height:1.6">
-          🛰️ <b>Uydu Keşif Aktif Degil</b><br>
-          <span style="font-size:11px">Mapbox token gerekli.<br>Al: <a href="https://account.mapbox.com/access-tokens/" style="color:#00ffcc" target="_blank">account.mapbox.com</a><br>
-          Sonra <code style="background:#1e293b;padding:2px 6px;border-radius:3px">window._mapboxToken = 'sk.ey...'</code> yaz</span></div>`;
-      }
-      popup.setContent(`<div style="padding:4px;width:450px">
+      const imgUrl = getEsriTile(lat, lng, 16);
+      popup.setContent(`<div style="padding:4px;width:480px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-size:10px;text-transform:uppercase;color:#00ffcc;font-weight:bold">🛰️ GEOINT // Uydu Kesif</span>
-          <span style="font-size:9px;color:#ef4444;background:rgba(239,68,68,0.1);padding:2px 6px;border-radius:4px">Kritik Alan</span></div>
-        <div style="border:1px solid rgba(0,255,204,0.2);border-radius:6px;overflow:hidden;height:180px;background:#0f172a">
-          <img src="${imgUrl}" style="width:100%;height:100%;object-fit:cover" alt="Satellite" onerror="this.parentElement.innerHTML='<div style=color:#94a3b8;text-align:center;font-size:14px;padding-top:80px>🛰️ Yuklenemedi</div>'">
+          <span style="font-size:10px;text-transform:uppercase;color:#00ffcc;font-weight:bold">SAT GEOINT // Esri World Imagery</span>
+          <span style="font-size:9px;color:#00ffcc;background:rgba(0,255,204,0.1);padding:2px 6px;border-radius:4px">Acik Kaynak</span></div>
+        <div style="border:1px solid rgba(0,255,204,0.2);border-radius:6px;overflow:hidden;height:220px;background:#0f172a">
+          <img src="${imgUrl}" style="width:100%;height:100%;object-fit:cover" alt="Esri Satellite"
+            onerror="this.parentElement.innerHTML='<div style=color:#94a3b8;text-align:center;padding-top:90px;font-size:14px>Bu bolge icin uydu verisi yok</div>'">
           <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:rgba(0,255,204,0.3);font-size:22px;pointer-events:none">+</div></div>
-        <div style="margin-top:6px;font-size:10px;color:#64748b">📍 ${lat.toFixed(5)}, ${lng.toFixed(5)}</div></div>`);
-    }, 1000);
+        <div style="margin-top:6px;font-size:10px;color:#64748b">${lat.toFixed(5)}, ${lng.toFixed(5)} | Zoom:16</div></div>`);
+    
   };
 
   // ============================================================
