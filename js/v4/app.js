@@ -147,15 +147,15 @@
   // ============================================================
   window.satelliteRecon = function(lat, lng) {
     map.closePopup();
-    const MAPBOX_TOKEN = "YOUR_MAPBOX_TOKEN";
+    const MAPBOX_TOKEN = (window._mapboxToken) || "";
     const pulse = L.circleMarker([lat,lng], {
       radius:8, fillColor:"#00ffcc", color:"#00ffcc",
       weight:2, opacity:0.8, fillOpacity:0.3, className:"satellite-scan-pulse"
     }).addTo(map);
 
-    const popup = L.popup({ maxWidth:330, className:"ew-recon-popup" })
+    const popup = L.popup({ maxWidth:500, className:"ew-recon-popup" })
       .setLatLng([lat,lng])
-      .setContent(`<div style="padding:12px;width:280px;text-align:center">
+      .setContent(`<div style="padding:12px;width:440px;text-align:center">
         <div class="intel-spinner"></div>
         <p style="margin:8px 0 0;color:#00ffcc;font-size:11px;font-weight:bold">🛰️ Taktik Uydu Taramasi...</p>
         <span style="color:#64748b;font-size:10px">${lat.toFixed(4)}, ${lng.toFixed(4)}</span></div>`)
@@ -163,13 +163,22 @@
 
     setTimeout(() => {
       map.removeLayer(pulse);
-      const imgUrl = `https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/${lng},${lat},15,0/400x300@2x.png?access_token=${MAPBOX_TOKEN}`;
-      popup.setContent(`<div style="padding:4px;width:290px">
+      let imgHtml;
+      if (MAPBOX_TOKEN && MAPBOX_TOKEN.length > 20) {
+        const imgUrl = `https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/${lng},${lat},15,0/600x400@2x.png?access_token=${MAPBOX_TOKEN}`;
+        imgHtml = `<img src="${imgUrl}" style="width:100%;height:100%;object-fit:cover" alt="Satellite" onerror="this.parentElement.innerHTML='<div style=color:#94a3b8;text-align:center;padding-top:80px;font-size:14px>🛰️ Yuklenemedi<br><span style=font-size:10px>Token gecersiz veya kota doldu</span></div>'">`;
+      } else {
+        imgHtml = `<div style="color:#94a3b8;text-align:center;padding:60px 20px;font-size:13px;line-height:1.6">
+          🛰️ <b>Uydu Keşif Aktif Degil</b><br>
+          <span style="font-size:11px">Mapbox token gerekli.<br>Al: <a href="https://account.mapbox.com/access-tokens/" style="color:#00ffcc" target="_blank">account.mapbox.com</a><br>
+          Sonra <code style="background:#1e293b;padding:2px 6px;border-radius:3px">window._mapboxToken = 'sk.ey...'</code> yaz</span></div>`;
+      }
+      popup.setContent(`<div style="padding:4px;width:450px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
           <span style="font-size:10px;text-transform:uppercase;color:#00ffcc;font-weight:bold">🛰️ GEOINT // Uydu Kesif</span>
           <span style="font-size:9px;color:#ef4444;background:rgba(239,68,68,0.1);padding:2px 6px;border-radius:4px">Kritik Alan</span></div>
         <div style="border:1px solid rgba(0,255,204,0.2);border-radius:6px;overflow:hidden;height:180px;background:#0f172a">
-          <img src="${imgUrl}" style="width:100%;height:100%;object-fit:cover" alt="Satellite" onerror="this.parentElement.innerHTML='<div style=color:#94a3b8;text-align:center;padding-top:70px>Uydu goruntusu yuklenemedi</div>'">
+          <img src="${imgUrl}" style="width:100%;height:100%;object-fit:cover" alt="Satellite" onerror="this.parentElement.innerHTML='<div style=color:#94a3b8;text-align:center;font-size:14px;padding-top:80px>🛰️ Yuklenemedi</div>'">
           <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:rgba(0,255,204,0.3);font-size:22px;pointer-events:none">+</div></div>
         <div style="margin-top:6px;font-size:10px;color:#64748b">📍 ${lat.toFixed(5)}, ${lng.toFixed(5)}</div></div>`);
     }, 1000);
