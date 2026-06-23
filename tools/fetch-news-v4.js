@@ -65,17 +65,93 @@ const BASE_COORDS = {
 };
 
 const CITIES = {
-  washington:[38.9,-77], london:[51.5,-0.1], moscow:[55.8,37.6], beijing:[39.9,116.4],
-  paris:[48.9,2.3], berlin:[52.5,13.4], tokyo:[35.7,139.7], "new york":[40.7,-74],
-  dubai:[25.2,55.3], istanbul:[41,28.9], ankara:[39.9,32.9], kyiv:[50.4,30.5],
-  kiev:[50.4,30.5], minsk:[53.9,27.6], warsaw:[52.2,21], prague:[50.1,14.4],
-  budapest:[47.5,19], belgrade:[44.8,20.5], bucharest:[44.4,26.1], sofia:[42.7,23.3],
-  brussels:[50.8,4.3], rome:[41.9,12.5], madrid:[40.4,-3.7], seoul:[37.6,126.9],
-  delhi:[28.6,77.2], "hong kong":[22.3,114.2], sydney:[-33.9,151.2], cairo:[30,31.2],
-  riyadh:[24.7,46.7], tehran:[35.7,51.4], baghdad:[33.3,44.4], damascus:[33.5,36.3],
-  telaviv:[32.1,34.8], gaza:[31.5,34.5], tripoli:[32.9,13.2], nairobi:[-1.3,36.8],
-  lagos:[6.5,3.4], jakarta:[-6.2,106.8], manila:[14.6,121], bangkok:[13.8,100.5],
+  // North America
+  washington:[38.9,-77], "new york":[40.7,-74], "los angeles":[34.1,-118.2], chicago:[41.9,-87.6],
+  houston:[29.8,-95.4], miami:[25.8,-80.2], "san francisco":[37.8,-122.4], seattle:[47.6,-122.3],
+  boston:[42.4,-71.1], atlanta:[33.7,-84.4], dallas:[32.8,-96.8], phoenix:[33.4,-112.1],
+  detroit:[42.3,-83.0], portland:[45.5,-122.7], denver:[39.7,-105.0], toronto:[43.7,-79.4],
+  montreal:[45.5,-73.6], vancouver:[49.3,-123.1], calgary:[51.0,-114.1], ottawa:[45.4,-75.7],
+  "mexico city":[19.4,-99.1], albany:[42.7,-73.8], sacramento:[38.6,-121.5], austin:[30.3,-97.7],
+  "san diego":[32.7,-117.2], "las vegas":[36.2,-115.1], nashville:[36.2,-86.8], philadelphia:[39.9,-75.1],
+  pittsburgh:[40.4,-80.0], columbus:[40.0,-83.0], charlotte:[35.2,-80.8], indianapolis:[39.8,-86.2],
+  orlando:[28.5,-81.4], tampa:[28.0,-82.5], minneapolis:[45.0,-93.3], "st louis":[38.6,-90.2],
+  "kansas city":[39.1,-94.6], cincinnati:[39.1,-84.5], milwaukee:[43.0,-87.9], cleveland:[41.5,-81.7],
+  raleigh:[35.8,-78.6], omaha:[41.3,-95.9], albuquerque:[35.1,-106.6], tucson:[32.2,-110.9],
+  fresno:[36.7,-119.8], "salt lake city":[40.8,-111.9], boise:[43.6,-116.2], helena:[46.6,-112.0],
+  "quebec city":[46.8,-71.2], winnipeg:[49.9,-97.1], edmonton:[53.5,-113.5], halifax:[44.6,-63.6],
+  "guatemala city":[14.6,-90.5], tegucigalpa:[14.1,-87.2], "san salvador":[13.7,-89.2],
+  managua:[12.1,-86.3], "san jose":[9.9,-84.1], "panama city":[9.0,-79.5], havana:[23.1,-82.4],
+  "santo domingo":[18.5,-69.9], "port-au-prince":[18.5,-72.3], kingston:[18.0,-76.8],
+  nassau:[25.1,-77.3], bridgetown:[13.1,-59.6], "port of spain":[10.7,-61.5],
+  // Europe
+  london:[51.5,-0.1], paris:[48.9,2.3], berlin:[52.5,13.4], rome:[41.9,12.5], madrid:[40.4,-3.7],
+  brussels:[50.8,4.3], amsterdam:[52.4,4.9], vienna:[48.2,16.4], prague:[50.1,14.4],
+  budapest:[47.5,19.0], belgrade:[44.8,20.5], bucharest:[44.4,26.1], sofia:[42.7,23.3],
+  warsaw:[52.2,21.0], kyiv:[50.4,30.5], kiev:[50.4,30.5], minsk:[53.9,27.6], moscow:[55.8,37.6],
+  "st petersburg":[59.9,30.3], stockholm:[59.3,18.1], oslo:[59.9,10.8], copenhagen:[55.7,12.6],
+  helsinki:[60.2,25.0], dublin:[53.3,-6.3], edinburgh:[55.9,-3.2], lisbon:[38.7,-9.1],
+  zurich:[47.4,8.5], geneva:[46.2,6.1], barcelona:[41.4,2.2], milano:[45.5,9.2], napoli:[40.9,14.3],
+  munich:[48.1,11.6], hamburg:[53.6,10.0], frankfurt:[50.1,8.7], cologne:[50.9,7.0],
+  rotterdam:[51.9,4.5], antwerp:[51.2,4.4], strasbourg:[48.6,7.8], marseille:[43.3,5.4],
+  lyon:[45.8,4.8], valencia:[39.5,-0.4], seville:[37.4,-6.0], porto:[41.2,-8.6],
+  zagreb:[45.8,16.0], sarajevo:[43.9,18.4], skopje:[42.0,21.4], tirana:[41.3,19.8],
+  pristina:[42.7,21.2], podgorica:[42.4,19.3], vilnius:[54.7,25.3], riga:[56.9,24.1],
+  tallinn:[59.4,24.8], reykjavik:[64.1,-21.9], malmo:[55.6,13.0], gothenburg:[57.7,12.0],
+  birmingham:[52.5,-1.9], manchester:[53.5,-2.2], glasgow:[55.9,-4.3], cardiff:[51.5,-3.2],
+  belfast:[54.6,-5.9], istanbul:[41.0,28.9], ankara:[39.9,32.9], izmir:[38.4,27.1],
+  antalya:[36.9,30.7], athens:[38.0,23.7], thessaloniki:[40.6,22.9],
+  // Middle East & Central Asia
+  dubai:[25.2,55.3], abudhabi:[24.5,54.4], doha:[25.3,51.5], riyadh:[24.7,46.7],
+  jeddah:[21.5,39.2], mecca:[21.4,39.8], medina:[24.5,39.6], kuwaitcity:[29.4,48.0],
+  muscat:[23.6,58.5], manama:[26.2,50.6], baghdad:[33.3,44.4], basra:[30.5,47.8],
+  mosul:[36.3,43.1], tehran:[35.7,51.4], isfahan:[32.7,51.7], shiraz:[29.6,52.5],
+  damascus:[33.5,36.3], aleppo:[36.2,37.2], amman:[32.0,36.0], beirut:[33.9,35.5],
+  jerusalem:[31.8,35.2], telaviv:[32.1,34.8], gaza:[31.5,34.5], ramallah:[31.9,35.2],
+  sanaa:[15.4,44.2], aden:[12.8,45.0], baku:[40.4,49.9], tbilisi:[41.7,44.8],
+  yerevan:[40.2,44.5], astana:[51.2,71.4], almaty:[43.3,76.9], tashkent:[41.3,69.2],
+  ashgabat:[38.0,58.4], dushanbe:[38.6,68.8], bishkek:[42.9,74.6], kabul:[34.5,69.2],
+  // South Asia
+  delhi:[28.6,77.2], mumbai:[19.1,72.9], kolkata:[22.6,88.4], chennai:[13.1,80.3],
+  bengaluru:[13.0,77.6], hyderabad:[17.4,78.5], ahmedabad:[23.0,72.6], pune:[18.5,73.9],
+  jaipur:[26.9,75.8], lucknow:[26.8,80.9], islamabad:[33.7,73.0], karachi:[24.9,67.1],
+  lahore:[31.6,74.3], dhaka:[23.8,90.4], chittagong:[22.4,91.8], colombo:[6.9,79.9],
+  kathmandu:[27.7,85.3], thimphu:[27.5,89.6], male:[4.2,73.5],
+  // East Asia
+  tokyo:[35.7,139.7], osaka:[34.7,135.5], yokohama:[35.4,139.6], nagoya:[35.2,137.0],
+  sapporo:[43.1,141.4], fukuoka:[33.6,130.4], hiroshima:[34.4,132.5], beijing:[39.9,116.4],
+  shanghai:[31.2,121.5], guangzhou:[23.1,113.3], shenzhen:[22.5,114.1], chengdu:[30.6,104.1],
+  wuhan:[30.6,114.3], xian:[34.3,109.0], nanjing:[32.1,118.8], tianjin:[39.1,117.2],
+  "hong kong":[22.3,114.2], macau:[22.2,113.5], taipei:[25.0,121.5], seoul:[37.6,126.9],
+  busan:[35.2,129.1], pyongyang:[39.0,125.8], ulaanbaatar:[47.9,106.9],
+  // Southeast Asia
+  bangkok:[13.8,100.5], singapore:[1.3,103.8], jakarta:[-6.2,106.8], manila:[14.6,121.0],
+  hanoi:[21.0,105.9], "ho chi minh city":[10.8,106.7], "kuala lumpur":[3.1,101.7],
+  yangon:[16.8,96.2], phnompenh:[11.6,104.9], vientiane:[18.0,102.6],
+  "bandar seri begawan":[4.9,114.9], surabaya:[-7.2,112.7], bandung:[-6.9,107.6],
+  medan:[3.6,98.7], cebu:[10.3,123.9], davo:[7.1,125.6], chiangmai:[18.8,98.9],
+  // Oceania
+  sydney:[-33.9,151.2], melbourne:[-37.8,145.0], brisbane:[-27.5,153.0], perth:[-32.0,115.9],
+  adelaide:[-34.9,138.6], canberra:[-35.3,149.1], auckland:[-36.8,174.8], wellington:[-41.3,174.8],
+  christchurch:[-43.5,172.6], suva:[-18.1,178.4], "port moresby":[-9.4,147.2],
+  // Africa
+  cairo:[30.0,31.2], alexandria:[31.2,29.9], tripoli:[32.9,13.2], tunis:[36.8,10.2],
+  algiers:[36.8,3.0], rabat:[34.0,-6.8], casablanca:[33.6,-7.6], khartoum:[15.5,32.5],
+  addisababa:[9.0,38.7], nairobi:[-1.3,36.8], mombasa:[-4.0,39.7], "dar es salaam":[-6.8,39.3],
+  kampala:[0.3,32.6], kigali:[-2.0,30.1], lagos:[6.5,3.4], abuja:[9.1,7.5],
+  accra:[5.6,-0.2], dakar:[14.7,-17.5], bamako:[12.6,-8.0], ouagadougou:[12.4,-1.5],
+  niamey:[13.5,2.1], ndjamena:[12.1,15.0], yaounde:[3.9,11.5], douala:[4.1,9.7],
+  kinshasa:[-4.3,15.3], brazzaville:[-4.3,15.3], luanda:[-8.8,13.2], lusaka:[-15.4,28.3],
+  harare:[-17.8,31.0], maputo:[-25.9,32.6], windhoek:[-22.6,17.1], gaborone:[-24.6,25.9],
+  pretoria:[-25.7,28.2], johannesburg:[-26.2,28.0], "cape town":[-33.9,18.4],
+  durban:[-29.9,31.0], bloemfontein:[-29.1,26.2], antananarivo:[-18.9,47.5],
+  // South America
+  "sao paulo":[-23.5,-46.6], "rio de janeiro":[-22.9,-43.2], brasilia:[-15.8,-47.9],
+  "buenos aires":[-34.6,-58.4], santiago:[-33.4,-70.7], lima:[-12.1,-77.0],
+  bogota:[4.6,-74.1], medellin:[6.2,-75.6], caracas:[10.5,-66.9], quito:[-0.2,-78.5],
+  guayaquil:[-2.2,-79.9], "la paz":[-16.5,-68.1], "santa cruz":[-17.8,-63.2],
+  asuncion:[-25.3,-57.6], montevideo:[-34.9,-56.2],
 };
+;
 
 // ============================================================
 // KATEGORI + MAKRO KATMAN
@@ -129,9 +205,27 @@ function calculateRisk(article) {
 function applyJitter(c) { return [c[0]+(Math.random()-0.5)*0.5, c[1]+(Math.random()-0.5)*0.5]; }
 function findLocation(text, source) {
   const t = text.toLowerCase();
-  for (const [city,c] of Object.entries(CITIES)) if (t.includes(city)) return applyJitter(c);
-  for (const [name,c] of Object.entries(BASE_COORDS)) if (name.length>2 && t.includes(name.toLowerCase())) return applyJitter(c);
-  return applyJitter(BASE_COORDS[source] || [20,0]);
+  // 1. Once sehirleri tara (en uzun isimden basla, substring match'i engelle)
+  const sortedCities = Object.entries(CITIES).sort((a,b) => b[0].length - a[0].length);
+  for (const [city,c] of sortedCities) {
+    // Word-boundary check: "ankara" matches ama "ankara mali" de Mali'yi ezmesin
+    const regex = new RegExp("\\b" + city.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "i");
+    if (regex.test(t)) {
+      // Context check: eger "mali" de geciyorsa ve ankara'dan daha gucluyse
+      if (city === "ankara" && /\bmali\b/.test(t)) continue; // skip Ankara if Mali is also mentioned
+      return applyJitter(c);
+    }
+  }
+  // 2. Ulke kontrolu (yine uzun isimden basla)
+  const sortedCountries = Object.entries(BASE_COORDS).sort((a,b) => b[0].length - a[0].length);
+  for (const [name,c] of sortedCountries) {
+    if (name.length <= 2) continue; // "US", "GB", "CN" gibi kisaltmalari atla
+    const regex = new RegExp("\\b" + name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "i");
+    if (regex.test(t)) return applyJitter(c);
+  }
+  // 3. Kaynak bazli fallback
+  const srcKey = Object.keys(BASE_COORDS).find(k => k.toLowerCase() === source.toLowerCase()) || source;
+  return applyJitter(BASE_COORDS[srcKey] || [20,0]);
 }
 
 function parseRSS(xml) {

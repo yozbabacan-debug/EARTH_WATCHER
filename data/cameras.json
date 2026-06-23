@@ -2,19 +2,27 @@
   "cameras": [
     {
       "id": 1,
-      "name": "Times Square, New York",
+      "name": "New York - Times Square",
       "lat": 40.758,
       "lng": -73.9855,
       "country": "US",
       "type": "youtube",
       "stream": "https://www.youtube.com/embed/5qap5aO4i9A",
-      "provider": "NYC DOT",
-      "risk_tags": ["traffic", "tourist"]
+      "provider": "EarthCam"
     },
-
     {
       "id": 2,
-      "name": "Brooklyn Bridge, New York",
+      "name": "New York - Statue of Liberty",
+      "lat": 40.6892,
+      "lng": -74.0445,
+      "country": "US",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/nYOgfg4A-os",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 3,
+      "name": "New York - Brooklyn Bridge",
       "lat": 40.7061,
       "lng": -73.9969,
       "country": "US",
@@ -23,8 +31,8 @@
       "provider": "NYC DOT"
     },
     {
-      "id": 3,
-      "name": "Empire State, New York",
+      "id": 4,
+      "name": "New York - Empire State",
       "lat": 40.7484,
       "lng": -73.9857,
       "country": "US",
@@ -33,74 +41,551 @@
       "provider": "NYC DOT"
     },
     {
-      "id": 4,
-      "name": "Holland Tunnel, New York",
-      "lat": 40.7258,
-      "lng": -74.0115,
-      "country": "US",
-      "type": "snapshot",
-      "url": "https://webcams.nyctmc.org/cameras/11.jpg",
-      "provider": "NYC DOT"
-    },
-    {
       "id": 5,
-      "name": "Lincoln Tunnel, New York",
-      "lat": 40.7625,
-      "lng": -73.9979,
+      "name": "Miami - South Beach",
+      "lat": 25.7826,
+      "lng": -80.1341,
       "country": "US",
-      "type": "snapshot",
-      "url": "https://webcams.nyctmc.org/cameras/7.jpg",
-      "provider": "NYC DOT"
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/TnN80SBcAOM",
+      "provider": "EarthCam"
     },
     {
       "id": 6,
-      "name": "FDR Drive, New York",
-      "lat": 40.735,
-      "lng": -73.973,
+      "name": "Las Vegas - The Strip",
+      "lat": 36.1147,
+      "lng": -115.1728,
       "country": "US",
-      "type": "snapshot",
-      "url": "https://webcams.nyctmc.org/cameras/41.jpg",
-      "provider": "NYC DOT"
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/H95NZGJN0Ao",
+      "provider": "EarthCam"
     },
     {
       "id": 7,
-      "name": "Manhattan Bridge, New York",
-      "lat": 40.7074,
-      "lng": -73.9905,
+      "name": "Chicago - Navy Pier",
+      "lat": 41.8919,
+      "lng": -87.6057,
       "country": "US",
-      "type": "snapshot",
-      "url": "https://webcams.nyctmc.org/cameras/28.jpg",
-      "provider": "NYC DOT"
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/CXm9nHWQnHw",
+      "provider": "EarthCam"
     },
     {
       "id": 8,
-      "name": "Queensboro Bridge, New York",
-      "lat": 40.757,
-      "lng": -73.954,
+      "name": "Los Angeles - Venice Beach",
+      "lat": 33.985,
+      "lng": -118.4695,
       "country": "US",
-      "type": "snapshot",
-      "url": "https://webcams.nyctmc.org/cameras/70.jpg",
-      "provider": "NYC DOT"
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/UMKz5jP4sFg",
+      "provider": "VeniceBeach"
     },
     {
       "id": 9,
-      "name": "5th Ave & 42nd St, New York",
-      "lat": 40.7527,
-      "lng": -73.9794,
+      "name": "San Francisco - Golden Gate",
+      "lat": 37.8199,
+      "lng": -122.4783,
       "country": "US",
-      "type": "snapshot",
-      "url": "https://webcams.nyctmc.org/cameras/48.jpg",
-      "provider": "NYC DOT"
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/yAGfYZsR0RI",
+      "provider": "EarthCam"
     },
     {
       "id": 10,
-      "name": "Broadway & 7th Ave, New York",
-      "lat": 40.756,
-      "lng": -73.987,
+      "name": "Washington DC - Capitol",
+      "lat": 38.8899,
+      "lng": -77.0091,
       "country": "US",
-      "type": "snapshot",
-      "url": "https://webcams.nyctmc.org/cameras/6.jpg",
-      "provider": "NYC DOT"
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/nMGbHj5Bn70",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 11,
+      "name": "New Orleans - Bourbon St",
+      "lat": 29.9584,
+      "lng": -90.0648,
+      "country": "US",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/nz3cGCK6KAc",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 12,
+      "name": "Seattle - Space Needle",
+      "lat": 47.6205,
+      "lng": -122.3493,
+      "country": "US",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/4kOHBFA0DqE",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 13,
+      "name": "Toronto - CN Tower",
+      "lat": 43.6426,
+      "lng": -79.3871,
+      "country": "CA",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/exOxXOE0bH8",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 14,
+      "name": "Vancouver - Harbour",
+      "lat": 49.2855,
+      "lng": -123.112,
+      "country": "CA",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/QK75EikFuSg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 15,
+      "name": "Mexico City - Zocalo",
+      "lat": 19.4326,
+      "lng": -99.1332,
+      "country": "MX",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/Lfl2Nj_QRVU",
+      "provider": "WebcamMexico"
+    },
+    {
+      "id": 16,
+      "name": "Londra - Tower Bridge",
+      "lat": 51.5055,
+      "lng": -0.0754,
+      "country": "GB",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/cL4gHU0B-gg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 17,
+      "name": "Londra - Big Ben",
+      "lat": 51.5007,
+      "lng": -0.1246,
+      "country": "GB",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/lpR32Lu9b10",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 18,
+      "name": "Paris - Eyfel Kulesi",
+      "lat": 48.8584,
+      "lng": 2.2945,
+      "country": "FR",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/1tAsfvBUpvA",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 19,
+      "name": "Paris - Notre Dame",
+      "lat": 48.853,
+      "lng": 2.3499,
+      "country": "FR",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/m3VQrzs--Oo",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 20,
+      "name": "Roma - Kolezyum",
+      "lat": 41.8902,
+      "lng": 12.4922,
+      "country": "IT",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/3PoOukBwjJ4",
+      "provider": "SkylineWebcams"
+    },
+    {
+      "id": 21,
+      "name": "Venedik - Rialto Koprusu",
+      "lat": 45.438,
+      "lng": 12.3359,
+      "country": "IT",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/ph1HZ62DwZE",
+      "provider": "SkylineWebcams"
+    },
+    {
+      "id": 22,
+      "name": "Berlin - Brandenburg Kapisi",
+      "lat": 52.5163,
+      "lng": 13.3777,
+      "country": "DE",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/_Dr49P0v7ZA",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 23,
+      "name": "Amsterdam - Dam Meydani",
+      "lat": 52.373,
+      "lng": 4.893,
+      "country": "NL",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/BNERq9tSguw",
+      "provider": "WebcamNL"
+    },
+    {
+      "id": 24,
+      "name": "Barselona - Sagrada Familia",
+      "lat": 41.4036,
+      "lng": 2.1744,
+      "country": "ES",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/yx6c3teNhYQ",
+      "provider": "SkylineWebcams"
+    },
+    {
+      "id": 25,
+      "name": "Prag - Charles Bridge",
+      "lat": 50.0865,
+      "lng": 14.4114,
+      "country": "CZ",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/KGpE-rCRc4g",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 26,
+      "name": "Budapeste - Parlamento",
+      "lat": 47.507,
+      "lng": 19.0457,
+      "country": "HU",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/4kOHBFA0DqE",
+      "provider": "WebcamHU"
+    },
+    {
+      "id": 27,
+      "name": "Viyana - Stephansplatz",
+      "lat": 48.2085,
+      "lng": 16.3731,
+      "country": "AT",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/uMGjvm8uEes",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 28,
+      "name": "Atina - Akropolis",
+      "lat": 37.9715,
+      "lng": 23.7257,
+      "country": "GR",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/fQ4MI2yWg4w",
+      "provider": "SkylineWebcams"
+    },
+    {
+      "id": 29,
+      "name": "Moskova - Kizil Meydan",
+      "lat": 55.7536,
+      "lng": 37.6211,
+      "country": "RU",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/AdUvH2Q2Bjo",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 30,
+      "name": "Istanbul - Taksim Meydani",
+      "lat": 41.037,
+      "lng": 28.985,
+      "country": "TR",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/4V41K4bLS0o",
+      "provider": "IBB"
+    },
+    {
+      "id": 31,
+      "name": "Istanbul - Bogaz Koprusu",
+      "lat": 41.045,
+      "lng": 29.034,
+      "country": "TR",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/qOfuYgpEYLs",
+      "provider": "IBB"
+    },
+    {
+      "id": 32,
+      "name": "Tokyo - Shibuya Crossing",
+      "lat": 35.6595,
+      "lng": 139.7004,
+      "country": "JP",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/Lfl2Nj_QRVU",
+      "provider": "ANN News"
+    },
+    {
+      "id": 33,
+      "name": "Tokyo - Shinjuku",
+      "lat": 35.6896,
+      "lng": 139.7006,
+      "country": "JP",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/1EiC9JhOKTA",
+      "provider": "ANN News"
+    },
+    {
+      "id": 34,
+      "name": "Seul - Gwanghwamun",
+      "lat": 37.5759,
+      "lng": 126.9768,
+      "country": "KR",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/qOfuYgpEYLs",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 35,
+      "name": "Singapur - Marina Bay",
+      "lat": 1.2837,
+      "lng": 103.8607,
+      "country": "SG",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/xN2CoOJQrJg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 36,
+      "name": "Dubai - Burj Khalifa",
+      "lat": 25.1972,
+      "lng": 55.2744,
+      "country": "AE",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/dVAh7U4aoxc",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 37,
+      "name": "Bangkok - Khao San Road",
+      "lat": 13.7587,
+      "lng": 100.4975,
+      "country": "TH",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/xN2CoOJQrJg",
+      "provider": "WebcamTH"
+    },
+    {
+      "id": 38,
+      "name": "Hong Kong - Victoria Harbour",
+      "lat": 22.2864,
+      "lng": 114.1728,
+      "country": "HK",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/vCY2x5DBhcg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 39,
+      "name": "Sanghay - The Bund",
+      "lat": 31.2404,
+      "lng": 121.4908,
+      "country": "CN",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/vCY2x5DBhcg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 40,
+      "name": "Hindistan - Taj Mahal",
+      "lat": 27.1751,
+      "lng": 78.0421,
+      "country": "IN",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/Iq3M5e9Y9mg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 41,
+      "name": "Rio de Janeiro - Copacabana",
+      "lat": -22.9711,
+      "lng": -43.1824,
+      "country": "BR",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/gmDv3Y4Q0oU",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 42,
+      "name": "Buenos Aires - Obelisco",
+      "lat": -34.6037,
+      "lng": -58.3816,
+      "country": "AR",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/1EiC9JhOKTA",
+      "provider": "WebcamAR"
+    },
+    {
+      "id": 43,
+      "name": "Sidney - Opera House",
+      "lat": -33.8568,
+      "lng": 151.2153,
+      "country": "AU",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/fsR-SuMCEoI",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 44,
+      "name": "Sidney - Bondi Beach",
+      "lat": -33.8915,
+      "lng": 151.2767,
+      "country": "AU",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/kCj9Yo7uH_U",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 45,
+      "name": "Melbourne - Federation Sq",
+      "lat": -37.8179,
+      "lng": 144.9689,
+      "country": "AU",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/hN4O6q4j1rY",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 46,
+      "name": "Cape Town - Table Mountain",
+      "lat": -33.9249,
+      "lng": 18.4241,
+      "country": "ZA",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/3PoOukBwjJ4",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 47,
+      "name": "Kahire - Piramitler",
+      "lat": 29.9792,
+      "lng": 31.1342,
+      "country": "EG",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/Iq3M5e9Y9mg",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 48,
+      "name": "NASA - Uzaydan Dunya ISS",
+      "lat": 0.0,
+      "lng": 0.0,
+      "country": "ISS",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/86YLFOog4GM",
+      "provider": "NASA ISS"
+    },
+    {
+      "id": 49,
+      "name": "Hawaii - Waikiki Beach",
+      "lat": 21.2766,
+      "lng": -157.8274,
+      "country": "US",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/yAGfYZsR0RI",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 50,
+      "name": "Isvicre - Matterhorn",
+      "lat": 45.9766,
+      "lng": 7.6586,
+      "country": "CH",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/uMGjvm8uEes",
+      "provider": "WebcamCH"
+    },
+    {
+      "id": 51,
+      "name": "Norvec - Lofoten Adalari",
+      "lat": 68.132,
+      "lng": 13.621,
+      "country": "NO",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/fsR-SuMCEoI",
+      "provider": "WebcamNO"
+    },
+    {
+      "id": 52,
+      "name": "Izlanda - Reykjavik",
+      "lat": 64.1466,
+      "lng": -21.9426,
+      "country": "IS",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/4kOHBFA0DqE",
+      "provider": "LiveFromIceland"
+    },
+    {
+      "id": 53,
+      "name": "Maldivler - Plaj",
+      "lat": 4.1755,
+      "lng": 73.5093,
+      "country": "MV",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/kCj9Yo7uH_U",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 54,
+      "name": "Bali - Ubud",
+      "lat": -8.5069,
+      "lng": 115.2624,
+      "country": "ID",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/kCj9Yo7uH_U",
+      "provider": "EarthCam"
+    },
+    {
+      "id": 55,
+      "name": "Kenya - Masai Mara",
+      "lat": -1.4833,
+      "lng": 35.0,
+      "country": "KE",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/hN4O6q4j1rY",
+      "provider": "WildEarth"
+    },
+    {
+      "id": 56,
+      "name": "Antarktika - Palmer Istasyonu",
+      "lat": -64.77,
+      "lng": -64.05,
+      "country": "AQ",
+      "type": "youtube",
+      "stream": "https://www.youtube.com/embed/86YLFOog4GM",
+      "provider": "USAP"
+    },
+    {
+      "name": "Camera Smile (480p)",
+      "lat": 40.16213327436542,
+      "lng": -98.25463368508622,
+      "country": "US",
+      "type": "video",
+      "stream": "https://rpn.bozztv.com/gusa/gusa-camerasmile/index.m3u8",
+      "provider": "iptv-org"
+    },
+    {
+      "name": "Camera dei Deputati (via RR) (240p)",
+      "lat": 41.511379464928766,
+      "lng": 12.885208347705424,
+      "country": "IT",
+      "type": "video",
+      "stream": "https://video-ar.radioradicale.it/diretta/camera2/playlist.m3u8",
+      "provider": "iptv-org"
+    },
+    {
+      "name": "RTL 102.5 Traffic (1080p)",
+      "lat": 41.67269385067798,
+      "lng": 12.9468608222178,
+      "country": "IT",
+      "type": "video",
+      "stream": "https://dd782ed59e2a4e86aabf6fc508674b59.msvdn.net/live/S38122967/2lyQRIAAGgRR/playlist_video.m3u8",
+      "provider": "iptv-org"
     }
   ]
 }

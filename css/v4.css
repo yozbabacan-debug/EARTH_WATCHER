@@ -138,3 +138,44 @@ html, body, #map { width: 100%; height: 100%; background: #0a0a0f; font-family: 
   border: 1px solid rgba(0,255,204,0.25) !important;
   box-shadow: 0 0 25px rgba(0,255,204,0.08) !important;
 }
+
+/* ============================================================
+   CAMERA CLUSTER OVERRIDES
+   ============================================================ */
+.ew-camera-cluster {
+  background: transparent !important;
+}
+.ew-camera-cluster div {
+  border: 2px solid rgba(255,255,255,0.15);
+}
+.marker-cluster-small { background-color: rgba(129, 140, 248, 0.25) !important; }
+.marker-cluster-small div { background-color: rgba(129, 140, 248, 0.8) !important; }
+.marker-cluster-medium { background-color: rgba(239, 68, 68, 0.25) !important; }
+.marker-cluster-medium div { background-color: rgba(239, 68, 68, 0.8) !important; }
+.marker-cluster-large { background-color: rgba(239, 68, 68, 0.35) !important; }
+.marker-cluster-large div { background-color: rgba(239, 68, 68, 0.9) !important; }
+
+/* Satellite recon pulse animation */
+.satellite-scan-pulse {
+  animation: sat-pulse 2s ease-in-out infinite;
+}
+@keyframes sat-pulse {
+  0% { r: 5; opacity: 0.9; }
+  50% { r: 15; opacity: 0.3; }
+  100% { r: 5; opacity: 0.9; }
+}
+
+/* ============================================================
+   CONTEXT MENU POPUP
+   ============================================================ */
+.ew-context-popup .leaflet-popup-content-wrapper {
+  background: rgba(10, 10, 20, 0.95) !important;
+  border: 1px solid rgba(100, 100, 255, 0.2) !important;
+  border-radius: 8px !important;
+}
+.ew-context-popup .leaflet-popup-content {
+  margin: 8px 10px !important;
+}
+.ew-context-popup button:hover {
+  filter: brightness(1.3);
+}
